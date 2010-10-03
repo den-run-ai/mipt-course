@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Timur Iskhodzhanov. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-#ifndef __BASE_COMMON_H
-#define __BASE_COMMON_H
+#ifndef BASE_COMMON_H_
+#define BASE_COMMON_H_
 
 #include <assert.h>
 
@@ -32,4 +32,4 @@ typedef unsigned int   uint;
 const uint MAX_UINT = 0xFFFFFFFF;
 // TODO(timurrrr): add 64-bit and ptr type values when necessary.
 
-#endif  // __BASE_COMMON_H
+#endif  // BASE_COMMON_H_

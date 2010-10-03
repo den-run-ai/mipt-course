@@ -1,8 +1,8 @@
 // Copyright (c) 2010 Timur Iskhodzhanov. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-#ifndef __BASE_RANDOM_H
-#define __BASE_RANDOM_H
+#ifndef BASE_RANDOM_H_
+#define BASE_RANDOM_H_
 
 template<typename T>
 inline T TrueRandom() {
@@ -20,4 +20,4 @@ inline uint RandomUInt() { return TrueRandom<uint>(); }
 inline ushort RandomUShort() { return TrueRandom<ushort>(); }
 inline byte RandomByte() { return TrueRandom<byte>(); }
 
-#endif  // __BASE_RANDOM_H
+#endif  // BASE_RANDOM_H_
