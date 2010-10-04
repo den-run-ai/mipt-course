@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#include "common.h"
+#include "base/common.h"
 
 int main() {
   CHECK(1);
