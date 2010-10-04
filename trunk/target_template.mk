@@ -27,7 +27,7 @@ $(TARGET_DIR):
 # "$<" stands for "first dependency"
 # "$@" stands for "rule name"
 $(OUTDIR)$(TARGET)/%.$(OBJ): $(TARGET)/%.cpp $(H_LIST) | $(TARGET_DIR)
-	$(CC) -o $@ -c $<
+	$(CC) $(CC_FLAGS) -o $@ -c $<
 
 # "$@" stands for "rule name"
 # "$^" stands for "all dependencies

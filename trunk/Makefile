@@ -3,12 +3,19 @@
 # found in the LICENSE file.
 
 OUTDIR=out/
+
 CC=g++
-AR=ar cru
-LINK=g++
+CC_FLAGS+=-I.
 OBJ=obj
 
+AR=ar cru
+
+LINK=g++
 ADDITIONAL_LIBS=  # Will contain the list of system libs to link (e.g. pthread)
+# Targets can add libs using "ADDITIONAL_LIBS+=<libs>"
+# and they will automatically be added to LINK_FLAGS since variable values are
+# calculated when they are used, see
+# http://stackoverflow.com/questions/448910/makefile-variable-assignment
 LINK_FLAGS += $(patsubst %,-l%,$(ADDITIONAL_LIBS))
 
 # "@" at the beginning means "don't print the command itself"
