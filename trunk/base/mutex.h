@@ -10,6 +10,13 @@
 
 namespace threading {
 
+// OS-independent wrapper for mutex/critical section synchronization primitive.
+// This Mutex is NOT re-entrant!
+//
+// TODO(DimanNe): add DCHECKs for
+//  * locking a Mutex twice from the same thread,
+//  * unlocking a Mutex which is not locked,
+//  * destroying a locked Mutex.
 class Mutex {
  public:
   Mutex();
