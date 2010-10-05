@@ -5,7 +5,10 @@
 OUTDIR=out/
 
 CC=g++
-CC_FLAGS+=-I.
+CC_FLAGS+=-I.    # Add src root to the include path.
+CC_FLAGS+=-Wall  # Print all warnings
+# TODO(timurrrr): separate targets for DEBUG and RELEASE builds.
+CC_FLAGS+=-g     # Generate debug info
 OBJ=obj
 
 AR=ar cru
@@ -40,6 +43,9 @@ include $(patsubst %,%/target.mk,$(TARGETS))
 
 # build - Build the program.
 build: $(TARGET_LIBS) $(TARGET_TESTS)
+
+# rebuild - Clean & rebuild the program.
+rebuild: clean build
 
 run_%_test: $(OUTDIR)%_tests
 	@echo "Running $<..."
