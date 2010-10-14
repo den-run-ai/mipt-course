@@ -26,6 +26,7 @@ $(TARGET_DIR):
 
 # "$<" stands for "first dependency"
 # "$@" stands for "rule name"
+# TODO(timurrrr): smarter .h dependencies, e.g. "g++ -MM"
 $(OUTDIR)$(TARGET)/%.$(OBJ): $(TARGET)/%.cpp $(H_LIST) | $(TARGET_DIR)
 	$(CC) $(CC_FLAGS) -o $@ -c $<
 
@@ -35,5 +36,6 @@ $(OUTDIR)$(TARGET)/%.$(OBJ): $(TARGET)/%.cpp $(H_LIST) | $(TARGET_DIR)
 $(OUTDIR)lib$(TARGET).a: $(LIB_OBJ_LIST)
 	$(AR) $@ $^
 
-$(OUTDIR)$(TARGET)_tests: $(TEST_OBJ_LIST) $(OUTDIR)lib$(TARGET).a
+$(OUTDIR)$(TARGET)_tests: $(TEST_OBJ_LIST) $(OUTDIR)lib$(TARGET).a \
+			  $(OUTDIR)libgoogletest.a
 	$(LINK) $(LINK_FLAGS) -o $@ $^
