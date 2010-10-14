@@ -5,6 +5,7 @@
 OUTDIR=out/
 
 CC=g++
+CC_FLAGS=$(CXXFLAGS)
 CC_FLAGS+=-I.    # Add src root to the include path.
 CC_FLAGS+=-Wall  # Print all warnings
 # TODO(timurrrr): separate targets for DEBUG and RELEASE builds.
