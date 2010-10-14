@@ -38,6 +38,8 @@ RUN_TEST_TARGETS=$(patsubst %,run_%_test,$(TARGETS))
 
 include $(patsubst %,%/target.mk,$(TARGETS))
 
+include testing/googletest.mk
+
 # http://www.gnu.org/software/automake/manual/make/Phony-Targets.html
 .PHONY: build test clean
 
