@@ -18,5 +18,5 @@ TEST(CheckTest, CheckFalseDeathTest) {
   // http://www.decompile.com/cpp/faq/file_and_line_error_string.htm
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
-  ASSERT_DEATH(CHECK(0), "test.cpp.*" TOSTRING(__LINE__) ": .* failed");
+  ASSERT_DEATH(CHECK(0), "_test.cpp.*" TOSTRING(__LINE__));
 }
