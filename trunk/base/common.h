@@ -7,13 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Use CHECK instead of abort.
-// TODO(timurrrr): print stack trace when hitting a CHECK while preserving
-// "abort trap" feature on both Windows and POSIX.
+// Use CHECK instead of assert for the following reasons:
+// a) CHECKs remain when NDEBUG is defined (use DCHECK for debug-only checks)
+// b) Has the same error message format on all platforms
+// c) TODO(timurrrr): print stack trace when hitting a CHECK while preserving
+//    "abort trap" feature on both Windows and POSIX.
+// TODO(timurrrr): use OutputDebugString on Windows.
 #define CHECK(x) \
     do {\
       if ((x) == 0) { \
-        fprintf(stderr, "CHECK failed: " #x " at " __FILE__ ":%d\n", __LINE__); \
+        fprintf(stderr, "CHECK failed: \"%s\" at %s:%d\n", \
+                #x, __FILE__, __LINE__); \
         abort(); \
       } \
     } while (0)
