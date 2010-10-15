@@ -12,9 +12,9 @@
 #define CHECK(x) assert(x)
 
 #ifdef _DEBUG
-#define DCHECK(x) do { } while (0 && (x))
-#else
 #define DCHECK(x) CHECK(x)
+#else
+#define DCHECK(x) do { } while (0 && (x))
 #endif
 
 // Use this macro to disable copy constructor and operator= for CLASS_NAME. See
