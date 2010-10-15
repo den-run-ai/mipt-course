@@ -10,13 +10,20 @@ TEST(CheckTest, CheckTrueSucceedsTest) {
   CHECK(42);
 }
 
+// C preprocessor magic, see
+// http://www.decompile.com/cpp/faq/file_and_line_error_string.htm
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+#define __FILE_LINE__ __FILE__ ":" TOSTRING(__LINE__)
+
 TEST(CheckTest, CheckFalseDeathTest) {
   // Suppress the "fork() is unsafe" warnings
   ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+  ASSERT_DEATH(CHECK(0), "CHECK failed: .* at " __FILE_LINE__);
+}
 
-  // C preprocessor magic, see
-  // http://www.decompile.com/cpp/faq/file_and_line_error_string.htm
-#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-  ASSERT_DEATH(CHECK(0), "_test.cpp.*" TOSTRING(__LINE__));
+TEST(CheckTest, DCheckFalseDeathTest) {
+  // Suppress the "fork() is unsafe" warnings
+  ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+  ASSERT_DEBUG_DEATH(DCHECK(0), "CHECK failed: .* at " __FILE_LINE__);
 }

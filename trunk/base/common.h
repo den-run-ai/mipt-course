@@ -4,16 +4,24 @@
 #ifndef BASE_COMMON_H_
 #define BASE_COMMON_H_
 
-#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-// Use CHECK instead of assert.
+// Use CHECK instead of abort.
 // TODO(timurrrr): print stack trace when hitting a CHECK while preserving
 // "abort trap" feature on both Windows and POSIX.
-#define CHECK(x) assert(x)
+#define CHECK(x) \
+    do {\
+      if ((x) == 0) { \
+        fprintf(stderr, "CHECK failed: " #x " at " __FILE__ ":%d\n", __LINE__); \
+        abort(); \
+      } \
+    } while (0)
 
 #ifdef _DEBUG
 #define DCHECK(x) CHECK(x)
 #else
+#define NDEBUG
 #define DCHECK(x) do { } while (0 && (x))
 #endif
 
