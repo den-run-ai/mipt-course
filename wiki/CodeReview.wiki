@@ -1,8 +1,7 @@
 #summary Как правильно подготовить свой патч для код-ревью и закоммитить
 
 = Лекция о Code Review =
-В общих чертах данная тема была освещена на лекции №3
-http://groups.google.com/group/mipt-google-course/browse_thread/thread/c4d218f01eaa8f84
+В общих чертах данная тема была освещена на [http://groups.google.com/group/mipt-google-course/browse_thread/thread/c4d218f01eaa8f84 лекции №3]
 
 = Перед тем как начать... =
 Важно, чтобы Ваш svn-клиент использовал https и через --username был указан Ваш gmail-адрес!
