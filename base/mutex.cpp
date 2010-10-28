@@ -7,7 +7,7 @@
 namespace threading {
 
 Mutex::Mutex() {
-#ifdef _DEBUG
+#ifndef NDEBUG
   pthread_mutexattr_t attr;
   CHECK(pthread_mutexattr_init(&attr) == 0);
 
@@ -25,7 +25,7 @@ Mutex::Mutex() {
 }
 
 Mutex::~Mutex() {
-#ifdef _DEBUG
+#ifndef NDEBUG
   CHECK(is_locked_ == false);
 #endif
   CHECK(pthread_mutex_destroy(&mutex_) == 0);
@@ -35,7 +35,7 @@ void Mutex::Lock() {
   // Since we have PTHREAD_MUTEX_ERRORCHECK mutex type, we need not perform
   // twice-lock checks in debug mode.
   CHECK(pthread_mutex_lock(&mutex_) == 0);
-#ifdef _DEBUG
+#ifndef NDEBUG
   CHECK(is_locked_ == false);
   is_locked_ = true;
 #endif
@@ -43,7 +43,7 @@ void Mutex::Lock() {
 
 bool Mutex::TryLock() {
   bool result = (pthread_mutex_trylock(&mutex_) == 0);
-#ifdef _DEBUG
+#ifndef NDEBUG
   if (result) {
     CHECK(is_locked_ == false);
     is_locked_ = true;
@@ -53,7 +53,7 @@ bool Mutex::TryLock() {
 }
 
 void Mutex::Unlock() {
-#ifdef _DEBUG
+#ifndef NDEBUG
   CHECK(is_locked_ == true);
   is_locked_ = false;
 #endif
