@@ -22,11 +22,11 @@
       } \
     } while (0)
 
-#ifdef _DEBUG
-#define DCHECK(x) CHECK(x)
-#else
-#define NDEBUG
+#ifdef NDEBUG
+// Release build. DCHECK should be no-op but the condition should be buildable.
 #define DCHECK(x) do { } while (0 && (x))
+#else
+#define DCHECK(x) CHECK(x)
 #endif
 
 // Use this macro to disable copy constructor and operator= for CLASS_NAME. See

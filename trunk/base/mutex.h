@@ -31,7 +31,7 @@ class Mutex {
 
  private:
   pthread_mutex_t mutex_;
-#ifdef _DEBUG
+#ifndef NDEBUG
   bool is_locked_;
 #endif
   DISALLOW_COPY_AND_ASSIGN(Mutex)
