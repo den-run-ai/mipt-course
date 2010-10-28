@@ -12,11 +12,6 @@ namespace threading {
 
 // OS-independent wrapper for mutex/critical section synchronization primitive.
 // This Mutex is NOT re-entrant!
-//
-// TODO(DimanNe): add DCHECKs for
-//  * locking a Mutex twice from the same thread,
-//  * unlocking a Mutex which is not locked,
-//  * destroying a locked Mutex.
 class Mutex {
  public:
   Mutex();
@@ -36,6 +31,9 @@ class Mutex {
 
  private:
   pthread_mutex_t mutex_;
+#ifdef _DEBUG
+  bool is_locked_;
+#endif
   DISALLOW_COPY_AND_ASSIGN(Mutex)
 };
 
