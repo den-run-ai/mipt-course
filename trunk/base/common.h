@@ -29,6 +29,11 @@
 #define DCHECK(x) CHECK(x)
 #endif
 
+// TODO(timurrrr): define proper CHECK_EQ, DCHECK_EQ, ... printing their args
+// in case of failure.
+#define CHECK_EQ(x,y) CHECK((x) == (y))
+#define DCHECK_EQ(x,y) DCHECK((x) == (y))
+
 // Use this macro to disable copy constructor and operator= for CLASS_NAME. See
 // http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Copy_Constructors#Copy_Constructors
 #define DISALLOW_COPY_AND_ASSIGN(CLASS_NAME) \
