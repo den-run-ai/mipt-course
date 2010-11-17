@@ -5,7 +5,7 @@
 # TODO(timurrrr): it's probably better to list files manually in
 # target-specific .mk's. We should do that when our codebase becomes
 # more-or-less stable.
-# This will be changed when we migrate to CMake, see
+# This will be changed when we migrate to CMake, please see
 # http://code.google.com/p/mipt-course/issues/detail?id=1
 
 # Get the list of ".h" files for the given TARGET
