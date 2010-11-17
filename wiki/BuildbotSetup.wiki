@@ -1,0 +1,63 @@
+#summary Как настроить локальный buildbot
+
+= Общая информация =
+На данный момент для нашего проекта используется buildbot 0.8.2
+http://buildbot.net/buildbot/docs/0.8.2/
+
+Любой желающий может попробовать поднять свою копию buildbot локально.
+
+Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn41&r=39&format=side&path=/buildbot/master.cfg&old_path=/buildbot/master.cfg&old=33 первый diff нашего master.cfg].
+
+= Процедура установки buildbot на Linux Ubuntu Lucid 10.4 =
+
+== Общее для master и slaves ==
+{{{
+# Предполагается что все выполняется под root (sudo -i) в некоторой папке
+apt-get install python-twisted
+
+wget http://pypi.python.org/packages/source/d/distribute/distribute-0.6.14.tar.gz#md5=ac607e05682116c06383b27a15e2db90
+tar xzf distribute-0.6.14.tar.gz
+cd distribute-0.6.14
+python distribute_setup.py
+cd ..
+
+wget http://pypi.python.org/packages/source/J/Jinja2/Jinja2-2.5.5.tar.gz#md5=83b20c1eeb31f49d8e6392efae91b7d5
+tar xzf Jinja2-2.5.5.tar.gz
+cd Jinja2-2.5.5
+python setup.py install
+cd ..
+}}}
+
+== slave-only ==
+{{{
+# Это делается пользователем root
+wget http://buildbot.googlecode.com/files/buildbot-slave-0.8.2.zip
+unzip buildbot-slave-0.8.2.zip
+cd buildbot-slave-0.8.2
+python setup.py build && python setup.py install
+cd ..
+}}}
+
+{{{
+# Это уже делается пользователем buildbot-slave в папке, в которой ему можно хранить файлы
+buildslave create-slave . localhost:9989 linux_bot bot1passwd
+buildslave start
+tail -f twistd.log
+}}}
+
+== master-only ==
+{{{
+# Это делается пользователем root
+wget http://buildbot.googlecode.com/files/buildbot-0.8.2.zip
+unzip buildbot-0.8.2.zip
+cd buildbot-0.8.2
+python setup.py build && python setup.py install
+cd ..
+}}}
+
+{{{
+# Это уже делается пользователем buildbot-master в папке, в которой ему можно хранить файлы
+buildbot create-master -r .
+svn checkout http://mipt-course.googlecode.com/svn/buildbot .
+make start log
+}}}
