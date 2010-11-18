@@ -31,7 +31,7 @@ all:
 help:
 	@egrep "^# [a-z ]+ - " Makefile
 
-TARGETS=base
+TARGETS=base sandbox
 
 TARGET_LIBS=$(patsubst %,$(OUTDIR)lib%.a,$(TARGETS))
 TARGET_TESTS=$(patsubst %,$(OUTDIR)%_tests,$(TARGETS))
