@@ -2,16 +2,32 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-OUTDIR=out/
-
 CC=g++
 CC_FLAGS=$(CXXFLAGS)
 CC_FLAGS+=-I.    # Add src root to the include path.
 CC_FLAGS+=-Wall  # Print all warnings
-# TODO(timurrrr): separate targets for DEBUG and RELEASE builds.
-CC_FLAGS+=-g     # Generate debug info
-OBJ=obj
 
+# We use BUILDTYPE because TARGET is already used in module script
+
+ifeq ($(BUILDTYPE),release)
+  OUTDIR=out/Release/
+  CC_FLAGS+=-DNDEBUG # No debug info, full optimize
+  ifeq ($(OPTIMIZE),no)
+    CC_FLAGS+=-O1 # Seldom we need not full optimize in debug
+  else
+    CC_FLAGS+=-O2 # But by default full optimize
+  endif
+else # By default do debug
+  OUTDIR=out/Debug/
+  CC_FLAGS+=-g -D_DEBUG # Add debug information
+  ifeq ($(OPTIMIZE),yes)
+    CC_FLAGS+=-O1 # Seldom we need some optimize in debug
+  else
+    CC_FLAGS+=-O0 # But by default no optimize
+  endif
+endif
+
+OBJ=obj
 AR=ar cru
 
 LINK=g++
@@ -24,12 +40,16 @@ LINK_FLAGS += $(patsubst %,-l%,$(ADDITIONAL_LIBS))
 
 # "@" at the beginning means "don't print the command itself"
 all:
-	@echo "Hello $(LOGNAME), nothing to do by default"
-	@echo "Try 'make help'"
-
+	@echo "Nothing to do by default, for details try: make help "
 # help  - Display callable targets.
 help:
 	@egrep "^# [a-z ]+ - " Makefile
+	@echo "Additional flags:"
+	@echo "  BUILDTYPE=debug|release [default: debug]"
+	@echo "  For debug"
+	@echo "    OPTIMIZE=yes|no [default: no]"
+	@echo "  For release"
+	@echo "    OPTIMIZE=yes|no [default: yes]"
 
 TARGETS=base sandbox
 
@@ -60,5 +80,4 @@ test: $(RUN_TEST_TARGETS)
 
 # clean - Remove intermediate files and the program.
 clean:
-	# This can be dangerous!! Please double-check before removing anything.
-	rm -rI $(OUTDIR)
+	rm -rf ./$(OUTDIR)
