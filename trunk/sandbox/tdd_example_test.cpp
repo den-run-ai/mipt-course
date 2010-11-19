@@ -1,11 +1,12 @@
-// Copyright (c) 2010 Timur Iskhodzhanov and others. All rights reserved.
+// Copyright (c) 2010 Timur Iskhodzhanov and MIPT students. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 #include <math.h>
 
-#include "base/common.h"
 #include "third_party/googletest/include/gtest/gtest.h"
+
+#include "base/common.h"
 
 int Factorial(int v) {
   // NB we wrote the implementation of this function on the lecture;

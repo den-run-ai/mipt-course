@@ -1,10 +1,12 @@
-// Copyright (c) 2010 Timur Iskhodzhanov and others. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// Copyright (c) 2010 Timur Iskhodzhanov and MIPT students. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "base/file_utils.h"
+
 #include <string>
 
 #include "base/common.h"
-#include "base/file_utils.h"
 
 bool ReadFileToString(const std::string &filename, std::string *contents) {
   CHECK(contents != NULL);
