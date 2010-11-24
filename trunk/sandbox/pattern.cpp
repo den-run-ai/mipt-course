@@ -81,7 +81,7 @@ bool StringPattern::Match(const std::string &str) const {
 void StringPattern::Normalize() {
   const std::string allowed_metasymbols = "^$?*\\";
 
-  for (int i = 0; i < pattern_.size(); i++) {
+  for (size_t i = 0; i < pattern_.size(); i++) {
     switch (pattern_[i]) {
       case '^': {
         CHECK_EQ(i, 0);
