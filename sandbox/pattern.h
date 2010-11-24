@@ -7,7 +7,6 @@
 
 #include <string>
 
-
 // StringPattern class implements searching for a substring that matches
 // certain pattern. See http://en.wikipedia.org/wiki/Regex for more information.
 // Four metasymbols can be used when describing a StringPattern:
@@ -20,8 +19,10 @@
 class StringPattern {
  public:
   StringPattern() {}
-  explicit StringPattern(const char *str) : pattern_(str) {}
-  explicit StringPattern(const std::string str) : pattern_(str) {}
+  explicit StringPattern(const char *str) : pattern_(str) { Normalize(); }
+  explicit StringPattern(const std::string str) : pattern_(str) {
+    Normalize();
+  }
 
   // Goes through the given string looking for a substring
   // that matches the pattern.
@@ -30,6 +31,10 @@ class StringPattern {
   bool Match(const std::string &str) const;
 
  private:
+  // Goes through the pattern_ and removes any unbalanced backslashes,
+  // carets ('^') not at the beginning or dollars ('$') not at the end.
+  void Normalize();
+
   std::string pattern_;
 };
 
