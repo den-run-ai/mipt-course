@@ -8,7 +8,7 @@
 #include "third_party/googletest/include/gtest/gtest.h"
 #include "sandbox/pattern.h"
 
-TEST(PatternTest, DISABLED_WorksWithoutSpecialSymbols) {
+TEST(PatternTest, WorksWithoutSpecialSymbols) {
   StringPattern p1("asd");
   StringPattern p2("");
 
@@ -20,7 +20,7 @@ TEST(PatternTest, DISABLED_WorksWithoutSpecialSymbols) {
   EXPECT_TRUE(p2.Match("foo"));
 }
 
-TEST(PatternTest, DISABLED_WorksWithSpecialSymbols) {
+TEST(PatternTest, WorksWithSpecialSymbols) {
   StringPattern p1("asd?");
   StringPattern p2("aa*");
   StringPattern p3("*");
@@ -46,7 +46,7 @@ TEST(PatternTest, DISABLED_WorksWithSpecialSymbols) {
   EXPECT_FALSE(p5.Match("barium"));
 }
 
-TEST(PatternTest, DISABLED_WorksWithEscapedSymbols) {
+TEST(PatternTest, WorksWithEscapedSymbols) {
   StringPattern p1("asd\\?");
   StringPattern p2("aa\\*");
   StringPattern p3("\\*");
