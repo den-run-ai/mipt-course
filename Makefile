@@ -70,9 +70,18 @@ build: $(TARGET_LIBS) $(TARGET_TESTS)
 # rebuild - Clean & rebuild the program.
 rebuild: clean build
 
+USE_VALGRIND=
+TEST_COMMAND_PREFIX=
+ADDITIONAL_FLAGS=
+ifeq ($(USE_VALGRIND),1)
+  TEST_COMMAND_PREFIX=valgrind --leak-check=full --error-exitcode=255
+  # TODO(timurrrr): support user-specified --gtest_filter
+  ADDITIONAL_ARGS=--gtest_filter="-*Death*"
+endif
+
 run_%_test: $(OUTDIR)%_tests
 	@echo "Running $<..."
-	@./$<
+	@$(TEST_COMMAND_PREFIX) ./$< $(ADDITIONAL_ARGS)
 
 # test  - Build and run the test suite.
 test: $(RUN_TEST_TARGETS)
