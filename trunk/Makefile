@@ -74,7 +74,8 @@ USE_VALGRIND=
 TEST_COMMAND_PREFIX=
 ADDITIONAL_FLAGS=
 ifeq ($(USE_VALGRIND),1)
-  TEST_COMMAND_PREFIX=valgrind --leak-check=full --error-exitcode=255
+  TEST_COMMAND_PREFIX=valgrind --leak-check=full --error-exitcode=255 \
+                        --suppressions=testing/valgrind_suppressions.txt
   # TODO(timurrrr): support user-specified --gtest_filter
   ADDITIONAL_ARGS=--gtest_filter="-*Death*"
 endif
