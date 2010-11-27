@@ -10,6 +10,9 @@
 # Periodically we should sweep this file and the bug tracker clean by
 # running overnight and removing outdated bugs/suppressions.
 #-----------------------------------------------------------------------
+# Writing suppressions:
+#  http://valgrind.org/docs/manual/manual-core.html#manual-core.suppress
+#  http://valgrind.org/docs/manual/mc-manual.html#mc-manual.suppfiles
 
 # 1. Third party stuff we have no control over.
 

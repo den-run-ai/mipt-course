@@ -82,7 +82,7 @@ endif
 
 run_%_test: $(OUTDIR)%_tests
 	@echo "Running $<..."
-	@$(TEST_COMMAND_PREFIX) ./$< $(ADDITIONAL_ARGS)
+	$(TEST_COMMAND_PREFIX) ./$< $(ADDITIONAL_ARGS)
 
 # test  - Build and run the test suite.
 test: $(RUN_TEST_TARGETS)
