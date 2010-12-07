@@ -42,7 +42,7 @@ cd ..
 
 {{{
 # Это уже делается пользователем buildbot-slave в папке, в которой ему можно хранить файлы
-buildslave create-slave . localhost:9989 linux_bot bot1passwd
+buildslave create-slave . localhost:9989 <имя Slave, например linux_bot> <пароль Slave, например bot1passwd>
 buildslave start
 tail -f twistd.log
 }}}
@@ -61,5 +61,6 @@ cd ..
 # Это уже делается пользователем buildbot-master в папке, в которой ему можно хранить файлы
 buildbot create-master -r .
 svn checkout http://mipt-course.googlecode.com/svn/buildbot .
+# Не лишним будет в конце master.cfg найти строку "forceBuild = False," и поменять False на True.
 make start log
 }}}
