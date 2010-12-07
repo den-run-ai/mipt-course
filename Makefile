@@ -8,24 +8,33 @@ CC_FLAGS+=-I.    # Add src root to the include path.
 CC_FLAGS+=-Wall  # Print all warnings
 
 # We use BUILDTYPE because TARGET is already used in module script
+# Default build type is 'debug'
+BUILDTYPE ?= debug
+# Make BUILDTYPE lower case
+LOWER_CASE_BUILDTYPE = $(shell echo $(BUILDTYPE) | tr '[:upper:]' '[:lower:]')
 
-ifeq ($(BUILDTYPE),release)
-  OUTDIR=out/Release/
+ifeq ($(LOWER_CASE_BUILDTYPE), release)
   CC_FLAGS+=-DNDEBUG # No debug info, full optimize
   ifeq ($(OPTIMIZE),no)
     CC_FLAGS+=-O1 # Seldom we need not full optimize in debug
   else
     CC_FLAGS+=-O2 # But by default full optimize
   endif
-else # By default do debug
-  OUTDIR=out/Debug/
-  CC_FLAGS+=-g -D_DEBUG # Add debug information
-  ifeq ($(OPTIMIZE),yes)
-    CC_FLAGS+=-O1 # Seldom we need some optimize in debug
+else
+  ifeq ($(LOWER_CASE_BUILDTYPE), debug)
+    CC_FLAGS+=-g -D_DEBUG # Add debug information
+    ifeq ($(OPTIMIZE),yes)
+      CC_FLAGS+=-O1 # Seldom we need some optimize in debug
+    else
+      CC_FLAGS+=-O0 # But by default no optimize
+    endif
   else
-    CC_FLAGS+=-O0 # But by default no optimize
+    $(error BUILDTYPE=$(BUILDTYPE) is not allowed!)
   endif
 endif
+
+# Make outdir 'out/Debug/' or 'out/Release/' depending on build type
+OUTDIR = out/$(shell echo $(LOWER_CASE_BUILDTYPE) | sed 's/^./\u&/;')/
 
 OBJ=obj
 AR=ar cru
