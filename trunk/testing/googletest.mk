@@ -18,4 +18,4 @@ $(GTEST_LIB): $(OUTDIR)testing/googletest_main.obj
 
 .PHONY: GTEST_CLEAN
 GTEST_CLEAN:
-	make -C $(GTEST_ROOT) clean
+	make -C $(GTEST_ROOT)/make clean
