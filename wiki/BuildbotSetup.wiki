@@ -11,6 +11,16 @@ http://fds7.us.to:8010/waterfall
 Документация по buildbot доступна по адресу http://buildbot.net/buildbot/docs/0.8.2/
 
 = Процедура установки buildbot на Linux Ubuntu Lucid 10.4 =
+== Краткая инструкция ==
+  * Устанавливаем необходимые пакеты
+  * Заводим пользователей для master и slaves (это необязательно при локальном тестировании)
+  * Настраиваем и стартуем master
+  * Проверяем через http://localhost:8010/waterfall , что он запустился
+  * Настраиваем и стартуем slave'ы
+  * Проверяем через http://localhost:8010/waterfall , что они подсоединились к мастеру
+  * Делаем необходимые изменения в мастере, вызываем `make reconfig log`
+  * Для принудительного запуска билда нажимаем на странице slave'а кнопку "Force build"
+  * (при необходимости) переходим на шаг "делаем необходимые изменения"
 
 == Общее для master и slaves ==
 {{{
@@ -30,6 +40,25 @@ python setup.py install
 cd ..
 }}}
 
+== master-only ==
+{{{
+# Это делается пользователем root
+wget http://buildbot.googlecode.com/files/buildbot-0.8.2.zip
+unzip buildbot-0.8.2.zip
+cd buildbot-0.8.2
+python setup.py build && python setup.py install
+cd ..
+}}}
+
+{{{
+# Это уже делается пользователем buildbot-master в папке, в которой ему можно хранить файлы
+buildbot create-master -r .
+
+svn checkout http://mipt-course.googlecode.com/svn/buildbot .
+# В конце master.cfg находим строку "forceBuild = False," и меняем False на True.
+make start log
+}}}
+
 == slave-only ==
 {{{
 # Это делается пользователем root
@@ -45,22 +74,4 @@ cd ..
 buildslave create-slave . localhost:9989 <имя Slave, например linux_bot> <пароль Slave, например bot1passwd>
 buildslave start
 tail -f twistd.log
-}}}
-
-== master-only ==
-{{{
-# Это делается пользователем root
-wget http://buildbot.googlecode.com/files/buildbot-0.8.2.zip
-unzip buildbot-0.8.2.zip
-cd buildbot-0.8.2
-python setup.py build && python setup.py install
-cd ..
-}}}
-
-{{{
-# Это уже делается пользователем buildbot-master в папке, в которой ему можно хранить файлы
-buildbot create-master -r .
-svn checkout http://mipt-course.googlecode.com/svn/buildbot .
-# Не лишним будет в конце master.cfg найти строку "forceBuild = False," и поменять False на True.
-make start log
 }}}
