@@ -98,5 +98,5 @@ test: $(RUN_TEST_TARGETS)
 	@echo "All tests passed"
 
 # clean - Remove intermediate files and the program.
-clean:
+clean: GTEST_CLEAN
 	rm -rf ./$(OUTDIR)
