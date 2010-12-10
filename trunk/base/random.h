@@ -9,10 +9,10 @@ template<typename T>
 inline T TrueRandom() {
   // TODO(timurrrr): better ideas?
   // What about thread safety?
-  const int RAND_BITS = 15;
+  const size_t RAND_BITS = 15;
   T ret = 0;
-  for (int i = 0; i < sizeof(T); i+=RAND_BITS) {
-    ret = (ret << RAND_BITS) | rand();
+  for (size_t i = 0; i < sizeof(T); i+=RAND_BITS) {
+    ret = (ret << RAND_BITS) | (rand() & ((1 << RAND_BITS) - 1));
   }
   return ret;
 }
