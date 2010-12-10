@@ -5,7 +5,7 @@
 CC=g++
 CC_FLAGS=$(CXXFLAGS)
 CC_FLAGS+=-I.    # Add src root to the include path.
-CC_FLAGS+=-Wall  # Print all warnings
+CC_FLAGS+=-Wall -Werror  # Print all warnings and treat them as errors
 
 # We use BUILDTYPE because TARGET is already used in module script
 # Default build type is 'debug'
