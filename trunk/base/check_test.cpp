@@ -12,13 +12,12 @@ TEST(CheckTest, CheckTrueSucceedsTest) {
 }
 
 TEST(CheckTest, AssertionsAndChecksTest) {
-  CHECK(2 + 2 == 4);
-  ASSERT_TRUE(2 + 2 == 4);
-  ASSERT_EQ(2 + 2, 4);
+  CHECK(2 + 2 == 4);        // NOLINT
+  ASSERT_TRUE(2 + 2 == 4);  // NOLINT
+  ASSERT_EQ(4, 2 + 2);
   ASSERT_LE(2 + 2, 5);
   printf("Passed all ASSERT macros, now EXPECT macros\n");
-  EXPECT_TRUE(2 + 2 == 4);
-  EXPECT_LE(2 + 2, 5);
+  EXPECT_EQ(4, 2 + 2);
   printf("End of test\n");
 }
 

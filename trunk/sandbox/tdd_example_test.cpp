@@ -12,7 +12,7 @@ int Factorial(int v) {
   // NB we wrote the implementation of this function on the lecture;
   // before the lecture it was simply "return -1;"
 
-  CHECK(v >= 0);
+  CHECK_GE(v, 0);
   // TODO(timurrrr): CHECK(v < MAX_FACTORIAL);
   // We can get past (2^31 - 1)
   if (v <= 1)
