@@ -10,7 +10,7 @@
 
 /*  Treap
  *  http://en.wikipedia.org/wiki/Treap
- *  Treap is a binary search tree supports search, insertion and deletion in 
+ *  Treap is a binary search tree supports search, insertion and deletion in
  *  O (log n) time and some specific operations like reversing
  *  elements in a given segment.
  */
@@ -18,10 +18,20 @@
 template <class K, class V>
 class Treap {
  public:
-  Treap() : root_(NULL), size_(0) {}
+  explicit Treap(RandomGenerator* generator = NULL) : root_(NULL), size_(0) {
+    if (generator) {
+      own_random_generator_ = false;
+      random_generator_ = generator;
+    } else {
+      own_random_generator_ = true;
+      random_generator_ = new RandomGenerator();
+    }
+  }
 
   ~Treap() {
     DeleteRecursive(root_);
+    if (own_random_generator_)
+      delete random_generator_;
   }
 
   // Insert a new element into the tree.
@@ -55,6 +65,8 @@ class Treap {
 
   Node* root_;
   size_t size_;
+  RandomGenerator* random_generator_;
+  bool own_random_generator_;
 
   // Split the given tree into two using the 'key' as a delimeter.
   // This function returns the subtrees using 'left' and 'right' pointers.
@@ -80,7 +92,7 @@ class Treap {
 
 template <class K, class V>
 void Treap<K, V>::Insert(const K& key, const V& value) {
-  Node *node = new Node(key, value, TrueRandom<int>());
+  Node *node = new Node(key, value, random_generator_->Generate<int>());
   Node *left = NULL, *right = NULL;
   Split(root_, node->key, &left, &right);
   root_ = Merge(Merge(left, node), right);
