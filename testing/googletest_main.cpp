@@ -6,5 +6,7 @@
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
+  // Suppress the "fork() is unsafe" warnings
+  ::testing::FLAGS_gtest_death_test_style = "threadsafe";
   return RUN_ALL_TESTS();
 }
