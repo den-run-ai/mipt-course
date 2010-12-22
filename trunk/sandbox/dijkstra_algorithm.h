@@ -48,6 +48,7 @@ class Edge {
   int head_, tail_;
 };
 
+// This class represents an unoriented graph.
 class Graph {
  public:
   Graph();
