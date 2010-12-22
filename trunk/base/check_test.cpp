@@ -28,13 +28,9 @@ TEST(CheckTest, AssertionsAndChecksTest) {
 #define __FILE_LINE__ __FILE__ ":" TOSTRING(__LINE__)
 
 TEST(CheckTest, CheckFalseDeathTest) {
-  // Suppress the "fork() is unsafe" warnings
-  ::testing::FLAGS_gtest_death_test_style = "threadsafe";
   ASSERT_DEATH(CHECK(0), "CHECK failed: .* at " __FILE_LINE__);
 }
 
 TEST(CheckTest, DCheckFalseDeathTest) {
-  // Suppress the "fork() is unsafe" warnings
-  ::testing::FLAGS_gtest_death_test_style = "threadsafe";
   ASSERT_DEBUG_DEATH(DCHECK(0), "CHECK failed: .* at " __FILE_LINE__);
 }
