@@ -19,23 +19,34 @@ Graph::Graph() {
 Graph::~Graph() {
 }
 
-std::vector<Vertex> Graph::FindShortestPath(const Vertex &src,
-                                            const Vertex &dst,
-                                            double* path_length) {
-    std::vector<Vertex> tmp;
+void Graph::InsertVertices(const std::vector<int> &vertices) {
+  for (size_t i = 0; i < vertices.size(); ++i)
+    vertices_.push_back(vertices[i]);
+}
+
+void Graph::InsertEdges(const std::vector<Edge> &edges) {
+  for (size_t i = 0; i < edges.size(); ++i)
+    edges_.push_back(edges[i]);
+}
+
+std::vector<int> Graph::FindShortestPath(int src,
+                                         int dst,
+                                         double *path_length) {
+    std::vector<int> result;
+    // in case of zero path
+    if (src == dst) {
+      result.push_back(src);
+      *path_length = 0.0;
+      return result;
+    }
+    // TODO(dmitryhd): write dijkstra algorithm here.
     *path_length = -1.0;
-    return tmp;
+    return result;
 }
 
 Edge::Edge() {
 }
 
 Edge::~Edge() {
-}
-
-Vertex::Vertex() {
-}
-
-Vertex::~Vertex() {
 }
 
