@@ -10,88 +10,68 @@
 #ifndef SANDBOX_DIJKSTRA_ALGORITHM_H_
 #define SANDBOX_DIJKSTRA_ALGORITHM_H_
 
-#include <list>
 #include <vector>
 
 #include "base/common.h"
 
-class Vertex;
-class Edge;
-class Graph;
-
-class Graph {
- public:
-  Graph();
-  ~Graph();
-  void InsertVertices(const std::vector<Vertex> &vertices) {
-  }
-  void InsertEdges(const std::vector<Edge> &edges) {
-  }
-  std::vector<Vertex> FindShortestPath(const Vertex &src,
-                                       const Vertex &dst,
-                                       double* path_length);
-  std::list<Vertex*> GetVertices() {
-    return vertices_;
-  }
-  std::list<Edge*> GetEdges() {
-    return edges_;
-  }
-
- private:
-  std::list<Vertex*> vertices_;
-  std::list<Edge*> edges_;
-
-  DISALLOW_COPY_AND_ASSIGN(Graph);
-};
-
-class Vertex {
- public:
-  Vertex();
-  explicit Vertex(int xid) {
-    id_ = xid;
-  }
-  ~Vertex();
-  int operator==(const Vertex &arg) const {
-    return 0;
-  }
-  int operator<(const Vertex &arg) const {
-    return 0;
-  }
-  unsigned int id() const {
-    return id_;
-  }
-
- private:
-  unsigned int id_;
-};
-
 class Edge {
  public:
   Edge();
-  Edge(Vertex *head, Vertex *tail) {
+  Edge(int head, int tail, double len) {
+    CHECK(len >= 0.0);
+    CHECK(head != tail);
     head_ = head;
     tail_ = tail;
+    length_ = len;
   }
   ~Edge();
+
   int operator==(const Edge &arg) const {
     return 0;
   }
   int operator<(const Edge &arg) const {
     return 0;
   }
+
   double length() {
     return length_;
   }
-  Vertex *head() {
+  int head() {
     return head_;
   }
-  Vertex *tail() {
+  int tail() {
     return tail_;
   }
 
  private:
   double length_;
-  Vertex *head_, *tail_;
+  int head_, tail_;
+};
+
+class Graph {
+ public:
+  Graph();
+  ~Graph();
+
+  void InsertVertices(const std::vector<int> &vertices);
+  void InsertEdges(const std::vector<Edge> &edges);
+
+  std::vector<int> GetVertices() {
+    return vertices_;
+  }
+  std::vector<Edge> GetEdges() {
+    return edges_;
+  }
+
+  // On return, *path_length will store the length of the shortest path from
+  // src to dst.
+  std::vector<int> FindShortestPath(int src, int dst, double *path_length);
+
+ private:
+  std::vector<int> vertices_;
+  std::vector<Edge> edges_;
+
+  DISALLOW_COPY_AND_ASSIGN(Graph);
 };
 
 #endif  // SANDBOX_DIJKSTRA_ALGORITHM_H_
