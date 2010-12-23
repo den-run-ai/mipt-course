@@ -11,6 +11,8 @@
 
 namespace threading {
 
+class ConditionVariable;
+
 // OS-independent wrapper for mutex/critical section synchronization primitive.
 // This Mutex is NOT re-entrant!
 class Mutex {
@@ -29,12 +31,15 @@ class Mutex {
   */
   bool TryLock();
   void Unlock();
+  void AssertHeld();
 
  private:
   pthread_mutex_t mutex_;
 #ifndef NDEBUG
   bool is_locked_;
 #endif
+  // pthread_cond_t wrapper needs access to mutex_ to use pthread_cond_wait
+  friend class ConditionVariable;
   DISALLOW_COPY_AND_ASSIGN(Mutex)
 };
 
