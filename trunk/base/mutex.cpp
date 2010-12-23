@@ -31,6 +31,12 @@ Mutex::~Mutex() {
   CHECK_EQ(pthread_mutex_destroy(&mutex_), 0);
 }
 
+void Mutex::AssertHeld() {
+#ifndef NDEBUG
+  CHECK_EQ(is_locked_, true);
+#endif
+}
+
 void Mutex::Lock() {
   // Since we have PTHREAD_MUTEX_ERRORCHECK mutex type, we need not perform
   // twice-lock checks in debug mode.
