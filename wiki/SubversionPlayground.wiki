@@ -287,6 +287,5 @@ Index: hello.c
 = TODO =
   * утилиты diff, patch
   * визуальные утилиты diff, merge (например, SourceGear DiffMerge)
-  * svn annotate
   * svn externals
   * svn ignore
