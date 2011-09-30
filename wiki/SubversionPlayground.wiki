@@ -1,25 +1,37 @@
 #summary Как можно в домашних условиях поиграться с SVN
 
+= Предварительная настройка =
+Данная страница предполагает, что пользователь работает в ОС Ubuntu Lucid 10.04  
+
+{{{
+# Проверить, что установлен пакет Subversion
+sudo apt-get install -y subversion
+}}}
+
+Добавить строку
+{{{
+export EDITOR=мойлюбимыйредактор  # gedit, kate, vim, emacs
+}}}
+в конец файла `~/.bashrc` и перезапустить терминал (или выполнить команду `source ~/.bashrc`)
+
 = Настройка клиента SVN =
 Основной интерес в рамках нашего курса представляет работа с клиентом SVN.
 
-Для создания клиента необходимо скачать (checkout) репозиторий с SVN сервера.
+Для создания клиента необходимо скачать (checkout) репозиторий с некоторого SVN сервера.
 
-Скорее всего, у Вас нет доступа к SVN серверу, с которым можно поэкспериментировать (в том числе заливая всякую бессмысленную всячину). В этом случае рекомендуется настроить локальный сервер svn:
+Скорее всего, у Вас нет доступа к SVN серверу, с которым можно поэкспериментировать (например, заливая всякую бессмысленную всячину). В этом случае рекомендуется настроить локальный сервер svn:
 
 == Настройка локального сервера SVN ==
 _В основном взято [http://queens.db.toronto.edu/~nilesh/linux/subversion-howto/ отсюда]._
 
 {{{
-# Проверено на Ubuntu Lucid 10.04
-# Может потребоваться сделать "sudo apt-get install subversion"
-cd
-mkdir svn_sandbox_server
-cd svn_sandbox_server
-svnadmin create .
-gedit conf/svnserve.conf
+$ cd
+$ mkdir svn_sandbox_server
+$ cd svn_sandbox_server
+$ svnadmin create .
+$ $EDITOR conf/svnserve.conf
 }}}
-Ввести в gedit следующее содержимое:
+Ввести в файл следующее содержимое:
 {{{
 [general]
 # Don't use this configuration file on a real server!
@@ -32,15 +44,216 @@ realm = My Test Repository
 
 Далее,
 {{{
-svnserve -d -r .  # Запускает сервер в режиме демона, НЕ добавляя его в автозапуск.
-cd
-svn checkout svn://localhost/ svn_sandbox
-cd svn_sandbox
-}}} 
-
-= Добавление файла в SVN =
-{{{
-echo "Hello, subversion" >hello.txt
-svn add hello.txt
-svn commit hello.txt -m "Adding my first file to SVN"
+$ svnserve -d -r .  # Запускает сервер в режиме демона, НЕ добавляя его в автозапуск.
+$ cd
+$ svn checkout svn://localhost/ svn_sandbox  # у "checkout" есть сокращение - "co"
+Checked out revision 0.
+$ cd svn_sandbox # Зайти в только что созданного клиента
 }}}
+
+= Основные команды SVN =
+== Создание клиента ==
+{{{
+# Различные варианты:
+$ svn co URL/some/long/path   # взять самую свежую версию кода по адресу URL в папку path
+$ svn co URL/some/long/path local_path  # взять самую свежую версию кода по адресу URL в папку local_path
+$ svn co -r REV URL local_path # взять конкретную ревизию REV
+...
+}}}
+
+== Добавление файла в SVN ==
+{{{
+$ echo "Hello, subversion" >hello.txt
+$ svn add hello.txt
+A         hello.txt
+$ svn commit hello.txt -m "Adding my first file to SVN"  # Одна из форм команты commit
+Adding         hello.txt
+Transmitting file data .
+Committed revision 1.
+}}}
+
+== Просмотр статуса клиента ==
+{{{
+$ $EDITOR hello.txt  # добавить восклицательный знак на конце, сохранить и выйти
+$ touch mybuild.exe  # допустим при компиляции проекта получается exe файл
+$ svn status         # показать статус всех файлов в клиенте
+?       mybuild.exe
+M       hello.txt
+$ svn status -q      # показать статус только добавленных в клиент файлов
+M       hello.txt
+$ svn diff           # показать все изменения, внесенные в данном клиенте, но не закоммиченные
+Index: hello.txt
+===================================================================
+--- hello.txt	(revision 1)
++++ hello.txt	(working copy)
+@@ -1 +1 @@
+-Hello, subversion
++Hello, subversion!
+# в формате http://en.wikipedia.org/wiki/Unified_diff#Unified_format
+
+$ svn commit hello.txt  # откроется $EDITOR, куда нужно будет ввести комментарий коммита
+Sending        hello.txt
+Transmitting file data .
+Committed revision 2.
+}}}
+
+== Просмотр истории ==
+{{{
+$ svn log hello.txt   # также можно указать папку
+------------------------------------------------------------------------
+r2 | (no author) | 2011-09-30 23:28:58 +0400 (Fri, 30 Sep 2011) | 2 lines
+
+Add an exclamation mark at the end
+
+------------------------------------------------------------------------
+r1 | (no author) | 2011-09-30 20:51:07 +0400 (Fri, 30 Sep 2011) | 1 line
+
+Adding my first file to SVN
+------------------------------------------------------------------------
+}}}
+
+== Переименование, копирование файлов ==
+{{{
+$ svn mv hello.txt myfirstfile.txt
+A         myfirstfile.txt
+D         hello.txt
+$ svn status
+D       hello.txt
+A  +    myfirstfile.txt
+# обратите внимание на "плюсик" - история сохранилась
+$ svn commit    # можно вообще не передавать никаких флагов к commit, но так делать не рекомендуется
+Deleting       hello.txt
+Adding         myfirstfile.txt
+
+Committed revision 3.
+timurrrr@ubuntu-vm:~/svn_sandbox$ svn log myfirstfile.txt 
+r3: Rename the file
+r2: Add an exclamation mark at the end
+r1: Adding my first file to SVN
+
+# ---------------------------------------------
+# НЕ НАДО делать так, иначе потеряется история:
+$ mv hello.txt myfirstfile.txt 
+$ svn rm hello.txt
+D         hello.txt
+$ svn add myfirstfile.txt 
+A         myfirstfile.txt
+}}}
+
+== Удаление файла ==
+{{{
+$ svn rm filetodelete.txt
+}}}
+
+== Команда update, merge конфликт ==
+Создадим второго клиента в новом терминале:
+{{{
+$ svn checkout svn://localhost/ svn_sandbox2
+A    svn_sandbox_other/myfirstfile.txt
+Checked out revision 3.
+$ cd svn_sandbox_other/
+}}}
+
+Создайте во втором клиенте файл `hello.c` со следующим содержимым:
+{{{
+#include <stdio.h>
+int main(void) {
+  printf("Hello, world!\n");
+  return 0;
+}
+}}}
+Далее,
+{{{
+$ svn add hello.c 
+A         hello.c
+$ svn commit hello.c -m "Add helloworld program written in C"
+}}}
+
+В первом клиенте выполните команду `update`:
+{{{
+$ svn update  # сокращенная форма: svn up; также можно указать конкретный номер ревизии: -r REV
+A    hello.c
+Updated to revision 4.
+}}}
+
+Теперь, в каждом клиенте поменяем строку, передаваемую `printf` на какую-нибудь другую, например:
+  * "Hello, my name is Alice\n" - в первом клиенте,
+  * "Hello, my name is Bob\n" - во втором клиенте.
+
+Представим себе на минутку, что два разработчика примерно одновременно изменили некоторый кусок кода и разработчик №1 успел сделать `commit` первым:
+{{{
+# В первом клиенте, после изменения строки printf
+$ svn commit hello.c -m "My name is Alice"
+Sending        hello.c
+Transmitting file data .
+Committed revision 5.
+}}}
+
+Теперь во втором клиенте, после изменения строки printf:
+{{{
+$ svn up
+$ svn up
+Conflict discovered in 'hello.c'.
+Select: (p) postpone, (df) diff-full, (e) edit,
+        (mc) mine-conflict, (tc) theirs-conflict,
+        (s) show all options:                      # <<< например, введем 'p'
+C    hello.c
+Updated to revision 5.
+Summary of conflicts:
+  Text conflicts: 1
+# hello.c находится в состоянии "конфликт".
+# Subversion создала несколько вспомогательных файлов
+$  svn status
+?       hello.c.r4     # ревизия №4, на которую был синхронизирован наш клиент до svn up    
+?       hello.c.r5     # "серверная" версия ревизии №5, на которую мы обновились
+?       hello.c.mine   # локальная версия файла перед svn up
+C       hello.c        # объединенная версия файла
+}}}
+При помощи различных утилит 3-way merge эти файлы можно объединить в одну "новую" версию.
+
+Можно сделать это и вручную, открыв файл hello.c:
+{{{
+#include <stdio.h>
+int main(void) {
+<<<<<<< .mine
+  printf("Hello, my name is Bob!\n");
+=======
+  printf("Hello, my name is Alice\n");
+>>>>>>> .r5 
+  return 0;
+}
+}}}
+Фрагменты "<<<<", "====", ">>>>" были добавлены Subversion.
+
+Разрешив конфликт вручную (что именно написать вместо конфликта - зависит от специфики кода и изменений):
+{{{
+#include <stdio.h>
+int main(void) {
+  printf("Hello, we are Alice and Bob!\n");
+  return 0;
+}
+}}}
+можно сказать Subversion, что конфликта больше нет:
+{{{
+$ svn resolved hello.c
+Resolved conflicted state of 'hello.c'
+$ svn diff hello.c 
+Index: hello.c
+===================================================================
+--- hello.c	(revision 5)
++++ hello.c	(working copy)
+@@ -1,5 +1,5 @@
+ #include <stdio.h>
+ int main(void) {
+-  printf("Hello, my name is Alice\n");
++  printf("Hello, we are Alice and Bob!\n");
+   return 0;
+ }
+}}}
+
+= TODO =
+  * утилиты diff, patch
+  * визуальные утилиты diff, merge (например, SourceGear DiffMerge)
+  * svn annotate
+  * svn externals
+  * svn ignore
