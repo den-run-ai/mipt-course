@@ -1,0 +1,46 @@
+#summary Как можно в домашних условиях поиграться с SVN
+
+= Настройка клиента SVN =
+Основной интерес в рамках нашего курса представляет работа с клиентом SVN.
+
+Для создания клиента необходимо скачать (checkout) репозиторий с SVN сервера.
+
+Скорее всего, у Вас нет доступа к SVN серверу, с которым можно поэкспериментировать (в том числе заливая всякую бессмысленную всячину). В этом случае рекомендуется настроить локальный сервер svn:
+
+== Настройка локального сервера SVN ==
+_В основном взято [http://queens.db.toronto.edu/~nilesh/linux/subversion-howto/ отсюда]._
+
+{{{
+# Проверено на Ubuntu Lucid 10.04
+# Может потребоваться сделать "sudo apt-get install subversion"
+cd
+mkdir svn_sandbox_server
+cd svn_sandbox_server
+svnadmin create .
+gedit conf/svnserve.conf
+}}}
+Ввести в gedit следующее содержимое:
+{{{
+[general]
+# Don't use this configuration file on a real server!
+anon-access = write
+auth-access = write
+password-db = passwd
+realm = My Test Repository
+}}}
+сохранить и выйти.
+
+Далее,
+{{{
+svnserve -d -r .  # Запускает сервер в режиме демона, НЕ добавляя его в автозапуск.
+cd
+svn checkout svn://localhost/ svn_sandbox
+cd svn_sandbox
+}}} 
+
+= Добавление файла в SVN =
+{{{
+echo "Hello, subversion" >hello.txt
+svn add hello.txt
+svn commit hello.txt -m "Adding my first file to SVN"
+}}}
