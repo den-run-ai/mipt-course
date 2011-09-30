@@ -129,7 +129,7 @@ A    annotate_demo/check_test.cpp
 A    annotate_demo/common.h
 Checked out revision 100.
 $ cd annotate_demo
-$ svn annotate common.h  | head
+$ svn annotate common.h  | head    # синоним к annotate - blame
     48   timurrrr // Copyright (c) 2010 Timur Iskhodzhanov and MIPT students. All rights reserved.
      3   timurrrr // Use of this source code is governed by a BSD-style license that can be
      3   timurrrr // found in the LICENSE file.
