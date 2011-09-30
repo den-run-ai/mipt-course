@@ -289,3 +289,7 @@ Index: hello.c
   * визуальные утилиты diff, merge (например, SourceGear DiffMerge)
   * svn externals
   * svn ignore
+
+= Дополнительная информация =
+  * `svn help`, `svn help <command>`
+  * http://svnbook.red-bean.com/en/1.1/ch01s07.html
