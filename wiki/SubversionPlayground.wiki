@@ -21,7 +21,7 @@ export EDITOR=мойлюбимыйредактор  # gedit, kate, vim, emacs
 
 Скорее всего, у Вас нет доступа к SVN серверу, с которым можно поэкспериментировать (например, заливая всякую бессмысленную всячину). В этом случае рекомендуется настроить локальный сервер svn:
 
-== Настройка локального сервера SVN ==
+== Настройка локального сервера SVN для экспериментов ==
 _В основном взято [http://queens.db.toronto.edu/~nilesh/linux/subversion-howto/ отсюда]._
 
 {{{
@@ -34,7 +34,7 @@ $ $EDITOR conf/svnserve.conf
 Ввести в файл следующее содержимое:
 {{{
 [general]
-# Don't use this configuration file on a real server!
+# Don't use this configuration file on a real server - this is NOT secure!
 anon-access = write
 auth-access = write
 password-db = passwd
