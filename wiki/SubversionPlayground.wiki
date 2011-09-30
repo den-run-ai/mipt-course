@@ -112,6 +112,37 @@ Adding my first file to SVN
 ------------------------------------------------------------------------
 }}}
 
+=== Построчная история изменений файла ===
+Здесь нагляднее будет взять какой-нибудь файл, который на самом деле изменяли несколько человек:
+{{{
+$ cd
+$ svn checkout -r 100 http://mipt-course.googlecode.com/svn/trunk/base annotate_demo
+A    annotate_demo/file_utils.cpp
+A    annotate_demo/condition_variable.h
+A    annotate_demo/mutex.cpp
+A    annotate_demo/file_utils.h
+A    annotate_demo/random.h
+A    annotate_demo/mutex.h
+A    annotate_demo/condition_variable.cpp
+A    annotate_demo/target.mk
+A    annotate_demo/check_test.cpp
+A    annotate_demo/common.h
+Checked out revision 100.
+$ cd annotate_demo
+$ svn annotate common.h  | head
+    48   timurrrr // Copyright (c) 2010 Timur Iskhodzhanov and MIPT students. All rights reserved.
+     3   timurrrr // Use of this source code is governed by a BSD-style license that can be
+     3   timurrrr // found in the LICENSE file.
+     4   timurrrr #ifndef BASE_COMMON_H_
+     4   timurrrr #define BASE_COMMON_H_
+     3   timurrrr 
+    20   timurrrr #include <stdio.h>
+    20   timurrrr #include <stdlib.h>
+    82 bochkarev.alex@gmail.com #include <stdint.h>
+     3   timurrrr 
+# у каждой строчки файла префикс " РЕВИЗИЯ АВТОР_ПОСЛЕДНЕГО_ИЗМЕНЕНИЯ"
+}}}
+
 == Переименование, копирование файлов ==
 {{{
 $ svn mv hello.txt myfirstfile.txt
