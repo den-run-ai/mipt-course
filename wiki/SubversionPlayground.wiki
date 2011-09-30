@@ -285,6 +285,7 @@ Index: hello.c
 }}}
 
 = TODO =
+  * svn revert
   * утилиты diff, patch
   * визуальные утилиты diff, merge (например, SourceGear DiffMerge)
   * svn externals
