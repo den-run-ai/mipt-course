@@ -1,0 +1,77 @@
+#summary Как начать работу с системой тестирования googletest
+
+Библиотека googletest доступна по адресу http://code.google.com/p/googletest
+
+Здесь приводится лишь краткий список основных интересующих нас возможностей библиотеки.
+Полную документацию можно найти по адресу http://code.google.com/p/googletest/wiki/Documentation
+
+= Компиляция тестов =
+== С использованием системного googletest ==
+Проверим, установлен ли googletest:
+{{{
+$ ls /usr/lib/libgtest*.a /usr/include/gtest
+/usr/lib/libgtest.a  /usr/lib/libgtest_main.a
+
+/usr/include/gtest:
+gtest-death-test.h  gtest.h  gtest-message.h  gtest-param-test.h  gtest_pred_impl.h  gtest_prod.h  gtest-spi.h  gtest-test-part.h  gtest-typed-test.h  internal
+}}}
+
+Если результат предыдущей коменды был пустым, то можно установить так:
+{{{
+$ sudo apt-get install -y libgtest-dev libgtest0
+}}}
+
+Теперь напишем наш первый тест с использованием библиотеки googletest - 
+`googletest_demo.cpp`: 
+{{{
+#include <gtest/gtest.h>
+
+int sum(int a, int b) { return a + b; }  // the function we want to test
+
+TEST(MyFunctionTests, Sum) {
+  ASSERT_EQ(4 /* expected */, sum(2, 2) /* actual */);
+}
+}}}
+
+Скомпилируем и запустим его следующими командами:
+{{{
+$ g++ -l gtest_main -o googletest_demo googletest_demo.cpp
+$ ./googletest_demo 
+Running main() from gtest_main.cc
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MyFunctionTests
+[ RUN      ] MyFunctionTests.Sum
+[       OK ] MyFunctionTests.Sum
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran.
+[  PASSED  ] 1 test.
+}}}
+
+Обратите внимание на отсутствие в файле googletest_demo.cpp функции `main()` - она уже есть в библиотеке `gtest_main`. Если по какой-то причине нам нужно использовать собственную версию `main()`, то вместо "`-l gtest_main`" следует использовать "`-l gtest`", а `main()` следует написать так:
+{{{
+int main(int argc, char **argv) {
+  // InitGoogleTest() reads googletest flags; may change argc and argv!
+  ::testing::InitGoogleTest(&argc, argv);
+
+  // do your stuff here
+
+  return RUN_ALL_TESTS();
+}
+}}}
+
+== Сборка библиотеки из исходных кодов ==
+*TODO*
+
+== Использование в своей системе сборке ==
+*TODO*
+
+= Основные приемы работы =
+== Семейства макросов ASSERT_XY, EXPECT_XY ==
+*TODO*
+
+== Группы тестов (Test fixtures) ==
+*TODO*
+
+== Средства коммандной строки ==
+*TODO*
