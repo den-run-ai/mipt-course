@@ -61,10 +61,33 @@ int main(int argc, char **argv) {
 }}}
 
 == Сборка библиотеки из исходных кодов ==
-*TODO*
+Простая версия:
+{{{
+# Выполнять в папке, где лежит googletest_demo.cpp
+$ svn checkout http://googletest.googlecode.com/svn/trunk/ googletest
+...
+# Собрать сам gtest и стандартную функцию main()
+$ g++ -I googletest -I googletest/include -c -o gtest.a googletest/src/gtest-all.cc
+$ g++ -I googletest -I googletest/include -c -o gtest_main.a googletest/src/gtest_main.cc
+# Собрать наши тесты
+$ g++ -I googletest/include -c -o googletest_demo.a googletest_demo.cpp
+# Компоновка и запуск
+$ g++ -o googletest_demo gtest.a gtest_main.a googletest_demo.a
+$ ./googletest_demo 
+Running main() from gtest_main.cc
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from MyFunctionTests
+[ RUN      ] MyFunctionTests.Sum
+[       OK ] MyFunctionTests.Sum (0 ms)
+[----------] 1 test from MyFunctionTests (0 ms total)
 
-== Использование в своей системе сборке ==
-*TODO*
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1 ms total)
+[  PASSED  ] 1 test.
+}}}
+
+Варианты интеграции с системами сборки описаны в [http://code.google.com/p/googletest/wiki/Primer#Setting_up_a_New_Test_Project в официальной документации],<br>а также в исходных кодах ([http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmake Makefile], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fcmake CMake], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmsvc Visual Studio], [http://code.google.com/p/googletest/wiki/XcodeGuide XCode]).
 
 = Основные приемы работы =
 == Семейства макросов ASSERT_XY, EXPECT_XY ==
