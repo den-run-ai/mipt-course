@@ -210,9 +210,9 @@ TEST(MyFunctionTests, DivideByZeroDeath) {
 
 == Средства коммандной строки ==
 {{{
-$ ./mytest --gtest_list_tests  # перечислить все имена тестов
-$ ./mytest --gtest_repeat=1000  # повторить все тесты 1000 раз
-$ ./mytest --gtest_break_on_failure  # поставить breakpoint на нарушение assertions
-$ ./mytest --gtest_filter="*Small*"  # запустить только тесты, подходящие под заданный фильтр
+$ ./mytest --gtest_list_tests         # перечислить все имена тестов
+$ ./mytest --gtest_repeat=1000        # повторить все тесты 1000 раз
+$ ./mytest --gtest_break_on_failure   # поставить breakpoint на нарушение assertions
+$ ./mytest --gtest_filter="*Small*"   # запустить только тесты, подходящие под заданный фильтр
 $ ./mytest --gtest_filter="-*Death*"  # запустить все тесты, за исключением подходящих под заданный фильтр
 }}}
