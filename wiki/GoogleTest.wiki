@@ -87,7 +87,7 @@ Running main() from gtest_main.cc
 [  PASSED  ] 1 test.
 }}}
 
-Варианты интеграции с системами сборки описаны в [http://code.google.com/p/googletest/wiki/Primer#Setting_up_a_New_Test_Project в официальной документации],<br>а также в исходных кодах ([http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmake Makefile], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fcmake CMake], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmsvc Visual Studio], [http://code.google.com/p/googletest/wiki/XcodeGuide XCode]).
+Более сложные варианты интеграции с системами сборки описаны в [http://code.google.com/p/googletest/wiki/Primer#Setting_up_a_New_Test_Project в официальной документации],<br>а также в исходных кодах ([http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmake Makefile], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fcmake CMake], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmsvc Visual Studio], [http://code.google.com/p/googletest/wiki/XcodeGuide XCode]).
 
 = Основные приемы работы =
 == Семейства макросов ASSERT_XY, EXPECT_XY ==
@@ -130,7 +130,7 @@ This will be executed after EXPECT_EQ
 Основные макросы: (для каждого `ASSERT_XY` есть соответствующий `EXPECT_XY`)
   * `ASSERT_TRUE`, `..._FALSE` и т.п. - проверяют true/false
   * `ASSERT_EQ(expected, actual)` - проверить, что второй аргумент равен ожидаемому значению (первый аргумент).
-  * `ASSERT_NE(val1, val2);` --> (`val1 != val2`),<br>`..._LT` (<),<br>`..._LE`(<=),<br>`..._GT` (>),<br>`..._GE` (>=)
+  * `ASSERT_NE(val1, val2);` --> проверяет неравенство аргументов,<br>`..._LT` (<),<br>`..._LE` (<=),<br>`..._GT` (>),<br>`..._GE` (>=)
   * `ASSERT_STREQ(expected_str, actual_str);`, `..._STRNE`, `..._STRCASEEQ`, `..._STRCASENE`
   * Другие, более сложные - http://code.google.com/p/googletest/wiki/AdvancedGuide#More_Assertions
 
