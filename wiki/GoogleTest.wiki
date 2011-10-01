@@ -91,10 +91,128 @@ Running main() from gtest_main.cc
 
 = Основные приемы работы =
 == Семейства макросов ASSERT_XY, EXPECT_XY ==
-*TODO*
+( http://code.google.com/p/googletest/wiki/Primer#Assertions )
+
+Макросы `ASSERT_XY` и `EXPECT_XY` проверяют выполнение некоторых условий.
+
+В случае невыполнения условия макроса ASSERT_XY тест прекращается и начинает выполняться следующий тест:
+{{{
+TEST(MyFunctionTests, Sum) {
+  ASSERT_EQ(5 /* expected */, sum(2, 2) /* actual */);
+  printf("Won't be executed\n");
+}
+--->
+[ RUN      ] MyFunctionTests.Sum
+demo.cpp:6: Failure
+Value of: sum(2, 2)
+  Actual: 4
+Expected: 5
+[  FAILED  ] MyFunctionTests.Sum
+}}}
+
+В случае невыполнения условия макроса EXPECT_XY тест продолажет выполняться, но в конце все равно будет считаться FAILED:
+{{{
+TEST(MyFunctionTests, Sum) {
+  EXPECT_EQ(5 /* expected */, sum(2, 2) /* actual */);
+  printf("This will be executed after EXPECT_EQ\n");
+}
+--->
+[ RUN      ] MyFunctionTests.Sum
+demo.cpp:6: Failure
+Value of: sum(2, 2)
+  Actual: 4
+Expected: 5
+This will be executed after EXPECT_EQ
+[  FAILED  ] MyFunctionTests.Sum
+}}}
+
+
+Основные макросы: (для каждого `ASSERT_XY` есть соответствующий `EXPECT_XY`)
+  * `ASSERT_TRUE`, `..._FALSE` и т.п. - проверяют true/false
+  * `ASSERT_EQ(expected, actual)` - проверить, что второй аргумент равен ожидаемому значению (первый аргумент).
+  * `ASSERT_NE(val1, val2);` --> (`val1 != val2`),<br>`..._LT` (<),<br>`..._LE`(<=),<br>`..._GT` (>),<br>`..._GE` (>=)
+  * `ASSERT_STREQ(expected_str, actual_str);`, `..._STRNE`, `..._STRCASEEQ`, `..._STRCASENE`
+  * Другие, более сложные - http://code.google.com/p/googletest/wiki/AdvancedGuide#More_Assertions
 
 == Группы тестов (Test fixtures) ==
-*TODO*
+При написании групп похожих тестов, которым требуется схожая инициализация ресурсов, можно сделать специальный fixture класс, чтобы избежать дубликции кода:
+{{{
+#include <gtest/gtest.h>
+#include <stdio.h>
+
+class Database {
+ public:
+  Database() { printf("DB created\n"); }
+  ~Database() { printf("DB destroyed\n"); }
+
+  bool Connect() { printf("Connected!\n"); return true; }
+  void ReleaseResources() { printf("Released...\n"); }
+
+  void DoSomething() { }
+  void DoSomethingElse() { }
+};
+
+// A new instance is created for each test case being run.
+class DatabaseTest : public ::testing::Test {
+ protected:
+  virtual void SetUp() {
+    ASSERT_TRUE(database_.Connect());
+  }
+
+  virtual void TearDown() {
+    database_.ReleaseResources();
+  }
+
+  Database database_;
+};
+
+TEST_F(DatabaseTest, DoSomeStuff) {
+  database_.DoSomething();
+}
+
+TEST_F(DatabaseTest, DoSomeOtherStuff) {
+  database_.DoSomethingElse();
+}
+--->
+[----------] 2 tests from DatabaseTest
+[ RUN      ] DatabaseTest.DoSomeStuff
+DB created
+Connected!
+Released...
+DB destroyed
+[       OK ] DatabaseTest.DoSomeStuff
+[ RUN      ] DatabaseTest.DoSomeOtherStuff
+DB created
+Connected!
+Released...
+DB destroyed
+[       OK ] DatabaseTest.DoSomeOtherStuff
+}}}
+
+== Death-тесты ==
+Проверяют, что при выполнении указанного выражения программа упадет с определенным сообщением об ошибке:
+{{{
+#include <gtest/gtest.h>
+#include <stdio.h>
+
+int divide(int a, int b) {
+  if (b == 0) {
+    fprintf(stderr, "Shouldn't divide by zero!\n");
+    abort();
+  }
+  return a / b;
+}
+
+TEST(MyFunctionTests, DivideByZeroDeath) {
+  ASSERT_DEATH(divide(42, 0), "divide by zero");
+}
+}}}
 
 == Средства коммандной строки ==
-*TODO*
+{{{
+$ ./mytest --gtest_list_tests  # перечислить все имена тестов
+$ ./mytest --gtest_repeat=1000  # повторить все тесты 1000 раз
+$ ./mytest --gtest_break_on_failure  # поставить breakpoint на нарушение assertions
+$ ./mytest --gtest_filter="*Small*"  # запустить только тесты, подходящие под заданный фильтр
+$ ./mytest --gtest_filter="-*Death*"  # запустить все тесты, за исключением подходящих под заданный фильтр
+}}}
