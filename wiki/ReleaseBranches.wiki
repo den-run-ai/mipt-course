@@ -32,6 +32,8 @@
 $ svn copy URL/trunk URL/branches/feature_X -m "Create a branch for a new feature X"
 Committed revision BRANCH_POINT.
 }}}
+Запоминаем номер ревизии `BRANCH_POINT` для ветки `feature_X` - например, можно записать её в файл `branches/feature_X/BRANCHED_AT`.
+
 Вся работа над задачей теперь ведётся в папке `branches/new_feature`.
 Для экономии дискового пространства разработчик (или команда) может вместо создания нового клиента переключить свои текущие клиенты на работу с веткой:
 {{{
@@ -45,7 +47,7 @@ $ svn merge URL/trunk
 $ svn commit -m "Take the fresh trunk with a fix for bug 42"  # желательно указать ревизию trunk
 Commited revision SYNCED_TO.
 }}}
-После этого заменяем запомненное значение `BRANCH_POINT` на значение `SYNCED_TO`, чтобы избежать лишних _merge conflict_
+После этого заменяем запомненное значение `BRANCH_POINT` на значение `SYNCED_TO` (например, записываем в файл `BRANCHED_AT`), чтобы избежать лишних _merge conflict_.
 
 *TODO*: можно ли делать проще? Если не пользоваться `-r BRANCH_POINT:HEAD`, то при финальном `merge` может возникнуть куча merge conflicts.
 
@@ -81,8 +83,8 @@ trunk
 ...
 }}}
 
-Для выпуска очередной версии продукта пользователям достаточно взять текущую версию `trunk` и скомпилировать инсталлятор.
-При этом удобно сделать копию `trunk` в подпапку `releases`, чтобы потом можно было легко посмотреть код выпущенного релиза:
+Для выпуска очередной версии продукта пользователям, разработчику достаточно взять текущую версию `trunk` и скомпилировать инсталлятор.
+При этом удобно сделать копию `trunk` в подпапку `releases`, чтобы потом можно было легко посматривать код этого релиза:
 {{{
 $ svn copy URL/trunk URL/releases/1.23 -m "Tagging release 1.23. Let's go get some beer?"
 }}}
