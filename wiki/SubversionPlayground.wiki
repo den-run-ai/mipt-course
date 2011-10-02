@@ -4,13 +4,15 @@
 Данная страница предполагает, что пользователь работает в ОС Ubuntu Lucid 10.04  
 
 {{{
-# Проверить, что установлен пакет Subversion
+# Ubuntu - убедиться, что установлен пакет Subversion
 sudo apt-get install -y subversion
 }}}
 
-Добавить строку
+Также проверена работа в Cygwin.
+
+Перед выполнением нижеприведённых шагов, следует добавить строку
 {{{
-export EDITOR=мойлюбимыйредактор  # gedit, kate, vim, emacs
+export EDITOR=мойлюбимыйредактор  # gedit, kate, vim, emacs, notepad
 }}}
 в конец файла `~/.bashrc` и перезапустить терминал (или выполнить команду `source ~/.bashrc`)
 
