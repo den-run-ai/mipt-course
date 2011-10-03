@@ -291,8 +291,6 @@ int main(void) {
 }}}
 можно сказать Subversion, что конфликта больше нет:
 {{{
-$ svn resolved hello.c
-Resolved conflicted state of 'hello.c'
 $ svn diff hello.c 
 Index: hello.c
 ===================================================================
@@ -305,6 +303,11 @@ Index: hello.c
 +  printf("Hello, we are Alice and Bob!\n");
    return 0;
  }
+$ svn resolved hello.c
+Resolved conflicted state of 'hello.c'
+$ svn status
+M       hello.txt
+# теперь можно продолжать работу
 }}}
 
 = TODO =
