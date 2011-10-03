@@ -306,12 +306,11 @@ Index: hello.c
 $ svn resolved hello.c
 Resolved conflicted state of 'hello.c'
 $ svn status
-M       hello.txt
+M       hello.c
 # теперь можно продолжать работу
 }}}
 
 = TODO =
-  * svn revert
   * утилиты diff, patch
   * визуальные утилиты diff, merge (например, SourceGear DiffMerge)
   * svn externals
