@@ -99,6 +99,27 @@ Transmitting file data .
 Committed revision 2.
 }}}
 
+== Откат локальных изменений ==
+{{{
+$ echo "Extra line" >> hello.txt  # добавить лишнюю строчку
+$ svn diff
+Index: hello.txt
+===================================================================
+--- hello.txt	(revision 2)
++++ hello.txt	(working copy)
+@@ -1 +1,2 @@
+ Hello, subversion!
++Extra line
+
+# Откатить список файлов:
+$ svn revert hello.txt
+Reverted 'hello.txt'
+
+# или так - откатить все файлы в папке ("." - текущая папка)
+$ svn revert -R .
+Reverted 'hello.txt'
+}}}
+
 == Просмотр истории ==
 {{{
 $ svn log hello.txt  # В случае большой истории целесообразно пользоваться флагом -l ЧИСЛО_КОММИТОВ или перенаправлять вывод в less.
