@@ -33,7 +33,7 @@ $ cd svn_sandbox_server
 $ svnadmin create .
 $ $EDITOR conf/svnserve.conf
 }}}
-Ввести в файл следующее содержимое:
+Ввести в файл следующее содержимое вместо *всего* стандартного конфигурационного файла:
 {{{
 [general]
 # Don't use this configuration file on a real server - this is NOT secure!
