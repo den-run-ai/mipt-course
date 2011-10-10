@@ -48,9 +48,7 @@ ADDITIONAL_LIBS=  # Will contain the list of system libs to link (e.g. pthread)
 LINK_FLAGS += $(patsubst %,-l%,$(ADDITIONAL_LIBS))
 
 # "@" at the beginning means "don't print the command itself"
-all:
-	@echo "Nothing to do by default, for details try: make help "
-# help  - Display callable targets.
+# help    - Display callable targets.
 help:
 	@egrep "^# [a-z ]+ - " Makefile
 	@echo "Additional flags:"
@@ -73,7 +71,7 @@ include testing/googletest.mk
 # http://www.gnu.org/software/automake/manual/make/Phony-Targets.html
 .PHONY: build test clean
 
-# build - Build the program.
+# build   - Build the program.
 build: $(TARGET_LIBS) $(TARGET_TESTS)
 
 # rebuild - Clean & rebuild the program.
@@ -93,10 +91,10 @@ run_%_test: $(OUTDIR)%_tests
 	@echo "Running $<..."
 	$(TEST_COMMAND_PREFIX) ./$< $(ADDITIONAL_ARGS)
 
-# test  - Build and run the test suite.
+# test    - Build and run the test suite.
 test: $(RUN_TEST_TARGETS)
 	@echo "All tests passed"
 
-# clean - Remove intermediate files and the program.
+# clean   - Remove intermediate files and the program.
 clean: GTEST_CLEAN
 	rm -rf ./$(OUTDIR)
