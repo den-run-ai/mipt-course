@@ -1,14 +1,15 @@
 #summary Как настроить локальный buildbot
 
 = Общая информация =
-На данный момент для нашего проекта используется buildbot 0.8.2<br>
-http://fds7.us.to:8010/waterfall
+На данный момент для нашего проекта используется buildbot 0.8.4<br>
+http://tinyurl.com/mipt-course-buildbot
+*TODO*: сделать постоянный адрес
 
 Любой желающий может попробовать поднять свою копию buildbot локально.
 
 Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn41&r=39&format=side&path=/buildbot/master.cfg&old_path=/buildbot/master.cfg&old=33 чем же собственно наш master.cfg отличается от примера].
 
-Документация по buildbot доступна по адресу http://buildbot.net/buildbot/docs/0.8.2/
+Документация по buildbot доступна по адресу http://buildbot.net/buildbot/docs/0.8.4/
 
 = Процедура установки buildbot на Linux Ubuntu Lucid 10.4 =
 == Краткая инструкция ==
@@ -44,9 +45,9 @@ cd ..
 == master-only ==
 {{{
 # Это делается пользователем root
-wget http://buildbot.googlecode.com/files/buildbot-0.8.2.zip
-unzip buildbot-0.8.2.zip
-cd buildbot-0.8.2
+wget http://buildbot.googlecode.com/files/buildbot-0.8.4.zip
+unzip buildbot-0.8.4.zip
+cd buildbot-0.8.4
 python setup.py build && python setup.py install
 cd ..
 }}}
@@ -63,9 +64,9 @@ make start log
 == slave-only ==
 {{{
 # Это делается пользователем root
-wget http://buildbot.googlecode.com/files/buildbot-slave-0.8.2.zip
-unzip buildbot-slave-0.8.2.zip
-cd buildbot-slave-0.8.2
+wget http://buildbot.googlecode.com/files/buildbot-slave-0.8.4.zip
+unzip buildbot-slave-0.8.4.zip
+cd buildbot-slave-0.8.4
 python setup.py build && python setup.py install
 cd ..
 }}}
