@@ -13,7 +13,7 @@ $ ls /usr/lib/libgtest*.a /usr/include/gtest
 /usr/lib/libgtest.a  /usr/lib/libgtest_main.a
 
 /usr/include/gtest:
-gtest-death-test.h  gtest.h  gtest-message.h  gtest-param-test.h  gtest_pred_impl.h  gtest_prod.h  gtest-spi.h  gtest-test-part.h  gtest-typed-test.h  internal
+gtest-death-test.h  gtest.h  gtest-message.h  ...
 }}}
 
 Если результат предыдущей коменды был пустым, то можно установить так:
@@ -208,7 +208,7 @@ TEST(MyFunctionTests, DivideByZeroDeath) {
 }
 }}}
 
-== Средства коммандной строки ==
+== Средства командной строки ==
 {{{
 $ ./mytest --gtest_list_tests         # перечислить все имена тестов
 $ ./mytest --gtest_repeat=1000        # повторить все тесты 1000 раз
