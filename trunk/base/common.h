@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include <limits>
+
 // Use CHECK instead of assert for the following reasons:
 // a) CHECKs remain when NDEBUG is defined (use DCHECK for debug-only checks)
 // b) Has the same error message format on all platforms

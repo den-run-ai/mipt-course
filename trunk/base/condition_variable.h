@@ -5,7 +5,8 @@
 #ifndef BASE_CONDITION_VARIABLE_H_
 #define BASE_CONDITION_VARIABLE_H_
 
-#include <limits>
+#include <pthread.h>
+
 #include "base/common.h"
 
 namespace threading {
