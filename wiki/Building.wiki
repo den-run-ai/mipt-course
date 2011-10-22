@@ -1,26 +1,37 @@
 #summary Как собирать модули и проекты в нашем репозитории
 
-=Сборка с помощью Cmake=
+=Сборка=
+==Установка необходимых пакетов (Ubuntu)==
+{{{
+sudo apt-get install -y subversion cmake make g++ valgrind
+}}}
+
+==Как скачать код==
+{{{
+svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --username MYUSERNAME@gmail.com
+}}}
+
+==Собственно сборка=
   * Для Debug сборки необходимо выполнить следующие команды из корневой директории проекта:
 {{{
-$mkdir debug
-$cd debug
-$cmake ../
-$make
+mkdir debug
+cd debug
+cmake ../
+make
 }}}
   * Для Release сборки:
 {{{
-$mkdir release
-$cd release
-$cmake ../ -DRelease=1
-$make
+mkdir release
+cd release
+cmake ../ -DRelease=1
+make
 }}}
   * Для другой сборки ([http://cmake.org/Wiki/CMake_Useful_Variables подробности]):
 {{{
-$mkdir <тип_сборки>
-$cd <тип_сборки>
-$cmake ../ -DCMAKE_BUILD_TYPE=<тип_сборки>
-$make
+mkdir <тип_сборки>
+cd <тип_сборки>
+cmake ../ -DCMAKE_BUILD_TYPE=<тип_сборки>
+make
 }}}
 
 =Структура репозитория=
