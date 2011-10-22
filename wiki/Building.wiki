@@ -14,4 +14,25 @@
   * Все модули - `make build` в корневой папке репозитория
   * Проект "А" - *TODO*
 
-*TODO* по поводу перехода на CMake - см. issue 1
+=Сборка с помощью Cmake=
+  * Для Debug сборки необходимо выполнить следующие команды из корневой директории проекта:
+{{{
+$mkdir debug
+$cd debug
+$cmake ../
+$make
+}}}
+  * Для Release сборки:
+{{{
+$mkdir release
+$cd release
+$cmake ../ -DRelease=1
+$make
+}}}
+  * Для другой сборки ([http://cmake.org/Wiki/CMake_Useful_Variables подробности]):
+{{{
+$mkdir <тип_сборки>
+$cd <тип_сборки>
+$cmake ../ -DCMAKE_BUILD_TYPE=<тип_сборки>
+$make
+}}}
