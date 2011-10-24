@@ -12,6 +12,7 @@ svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --usernam
 $ svn info | grep URL
 URL: https://mipt-course.googlecode.com/svn/trunk
 }}}
+Если на строке URL у Вас видно https -> переходите к основной части данной страницы.
 
 Если Вы по ошибке уже послали на review некий код из клиента с `http://` адресом - не отчаивайтесь!<br>Создайте новый https-клиент и перенесите в него изменения с помощью команды
 {{{
