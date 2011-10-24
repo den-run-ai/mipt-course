@@ -1,4 +1,4 @@
-// Copyright (c) 2010 Timur Iskhodzhanov and MIPT students. All rights reserved.
+// Copyright (c) 2011 Timur Iskhodzhanov and MIPT students. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -23,7 +23,7 @@ class LibraryIndex {
  public:
   LibraryIndex() {}
 
-  void Add(ISBN isbn, std::string author, std::string caption) {
+  void Add(ISBN isbn, const std::string &author, const std::string &caption) {
     CHECK_EQ(index_.count(isbn), 0);
     BookID new_book;
     new_book.isbn = isbn;
