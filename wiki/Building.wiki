@@ -16,21 +16,21 @@ svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --usernam
 {{{
 mkdir debug
 cd debug
-cmake ../
+cmake ..
 make
 }}}
   * Для Release сборки:
 {{{
 mkdir release
 cd release
-cmake ../ -DRelease=1
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 }}}
   * Для другой сборки ([http://cmake.org/Wiki/CMake_Useful_Variables подробности]):
 {{{
 mkdir <тип_сборки>
 cd <тип_сборки>
-cmake ../ -DCMAKE_BUILD_TYPE=<тип_сборки>
+cmake -DCMAKE_BUILD_TYPE=<тип_сборки> ..
 make
 }}}
 
