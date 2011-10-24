@@ -2,12 +2,12 @@
 
 = Общая информация =
 На данный момент для нашего проекта используется buildbot 0.8.4<br>
-http://tinyurl.com/mipt-course-buildbot
+http://tinyurl.com/mipt-course-buildbot<br>
 *TODO*: сделать постоянный адрес
 
 Любой желающий может попробовать поднять свою копию buildbot локально.
 
-Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn151&old=39&r=77&format=side&path=%2Fbuildbot%2Fmaster.cfg чем же наш master.cfg отличается от примера].
+Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn151&old=33&r=77&format=side&path=%2Fbuildbot%2Fmaster.cfg чем же наш master.cfg отличается от примера].
 
 Документация по buildbot доступна по адресу http://buildbot.net/buildbot/docs/0.8.4/
 
