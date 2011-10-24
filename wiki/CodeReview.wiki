@@ -7,7 +7,7 @@
 svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --username my.email@gmail.com
 }}}
 
-Как проверить, уже существующий клиент?
+Как проверить уже существующий клиент?
 {{{
 $ svn info | grep URL
 URL: https://mipt-course.googlecode.com/svn/trunk
