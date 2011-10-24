@@ -7,7 +7,7 @@ http://tinyurl.com/mipt-course-buildbot
 
 Любой желающий может попробовать поднять свою копию buildbot локально.
 
-Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn41&r=39&format=side&path=/buildbot/master.cfg&old_path=/buildbot/master.cfg&old=33 чем же собственно наш master.cfg отличается от примера].
+Для желающих настроить собственный buildbot для своего проекта (вне mipt-course) я специально закоммитил вначале sample master.cfg, чтобы можно было легко посмотреть [http://code.google.com/p/mipt-course/source/diff?spec=svn151&old=39&r=77&format=side&path=%2Fbuildbot%2Fmaster.cfg чем же наш master.cfg отличается от примера].
 
 Документация по buildbot доступна по адресу http://buildbot.net/buildbot/docs/0.8.4/
 
