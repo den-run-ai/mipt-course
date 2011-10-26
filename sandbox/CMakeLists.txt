@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 2.6)
 # Just like tough guys, we list files manually
 
 set(LIB_CXX
-  dijkstra_algorithm.cpp  
+  dijkstra_algorithm.cpp
   pattern.cpp
 )
 

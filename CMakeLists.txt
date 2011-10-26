@@ -12,7 +12,7 @@ if (Release)
     set(CMAKE_BUILD_TYPE Release)
   else ()
     if (NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-      # Reseting cmake flags makes Debug build by default, but one should 
+      # Reseting cmake flags makes Debug build by default, but one should
       # constantly define build flag if he wants to build Release.
       #  CACHE indicates we are working with cache
       #  FORCE overrides user selections or previous versions in cache
@@ -32,7 +32,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 set(prj_src ${GMC_SOURCE_DIR})
 
-# Order of the modules is very important, because "testing" uses libgtest from 
+# Order of the modules is very important, because "testing" uses libgtest from
 # third_party/googletest/; "sandbox" & "base" use libgoogletest from "testing"
 
 set(modules
@@ -58,8 +58,8 @@ include_directories(
 #set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
 foreach (module ${modules})
-  message(STATUS " * Preparing ${module} module...")  
-  add_subdirectory(${module})  
+  message(STATUS " * Preparing ${module} module...")
+  add_subdirectory(${module})
 endforeach (module)
 
 add_custom_target(build COMMAND make)
@@ -69,14 +69,14 @@ add_custom_target(build COMMAND make)
 # TODO(mikhail.aphanasov): It should be platform-specific
 
 set(valgrind_cmd valgrind)
-set(valgrind_prefix 
+set(valgrind_prefix
   "--leak-check=full --error-exitcode=255 \\
   --suppressions=${prj_src}/testing/valgrind_suppressions.txt"
 )
 set(valgrind_suffix "--gtest_filter=\"-*Death*\"")
 
 foreach (test ${tests})
-  set(test_cmd 
+  set(test_cmd
     "${test_cmd} && ${CMAKE_BINARY_DIR}/${test}_test"
   )
 
@@ -89,8 +89,8 @@ endforeach (test)
 file(WRITE $ENV{PWD}/valgrind.sh
   "#!/bin/sh
   if [ $1 ] && [ $1 -eq 1 ];
-  then make ${valgrind_test_cmd}; 
-  else make ${test_cmd}; 
+  then make ${valgrind_test_cmd};
+  else make ${test_cmd};
   fi"
 )
 
