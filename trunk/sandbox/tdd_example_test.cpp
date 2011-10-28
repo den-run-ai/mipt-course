@@ -8,7 +8,7 @@
 
 #include "base/common.h"
 
-const int kMaxFactorial = 28;
+const int kMaxFactorial = 13;
 
 int Factorial(int v) {
   // NB we wrote the implementation of this function on the lecture;
@@ -30,6 +30,7 @@ TEST(FactorialTest, HandlesPositiveInput) {
   EXPECT_EQ(2, Factorial(2));
   EXPECT_EQ(6, Factorial(3));
   EXPECT_EQ(40320, Factorial(8));
+  EXPECT_EQ(479001600, Factorial(12));
 }
 
 // Tests factorial of 0.
@@ -38,8 +39,12 @@ TEST(FactorialTest, HandlesZeroInput) {
   EXPECT_EQ(1, Factorial(0));
 }
 
+// Tests factorial of number that will cause integer type overflow.
+TEST(FactorialTest, FailsOnTooBigInputDeathTest) {
+    ASSERT_DEATH(Factorial(13), "");
+    ASSERT_DEATH(Factorial(42), "");
+}
+
 TEST(FactorialTest, FailsOnNegativeInputDeathTest) {
-  // Suppress the "fork() is unsafe" warnings
-  ::testing::FLAGS_gtest_death_test_style = "threadsafe";
   ASSERT_DEATH(Factorial(-1), "");
 }
