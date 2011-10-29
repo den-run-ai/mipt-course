@@ -32,6 +32,8 @@
 #define DCHECK(x) CHECK(x)
 #endif
 
+#define NOT_IMPLEMENTED CHECK(0)
+
 // TODO(timurrrr): define proper CHECK_EQ, DCHECK_EQ, ... printing their args
 // in case of failure.
 #define CHECK_EQ(x,y) CHECK((x) == (y))     // NOLINT
