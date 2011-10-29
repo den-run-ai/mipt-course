@@ -32,4 +32,4 @@ set(TEST_CXX
 
 add_library(base ${LIB_CXX} ${LIB_HXX})
 add_executable(base_test ${TEST_CXX})
-target_link_libraries(base_test base googletest)
+target_link_libraries(base_test base testing)

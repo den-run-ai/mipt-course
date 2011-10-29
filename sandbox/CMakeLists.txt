@@ -40,4 +40,4 @@ set(TEST_CXX
 
 add_library(sandbox ${LIB_CXX} ${LIB_HXX})
 add_executable(sandbox_test ${TEST_CXX})
-target_link_libraries(sandbox_test sandbox googletest)
+target_link_libraries(sandbox_test sandbox testing)
