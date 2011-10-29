@@ -25,7 +25,9 @@ set(LIB_HXX
 set(TEST_CXX
   avl_test.cpp
   dijkstra_algorithm_test.cpp
+  gmock_demo_test.cpp
   hash_test.cpp
+  mocks_and_fakes_demo_test.cpp
   library_test.cpp
   list_test.cpp
   pattern_test.cpp
