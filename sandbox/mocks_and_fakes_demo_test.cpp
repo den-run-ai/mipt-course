@@ -56,6 +56,9 @@ class ReliableUdpChannel {
       // Hm, packet received twice?.. Drop it.
       return;
     }
+
+    // TODO(timurrrr): drop packets if received_.size() is too large.
+
     char * payload = new char[local_size - 1];
     memcpy(payload, local_buffer + 1, local_size - 1);
 
