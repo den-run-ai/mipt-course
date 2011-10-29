@@ -36,7 +36,7 @@ set(prj_src ${GMC_SOURCE_DIR})
 # third_party/googletest/; "sandbox" & "base" use libgoogletest from "testing"
 
 set(modules
-  third_party/googletest/
+  third_party/googlemock/
   testing
   sandbox
   base
@@ -48,7 +48,10 @@ set(tests
 )
 
 include_directories(
-  ${prj_src}/third_party/googletest/include
+  # TODO(timurrrr): remove all third_party/googletest includes.
+  # This might be not trivial if gtest is also installed on the user's system.
+  ${prj_src}/third_party/googlemock/gtest/include
+  ${prj_src}/third_party/googlemock/include
   ${prj_src}
 )
 
