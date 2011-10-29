@@ -13,7 +13,6 @@ set(LIB_CXX
 )
 
 set(LIB_HXX
-  avl.h
   dijkstra_algorithm.h
   hash.h
   list.h
@@ -23,7 +22,6 @@ set(LIB_HXX
 )
 
 set(TEST_CXX
-  avl_test.cpp
   dijkstra_algorithm_test.cpp
   gmock_demo_test.cpp
   hash_test.cpp
