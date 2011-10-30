@@ -30,6 +30,18 @@ make
 }}}
 Про другие типы сборки: [http://cmake.org/Wiki/CMake_Useful_Variables docs].
 
+==Запуск тестов==
+C++, в папке где делалось cmake & make:
+{{{
+./base_test
+./sandbox_test
+}}}
+
+Python, в папке `pysandbox`
+{{{
+make test
+}}}
+
 =Структура репозитория=
 ==Модули==
   * base/ - различные удобные обертки для работы с файлами, потоками, ...
