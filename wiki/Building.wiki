@@ -9,6 +9,9 @@ sudo apt-get install -y subversion cmake make g++ lcov valgrind
 {{{
 svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --username MYUSERNAME@gmail.com
 }}}
+*Если svn будет спрашивать некий пароль, нужно использовать указанный [http://code.google.com/hosting/settings тут], а не пароль от своего GMail.*
+
+Код также можно [http://code.google.com/p/mipt-course/source/browse/ посмотреть online], вместе с [http://code.google.com/p/mipt-course/source/list историей изменений].
 
 =Сборка=
   * Для Debug сборки необходимо выполнить следующие команды из корневой директории проекта:
@@ -34,4 +37,5 @@ make
   * pysandbox/ - то же, но для любителей Python
 
 ==Список third-party библиотек и их лицензии==
+  * googlemock - BSD
   * googletest - BSD
