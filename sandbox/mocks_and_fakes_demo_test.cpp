@@ -5,8 +5,8 @@
 #include <map>
 #include <set>
 
-#include "third_party/googletest/include/gtest/gtest.h"
-#include "third_party/googlemock/include/gmock/gmock.h"
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 #include "base/common.h"
 #include "base/random.h"

@@ -48,17 +48,15 @@ set(tests
 )
 
 include_directories(
-  # TODO(timurrrr): remove all third_party/googletest includes.
-  # This might be not trivial if gtest is also installed on the user's system.
+  # TODO(timurrrr): check gtest's -I doesn't conflict with the system gtest if
+  # it is installed.
   ${prj_src}/third_party/googlemock/gtest/include
   ${prj_src}/third_party/googlemock/include
   ${prj_src}
 )
 
 # Print all warnings and treat them as errors
-# TODO(Mikhail.Aphanasov): enable this when compiler warning are fixed on newer
-# g++ versions
-#set(CMAKE_CXX_FLAGS "-Wall -Werror")
+set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
 foreach (module ${modules})
   message(STATUS " * Preparing ${module} module...")

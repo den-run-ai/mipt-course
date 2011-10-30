@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "gtest/gtest.h"
 
 #include "base/common.h"
 

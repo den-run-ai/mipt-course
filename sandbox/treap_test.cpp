@@ -6,8 +6,7 @@
 
 #include <memory>
 
-#include "third_party/googletest/include/gtest/gtest.h"
-#include "base/common.h"
+#include "gtest/gtest.h"
 
 class TreapTest : public ::testing::Test {
  protected:

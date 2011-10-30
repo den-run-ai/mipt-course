@@ -6,7 +6,7 @@
 
 #include "sandbox/list.h"
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "gtest/gtest.h"
 
 TEST(ListTest, Insert) {
   List<int> list;

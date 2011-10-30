@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 #include "sandbox/stack.h"
-#include "third_party/googletest/include/gtest/gtest.h"
-#include "base/common.h"
+
+#include "gtest/gtest.h"
 
 TEST(StackTests, PushPopSizeTest) {
   Stack<int> stack(2);
