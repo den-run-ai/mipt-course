@@ -4,7 +4,7 @@
 
 #include "sandbox/hash.h"
 #include <string>
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "gtest/gtest.h"
 
 TEST(HashTest, DISABLED_HashTest_Actions) {
   HashTable<std::string, std::string> ht(101);

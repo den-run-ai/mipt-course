@@ -5,10 +5,9 @@
 #include <vector>
 
 #include "base/common.h"
-
 #include "sandbox/dijkstra_algorithm.h"
 
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "gtest/gtest.h"
 
 const int TEST_VERTEX_INDEX = 1;
 

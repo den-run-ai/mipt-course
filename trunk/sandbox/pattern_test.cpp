@@ -2,11 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <string>
-
-#include "base/common.h"
-#include "third_party/googletest/include/gtest/gtest.h"
 #include "sandbox/pattern.h"
+
+#include "gtest/gtest.h"
 
 TEST(PatternTest, WorksWithoutSpecialSymbols) {
   StringPattern p1("asd");

@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 #include "base/common.h"
-#include "third_party/googletest/include/gtest/gtest.h"
+#include "gtest/gtest.h"
 
 void Read(int *a) {
   if (*a == 777) {  // Use *a in a conditional statement.
