@@ -1,6 +1,6 @@
 #summary Как работать с нашим репозиторием
 
-=Установка необходимых пакетов (Ubuntu)=
+==Установка необходимых пакетов (Ubuntu)==
 {{{
 sudo apt-get install -y subversion cmake make g++ lcov valgrind
 }}}
