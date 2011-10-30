@@ -33,6 +33,8 @@ make
 ==Запуск тестов==
 C++, в папке где делалось cmake & make:
 {{{
+make test
+# или
 ./base_test
 ./sandbox_test
 }}}
