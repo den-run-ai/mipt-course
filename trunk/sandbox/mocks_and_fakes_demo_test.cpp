@@ -32,6 +32,10 @@ class ReliableUdpChannel {
  public:
   ReliableUdpChannel(UdpChannel *chan) : channel_(chan), next_receive_(0) { }
 
+  ~ReliableUdpChannel() {
+    // TODO(timurrrr): free messages not taken from received_.
+  }
+
   void Heartbeat() {
     const size_t MAX_BUFFER = 1024;
 
@@ -86,6 +90,7 @@ class ReliableUdpChannel {
 
     *size = data_size;
     memcpy(buffer, data, data_size);
+    delete [] data;
     next_receive_++;
     return true;
   }
