@@ -23,6 +23,20 @@ if (Release)
     endif ()
   endif ()
 else ()
+  if ("${CMAKE_BUILD_TYPE}" STREQUAL "Coverage")
+      set(CMAKE_C_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+      set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+      set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage -lgcov")
+      set(CMAKE_BUILD_TYPE Debug)
+      add_custom_target(extract_coverage COMMAND ${CMAKE_COMMAND}
+        -DSEARCH_DIR=${CMAKE_BINARY_DIR}
+        -P ${GMC_SOURCE_DIR}/extract_coverage.cmake
+      )
+      add_custom_target(reset_coverage
+        COMMAND rm -rf ${CMAKE_BINARY_DIR}/CoverageResults
+        COMMAND lcov --directory ${CMAKE_BINARY_DIR} --zerocounters
+      )
+  endif()
   if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
     set(CMAKE_BUILD_TYPE Debug)
   endif ()
