@@ -120,7 +120,7 @@ TEST(ReliableUdpChannel, SimpleSequence) {
   ReliableUdpChannel channel(&mock);
 
   const char *expectations[] = {"H", "E", "L", "L", "O"};
-  for (int i = 0; i < ARRAY_SIZE(expectations); i++) {
+  for (size_t i = 0; i < ARRAY_SIZE(expectations); i++) {
     size = sizeof(buff);
     ASSERT_TRUE(channel.Receive(buff, &size));
     ASSERT_STREQ(expectations[i], buff);
@@ -154,7 +154,7 @@ TEST(ReliableUdpChannel, OnePacketLost) {
   ReliableUdpChannel channel(&mock);
 
   const char *expectations[] = {"H", "E", "L", "L", "O"};
-  for (int i = 0; i < ARRAY_SIZE(expectations); i++) {
+  for (size_t i = 0; i < ARRAY_SIZE(expectations); i++) {
     size = sizeof(buff);
     int attempts = 20;
 

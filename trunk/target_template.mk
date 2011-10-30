@@ -42,5 +42,5 @@ $(OUTDIR)lib$(TARGET).a: $($(TARGET)_LIB_OBJ_LIST)
 	$(AR) $@ $^
 
 $(OUTDIR)$(TARGET)_tests: $($(TARGET)_TEST_OBJ_LIST) $(OUTDIR)lib$(TARGET).a \
-			  $(OUTDIR)libgoogletest.a
+			  $(OUTDIR)libgooglemock.a $(OUTDIR)libgoogletest.a
 	$(LINK) $(LINK_FLAGS) -o $@ $^
