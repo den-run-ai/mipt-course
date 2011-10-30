@@ -1,0 +1,3 @@
+#summary Как смотреть данные coverage и что с ними делать
+
+*TODO(timurrrr, djsatok)*: наполнить содержимым
