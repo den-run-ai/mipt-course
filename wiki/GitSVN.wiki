@@ -1,0 +1,35 @@
+#summary Как использовать git-svn с SVN на code.google.com
+
+*N.B. Эта страница ещё сильно не готова - скопировано as-is из одного моего старого wave'а,<br>
+не предназначенного для студентов.*
+
+==Создать репозиторий в локальной папке DIRECTORY==
+{{{
+git svn clone --trunk=https://PROJNAME.googlecode.com/svn/trunk DIRECTORY --username=USERNAME
+}}}
+
+Совет: все локальные изменения делать в бранчах, не трогая trunk.
+
+==Update==
+{{{
+git svn fetch && git rebase trunk MYBRANCH
+}}}
+
+==Code review==
+{{{
+./upload.py --rev=trunk        # в первый раз
+# или
+./upload.py --rev=trunk -i XYZ # в последующие разы указывайте номер changelist'а XYZ
+}}}
+Примечание: на rietveld посылается фактически
+git diff REV # REV=trunk
+т.е. все ваши коммиты относительно trunk будут объединены в один патч (сравните с dcommit)
+
+==Залить коммиты относительно trunk в SVN==
+{{{
+git svn dcommit
+}}}
+Другими словами, dcommit делает так, что в SVN оказывается такая же история, как та,
+что находится в текущем локальном бранче.
+Если у вас локально 10 коммитов относительно того, что лежит в SVN, то dcommit сделает в SVN 10 коммитов. С теми же комментариями, что были указаны в локальных коммитах (сравните с upload.py).<br>
+Чтобы залить всё одним патчем, делайте `git merge squash` и/или `git commit --amend` или читайте [http://www-cs-students.stanford.edu/~blynn/gitmagic/ch05.html уроки истории] и да прибудет с вами Сила.
