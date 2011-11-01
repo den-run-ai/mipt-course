@@ -30,9 +30,9 @@
 ==Примеры задач==
   * Написать контейнер или классический алгоритм на графах
   * Доделать [http://code.google.com/p/mipt-course/source/detail?r=169 ReliableUdpChannel]
-  * Простые игры: шашки, судоку, пятнашки, ...
+  * Простые игры: шашки, ~~[http://code.google.com/p/mipt-course/issues/detail?id=20 судоку]~~, пятнашки, ...
   * Разбор и вычисление математических выражений
-  * FFT
+  * ~~[http://code.google.com/p/mipt-course/issues/detail?id=21 FFT]~~
   * Регулярные выражения (см. [http://code.google.com/p/mipt-course/source/browse/trunk/sandbox/pattern_test.cpp sandbox/pattern_test.cpp])
   * In-memory/file SQL-like database
   * Сжатие данных (текстовых, графических, звуковых, и т.д.)
