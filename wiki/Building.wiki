@@ -35,8 +35,8 @@ C++, в папке где делалось cmake & make:
 {{{
 make test
 # или
-./base_test
-./sandbox_test
+./base_tests
+./sandbox_tests
 }}}
 
 Python, в папке `pysandbox`
