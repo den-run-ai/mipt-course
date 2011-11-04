@@ -39,5 +39,5 @@ set(TEST_CXX
 # Probably needs some macro since we want this in many modules
 
 add_library(sandbox ${LIB_CXX} ${LIB_HXX})
-add_executable(sandbox_test ${TEST_CXX})
-target_link_libraries(sandbox_test sandbox testing)
+add_executable(sandbox_tests ${TEST_CXX})
+target_link_libraries(sandbox_tests sandbox testing)

@@ -92,12 +92,12 @@ set(valgrind_suffix "--gtest_filter=\"-*Death*\"")
 
 foreach (test ${tests})
   set(test_cmd
-    "${test_cmd} && ${CMAKE_BINARY_DIR}/${test}_test"
+    "${test_cmd} && ${CMAKE_BINARY_DIR}/${test}_tests"
   )
 
   set(valgrind_test_cmd
     "${valgrind_test_cmd} && ${valgrind_cmd} ${valgrind_prefix} \\
-    ${CMAKE_BINARY_DIR}/${test}_test ${valgrind_suffix}"
+    ${CMAKE_BINARY_DIR}/${test}_tests ${valgrind_suffix}"
   )
 endforeach (test)
 

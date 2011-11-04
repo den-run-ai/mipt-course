@@ -31,5 +31,5 @@ set(TEST_CXX
 # Probably needs some macro since we want this in many modules
 
 add_library(base ${LIB_CXX} ${LIB_HXX})
-add_executable(base_test ${TEST_CXX})
-target_link_libraries(base_test base testing)
+add_executable(base_tests ${TEST_CXX})
+target_link_libraries(base_tests base testing)
