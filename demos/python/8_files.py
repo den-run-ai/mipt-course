@@ -2,9 +2,9 @@
 
 # http://docs.python.org/library/stdtypes.html#file-objects
 
-f1 = open("1.txt","r") # opening modes are the same as in C/C++ stdio
+f1 = open("8_files.py","r") # opening modes are the same as in C/C++ stdio
 for line in f1:
-    print line
+    print line,  # , at the end means "no newline"
 f1.close() # you should close files. GC cannot do it sometimes
 
 f2 = open("2.txt","w")
