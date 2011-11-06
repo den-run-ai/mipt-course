@@ -36,6 +36,12 @@ def change_glob():
 change_glob()
 print "glob = %d" % glob
 
+# Returns multiple values as a tuple. Tuples are like lists but immutable, see
+# http://rgruet.free.fr/PQR27/PQR2.7.html#SequenceTypes
+def powers(x):
+    return (x, x*x, x*x*x)
+
+print "Some powers of 2 are: %s" % str(powers(2))
 
 # NEW! Lambda functions
 
