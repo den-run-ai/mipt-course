@@ -21,9 +21,14 @@ def poor_man_printf(fmt, *args):
 
 poor_man_printf("%d %d", 89, 56)
 
+# For the curious - read about kwargs:
+# http://stackoverflow.com/questions/1098549/proper-way-to-use-kwargs-in-python
+# -------------------------------
+
 # Access to global variables (discouraged)
 glob = 42
 def change_glob():
+    #global glob
     #print "glob = %d" % glob
     glob = 13
     print "glob = %d" % glob
@@ -31,9 +36,6 @@ def change_glob():
 change_glob()
 print "glob = %d" % glob
 
-
-# For the curious - read about kwargs:
-# http://stackoverflow.com/questions/1098549/proper-way-to-use-kwargs-in-python
 
 # NEW! Lambda functions
 
