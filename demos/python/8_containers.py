@@ -2,13 +2,13 @@
 
 # Dictionaries. http://rgruet.free.fr/PQR27/PQR2.7.html#dictionary
 
-d = {} # create a dictionary
+d = {}  # create a dictionary
 d['abc'] = 8
 d[1.6] = 'lol'  # yes, keys may be of different types
 print d  # python can print dictionaries in readable format
 del d['abc']  # remove an element
 
-if 42 in d:
+if 42 in d:  # is there key=42 in 'd'
   print d[42]
 
 d2 = {

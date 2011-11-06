@@ -32,13 +32,13 @@ print "l = %s" % l
 # Repeat a list N times:
 print "l * 5 = %s" % (l * 5)
 
-m = range(10) # built-in function generates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+m = range(10)  # built-in function generates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 print m
 
 print
 
 # Excercise!
-array_2d = [[0]*10]*10 # two-dimentional array.. beware of this construction.
+array_2d = [[0]*10]*10  # two-dimentional array.. beware of this construction.
 for line in array_2d:
     print line
 array_2d[5][4] = 7
