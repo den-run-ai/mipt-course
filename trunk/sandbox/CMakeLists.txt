@@ -40,4 +40,6 @@ set(TEST_CXX
 
 add_library(sandbox ${LIB_CXX} ${LIB_HXX})
 add_executable(sandbox_tests ${TEST_CXX})
+target_link_libraries(sandbox libprotobuf.so)
 target_link_libraries(sandbox_tests sandbox testing)
+
