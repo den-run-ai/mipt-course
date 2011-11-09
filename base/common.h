@@ -62,5 +62,4 @@ typedef uint32_t      uint32;
 const uint32 MAX_UINT32 = 0xFFFFFFFF;
 // TODO(timurrrr): add 64-bit and ptr type values when necessary.
 
-
 #endif  // BASE_COMMON_H_
