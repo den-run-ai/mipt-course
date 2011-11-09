@@ -50,5 +50,5 @@ TEST(FactorialTest, FailsOnNegativeInputDeathTest) {
 }
 
 TEST(FailureTest, WillRemove) {
-  ASSERT_EQ(1, 2);
+  //ASSERT_EQ(1, 2);
 }
