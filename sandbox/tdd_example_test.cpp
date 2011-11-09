@@ -48,7 +48,3 @@ TEST(FactorialTest, FailsOnTooBigInputDeathTest) {
 TEST(FactorialTest, FailsOnNegativeInputDeathTest) {
   ASSERT_DEATH(Factorial(-1), "");
 }
-
-TEST(FailureTest, WillRemove) {
-  ASSERT_EQ(1, 2);
-}
