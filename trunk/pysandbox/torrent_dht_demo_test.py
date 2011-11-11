@@ -12,8 +12,8 @@ import sys
 import Queue # Renamed to queue in 3.0
 import unittest
 
-class MockDHT:
-  # This is a mock for http://en.wikipedia.org/wiki/Distributed_hash_table
+class FakeDHT:
+  # This is a fake DHT, see http://en.wikipedia.org/wiki/Distributed_hash_table
   def __init__(self):
     self.__table = {}
 
@@ -24,7 +24,7 @@ class MockDHT:
   # This can also automatically fix the abscence of Remove()
   def Append(self, key, new_values):
     # will raise exception if 'values' is not a sequence
-    logging.debug("MockDHT.Append('%s', '%s')", key, new_values)
+    logging.debug("FakeDHT.Append('%s', '%s')", key, new_values)
     if key not in self.__table.keys():
       self.__table[key] = new_values
     else:
@@ -33,16 +33,16 @@ class MockDHT:
   # O(log N)
   def Get(self, key):
     ret = self.__table[key]
-    logging.debug("MockDHT.Get('%s') returns '%s'", key, ret)
+    logging.debug("FakeDHT.Get('%s') returns '%s'", key, ret)
     return ret
 
 
-class MockP2PNetwork:
+class FakeP2PNetwork:
   def __init__(self):
     # will contain (key -> (receive queue) pairs
     # where receive queue holds list of (sender_id, message) pairs.
     self.__nodes = {}
-    self.__availableIDs = set(["Alice", "Brian", "Colin"])
+    self.__availableIDs = set(["Alice", "Brian", "Colin", "David", "Ellie"])
 
   # Returns new node ID
   def CreateNode(self):
@@ -54,6 +54,7 @@ class MockP2PNetwork:
 
   # Returns True on success, False on failure
   # Design flaw: we can use other node's ID as sender_id
+  # TODO(timurrrr): FakeSocket
   def Send(self, sender_id, to_id, message):
     assert sender_id in self.__nodes.keys()
 
@@ -140,7 +141,7 @@ class TorrentClient:
     # List of finished-but-not-taken torrent hashes
     self.__downloaded = []
 
-    # Map of torrents to be downloaded
+    # Torrents to be downloaded
     # (torrent hash -> set of missing chunk indices)
     self.__partial_torrents = {}
 
@@ -262,8 +263,8 @@ class TorrentDhtDemoTest(unittest.TestCase):
     myfile = "AAAABBBBCCCCDDDDEEEEFF"
     mytorrent = TorrentID.Create(myfile)
 
-    network = MockP2PNetwork()
-    dht = MockDHT()
+    network = FakeP2PNetwork()
+    dht = FakeDHT()
 
     clients = []
     for i in range(3):
