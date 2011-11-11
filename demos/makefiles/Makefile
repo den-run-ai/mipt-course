@@ -1,0 +1,78 @@
+# This is a make file
+# See http://en.wikipedia.org/wiki/Makefile
+# and http://www.opussoftware.com/tutorial/TutMakefile.htm
+
+# Define some "macros"
+OUTDIR=out/
+CXX=g++
+LINK=g++
+OBJ=obj
+
+# The list of ".h" files
+HEADERS_LIST=\
+	header_file.h
+# Can use wildcards: H_LIST=$(wildcard *.h)
+
+# The list of ".cpp" files
+CPP_LIST=\
+	hello.cpp \
+	main.cpp \
+	world.cpp
+# or CPP_LIST=$(patsubst %.cpp,%,$(wildcard *.cpp))
+
+# Turn all "X.cpp" into "out/X.obj" and save as a separate list
+OBJ_LIST=$(patsubst %.cpp, $(OUTDIR)%.$(OBJ), $(CPP_LIST))
+
+# Skip this part during while reading this for the first time: {{{1
+# "@" at the beginning means "don't print the command itself"
+all:
+	@echo "Hello $(LOGNAME), nothing to do by default"
+	@echo "Try 'make help'"
+# .PHONY: all - means 'all' is not a buildable file
+# http://www.gnu.org/software/automake/manual/make/Phony-Targets.html
+.PHONY: all
+# }}}
+
+# Enough macros. Now, the main parts like this:
+output_file: input_file dependencies
+	command_to_build_output_1
+	command_to_build_output_2
+# -> mean to build output_file you need to first build the dependencies,
+# then run a few commands; rebuild only if input_file has changed.
+
+# help  - Display callable targets.
+help:
+	@egrep "^# [a-z ]+ - " Makefile
+.PHONY: help
+
+# To create the output directory, use mkdir
+$(OUTDIR):
+	mkdir -p $(OUTDIR)	
+
+# "$<" stands for "first dependency"
+# "$@" stands for "rule name"
+#
+# assume % = file
+# out/file.obj: file.cpp header1.h ... | out
+#		g++ -o out/file.obj -c file.cpp		
+$(OUTDIR)%.$(OBJ): %.cpp $(H_LIST) | $(OUTDIR)
+	$(CXX) -o $@ -c $<
+
+# "$@" stands for "rule name"
+# "$^" stands for "all dependencies"
+$(OUTDIR)program_name: $(OBJ_LIST)
+	$(LINK) -o $@ $^ 
+
+# build - Build the program.
+build: $(OUTDIR)program_name
+.PHONY: build
+
+# run   - Build & run the program.
+run: build
+	@./$(OUTDIR)program_name
+.PHONY: run
+
+# clean - Remove intermediate files and the program.
+clean:
+	rm -r $(OUTDIR)
+.PHONY: clean
