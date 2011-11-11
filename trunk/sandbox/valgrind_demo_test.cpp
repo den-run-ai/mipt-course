@@ -17,32 +17,32 @@ void Write(int *a) {
 
 TEST(ValgrindDemoTests, DISABLED_OutOfBoundsReadTest) {
   int *foo = new int[10];
-  Read(foo+10);
+  Read(&foo[10]);
   delete [] foo;
 }
 
 TEST(ValgrindDemoTests, DISABLED_OutOfBoundsWriteTest) {
   int *foo = new int[10];
-  Write(foo+25);
+  Write(&foo[25]);
   delete [] foo;
 }
 
 TEST(ValgrindDemoTests, DISABLED_UninitializedHeapReadTest) {
   int *foo = new int[10];
-  Read(foo+5);  // foo[5] hass not being initialized yet.
+  Read(&foo[5]);  // foo[5] hass not being initialized yet.
   delete [] foo;
 }
 
 TEST(ValgrindDemoTests, DISABLED_UninitializedStackReadTest) {
   int foo[10];
-  Read(foo+5);
+  Read(&foo[5]);
 }
 
 TEST(ValgrindDemoTests, DISABLED_UseAfterFreeTest) {
   int *foo = new int[10];
   foo[5] = 666;
   delete [] foo;
-  Read(foo+5);
+  Read(&foo[5]);
 }
 
 TEST(ValgrindDemoTests, DISABLED_MemoryLeakTest) {
