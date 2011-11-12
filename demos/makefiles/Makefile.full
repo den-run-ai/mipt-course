@@ -29,7 +29,6 @@ CPP_LIST=\
 # Turn all "X.cpp" into "out/X.obj" and save as a separate list
 OBJ_LIST=$(patsubst %.cpp, $(OUTDIR)%.$(OBJ), $(CPP_LIST))
 
-# Skip this part during while reading this for the first time: {{{1
 # "@" at the beginning means "don't print the command itself"
 all:
 	@echo "Hello $(LOGNAME), nothing to do by default"
@@ -37,14 +36,6 @@ all:
 # .PHONY: all - means 'all' is not a buildable file
 # http://www.gnu.org/software/automake/manual/make/Phony-Targets.html
 .PHONY: all
-# }}}
-
-# Enough macros. Now, the main parts like this:
-output_file: input_file dependencies
-	command_to_build_output_1
-	command_to_build_output_2
-# -> mean to build output_file you need to first build the dependencies,
-# then run a few commands; rebuild only if input_file has changed.
 
 # help  - Display callable targets.
 help:
