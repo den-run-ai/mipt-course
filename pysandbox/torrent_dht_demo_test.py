@@ -77,11 +77,18 @@ class FakeP2PNetwork:
 class TorrentID:
   CHUNK_SIZE = 4
 
-  def __init__(self):
-    self.length = -1;
-    self.filehash = -1;
+  def __init__(self, contents):
+    # contents should be a string
+    self.length = len(contents)
+    self.filehash = hashlib.sha1(contents).hexdigest()
     self.partial_hashes = []
+    for chunk_id in range(self.length / TorrentID.CHUNK_SIZE + 1):
+      ph = self.__CalculatePartialHash(contents, chunk_id)
+      if ph != None:
+        self.partial_hashes.append(ph)
+    logging.info("Created torrent:\nContents='%s'\n%s" % (contents, str(self)))
 
+  # implicitly called by str(torrent_id)
   def __str__(self):
     return "Torrent:\n  hash=%s\n  size=%d\n  partial_hashes=[\n   %s\n  ]\n" % (
            self.filehash, self.length, ",\n   ".join(self.partial_hashes))
@@ -108,19 +115,6 @@ class TorrentID:
       return TorrentID.GetChunkHash(chunk)
     return None
 
-  @staticmethod
-  def Create(contents):
-    # contents should be a string
-    ret = TorrentID()
-    ret.length = len(contents)
-    ret.filehash = hashlib.sha1(contents).hexdigest()
-    for chunk_id in range(ret.length / TorrentID.CHUNK_SIZE + 1):
-      ph = ret.__CalculatePartialHash(contents, chunk_id)
-      if ph != None:
-        ret.partial_hashes.append(ph)
-    logging.info("Created torrent:\nContents='%s'\n%s" % (contents, str(ret)))
-    return ret
-
   def IsKnownChunk(self, contents, chunk_id):
     return self.__CalculatePartialHash(contents, chunk_id) \
             == self.partial_hashes[chunk_id]
@@ -138,12 +132,12 @@ class TorrentClient:
     # 'contents' should contain '*' for unknown bytes (TODO: this is a hack)
     self.__data = {}
 
-    # List of finished-but-not-taken torrent hashes
-    self.__downloaded = []
-
     # Torrents to be downloaded
     # (torrent hash -> set of missing chunk indices)
     self.__partial_torrents = {}
+
+    # List of finished-but-not-taken torrent hashes
+    self.__downloaded = []
 
   def GetDownloadedTorrent(self):
     # Peek and return any downloaded torrent as a (torrent, contents) tuple
@@ -238,7 +232,7 @@ class TorrentClient:
       return
 
     if torrent.GetChunkHash(chunk_data) != torrent.partial_hashes[chunk_id]:
-      logging.error("Hash mismatch!")  # Security?
+      logging.error("Hash mismatch!")  # Call security?
       return
 
     known_contents = torrent.SetChunkData(known_contents, chunk_id, chunk_data)
@@ -261,7 +255,7 @@ class TorrentDhtDemoTest(unittest.TestCase):
     print  # ugly hack to force a newline
 
     myfile = "AAAABBBBCCCCDDDDEEEEFF"
-    mytorrent = TorrentID.Create(myfile)
+    mytorrent = TorrentID(myfile)
 
     network = FakeP2PNetwork()
     dht = FakeDHT()
@@ -286,6 +280,7 @@ class TorrentDhtDemoTest(unittest.TestCase):
 
 # Run the test suite.
 if __name__ == '__main__':
+  # replace ERROR with INFO, DEBUG, etc. and re-run. Notice any changes?
   logging.basicConfig(stream=sys.stdout,
                       level=logging.ERROR,  # Don't print anything less serious
                       format="%(asctime)s [%(levelname)s] %(message)s")
