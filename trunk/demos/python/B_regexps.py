@@ -3,10 +3,12 @@
 # Regular expressions
 # http://rgruet.free.fr/PQR27/PQR2.7.html#reModule
 import re
+
 my_string = "Vasya Pupkin, 666"
+
 m = re.match("([a-zA-Z]+) ([a-zA-Z]+), ([0-9]+)", my_string)
 if m:
-  (name, surname, group) = m.groups()
+  name, surname, group = m.groups()  # multi-var assignment!
   print "Student's name is '%s', surname is '%s', group is '%s'" % \
         (name, surname, group)
 else:

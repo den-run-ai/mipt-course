@@ -3,13 +3,16 @@
 # Importing modules
 # http://docs.python.org/tutorial/modules.html
 
-import math # import all from 'math' to namespace 'math'
-from math import pi # import 'pi' from 'math' to current namespace
-from math import cos # and once again
-from sys import * # import all (public) from 'sys' to current namespace
+import math  # import all from 'math' to namespace 'math'
+print "pi = %f" % math.pi
+
+from math import cos,pi  # import 'math.cos' and 'math.pi' into current namespace
+print cos(pi)
+
+from sys import *  # import all (public) names from 'sys' into current namespace
+
+is_windows = False
+if is_windows:
+  import win_math  # conditional import!
 
 # Question: difference between "import X" and "from X import *" ?
-
-# Just come examples of usage
-print cos(pi)
-print math.sin(pi/2)
