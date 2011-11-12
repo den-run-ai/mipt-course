@@ -11,6 +11,7 @@ import urllib2
 
 response = urllib2.urlopen("http://bash.org.ru").read()
 response = response.decode('cp1251')
+
 rg = re.compile(u'(утверждена[^<]*\s*</div>\s*<div>[^<]*(<br>[^<]*)*</div>)')
 rg1 = re.compile('(<div>[^<]*(<br>[^<]*)*</div>)')
 r = rg.findall(response)
