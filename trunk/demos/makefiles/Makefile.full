@@ -2,6 +2,12 @@
 # See http://en.wikipedia.org/wiki/Makefile
 # and http://www.opussoftware.com/tutorial/TutMakefile.htm
 
+# Complex example
+# Copy or rename it to Makefile and run:
+#   make build
+#   make run
+#   make clean
+
 # Define some "macros"
 OUTDIR=out/
 CXX=g++
