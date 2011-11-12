@@ -8,9 +8,18 @@
 #   make run
 #   make clean
 
+# Default target - build helloworld
 build: helloworld
 
-# Warning: below is a real 'tab' character.
+# A Makefile is a set of rules like this:
+output_file_to_be_compiled: using_this_input_file and_these_dependencies
+	command_to_build_output_1
+	command_to_build_output_3
+	# NOTE: above are real 'tab' character, spaces are NOT ok.
+# -> such a rule means "to build output_file you need to 
+# first build the dependencies, then run a few commands;
+# rebuild only if input_file has changed.
+
 run: build
 	./helloworld
 
