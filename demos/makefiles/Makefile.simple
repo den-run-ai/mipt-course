@@ -1,0 +1,30 @@
+# This is a make file
+# See http://en.wikipedia.org/wiki/Makefile
+# and http://www.opussoftware.com/tutorial/TutMakefile.htm
+
+# Simple example
+# Copy or rename it to Makefile and run:
+#   make build
+#   make run
+#   make clean
+
+build: helloworld
+
+# Warning: below is a real 'tab' character.
+run: build
+	./helloworld
+
+clean:
+	rm -r helloworld hello.obj main.obj world.obj
+
+helloworld: hello.obj main.obj world.obj
+	g++ -o helloworld hello.obj main.obj world.obj
+
+hello.obj: hello.cpp header_file.h
+	g++ -o hello.obj -c hello.cpp
+
+main.obj: main.cpp header_file.h
+	g++ -o main.obj -c main.cpp
+
+world.obj: world.cpp header_file.h
+	g++ -o world.obj -c world.cpp
