@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include <errno.h>
 
+#include <limits>
+
 #include "base/mutex.h"
 
 namespace threading {

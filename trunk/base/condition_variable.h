@@ -18,7 +18,7 @@ class ConditionVariable {
   // By passing a mutex pointer to the ConditionVariable constructor instead
   // of passing it to the methods we guarantee that this ConditionVariable
   // is always used with one and only one Mutex.
-  ConditionVariable(Mutex *mutex);
+  explicit ConditionVariable(Mutex *mutex);
   ~ConditionVariable();
 
   // All Wait/Wake methods can only be called when 'mutex' is held.
