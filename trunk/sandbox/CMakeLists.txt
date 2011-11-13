@@ -5,13 +5,7 @@
 project(sandbox)
 cmake_minimum_required(VERSION 2.6)
 
-# Just like tough guys, we list files manually
-
-set(LIB_CXX
-  dijkstra_algorithm.cpp
-  pattern.cpp
-)
-
+# List all the .h (header) files in the module
 set(LIB_HXX
   dijkstra_algorithm.h
   hash.h
@@ -21,6 +15,13 @@ set(LIB_HXX
   treap.h
 )
 
+# List all the non-test .cpp files
+set(LIB_CXX
+  dijkstra_algorithm.cpp
+  pattern.cpp
+)
+
+# List all the *_test.cpp files
 set(TEST_CXX
   dijkstra_algorithm_test.cpp
   gmock_demo_test.cpp
