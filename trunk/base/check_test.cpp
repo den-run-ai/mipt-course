@@ -14,7 +14,7 @@ TEST(CheckTest, CheckTrueSucceedsTest) {
 TEST(CheckTest, AssertionsAndChecksTest) {
   CHECK(2 + 2 == 4);        // NOLINT
   ASSERT_TRUE(2 + 2 == 4);  // NOLINT
-  ASSERT_EQ(4, 2 + 2);
+  ASSERT_EQ(5, 2 + 2);
   ASSERT_LE(2 + 2, 5);
   printf("Passed all ASSERT macros, now EXPECT macros\n");
   EXPECT_EQ(4, 2 + 2);
