@@ -4,6 +4,7 @@
 
 #include <map>
 #include <set>
+#include <utility>
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -11,7 +12,7 @@
 #include "base/common.h"
 #include "base/random.h"
 
-using namespace testing;
+using namespace testing;  // NOLINT
 
 // Dependency injection
 // http://en.wikipedia.org/wiki/Dependency_injection
@@ -20,6 +21,7 @@ class UdpChannel {
  public:
   virtual void Send(const char *buffer, size_t size) = 0;
   virtual bool Receive(char *buffer, size_t *size) = 0;
+  virtual ~UdpChannel() {}
 };
 
 class MockUdpChannel : public UdpChannel {
@@ -30,7 +32,8 @@ class MockUdpChannel : public UdpChannel {
 
 class ReliableUdpChannel {
  public:
-  ReliableUdpChannel(UdpChannel *chan) : channel_(chan), next_receive_(0) { }
+  explicit ReliableUdpChannel(UdpChannel *chan)
+      : channel_(chan), next_receive_(0) { }
 
   ~ReliableUdpChannel() {
     // TODO(timurrrr): free messages not taken from received_.
@@ -66,7 +69,7 @@ class ReliableUdpChannel {
     char * payload = new char[local_size - 1];
     memcpy(payload, local_buffer + 1, local_size - 1);
 
-    received_[index] = std::pair<size_t,char*>(local_size - 1, payload);
+    received_[index] = std::pair<size_t, char*>(local_size - 1, payload);
   }
 
   void Send(const char *buffer, size_t size) { NOT_IMPLEMENTED; }
@@ -106,14 +109,14 @@ ACTION_P(MockReceive, str) {
   size_t required_len = strlen(str) + 1;
   if (required_len > *arg1)
     return false;
-  strcpy(arg0, str);
+  strcpy(arg0, str);  // NOLINT
   *arg1 = required_len;
   return true;
 }
 
 TEST(ReliableUdpChannel, SimpleSequence) {
   MockUdpChannel mock;
-  EXPECT_CALL(mock, Receive(_,_))
+  EXPECT_CALL(mock, Receive(_, _))
         .WillOnce(MockReceive("0H"))
         .WillOnce(MockReceive("1E"))
         .WillOnce(MockReceive("2L"))
@@ -140,7 +143,7 @@ TEST(ReliableUdpChannel, OnePacketLost) {
 
   // http://code.google.com/p/googlemock/wiki/CheatSheet#Sequences
   Sequence main, retries /* and before retries */;
-  EXPECT_CALL(mock, Receive(_,_))
+  EXPECT_CALL(mock, Receive(_, _))
       .InSequence(main, retries)
       .WillOnce(MockReceive("0H"))
       // .WillOnce(MockReceive("1E"))  <-- lost!
@@ -148,7 +151,7 @@ TEST(ReliableUdpChannel, OnePacketLost) {
   EXPECT_CALL(mock, Send(StrEq("R1"), Eq(3u)))
       .InSequence(retries)
       .RetiresOnSaturation();
-  EXPECT_CALL(mock, Receive(_,_))
+  EXPECT_CALL(mock, Receive(_, _))
       .InSequence(main)
       .WillOnce(MockReceive("3L"))
       .WillOnce(MockReceive("1E"))  // <-- answer to R1
@@ -163,8 +166,9 @@ TEST(ReliableUdpChannel, OnePacketLost) {
     size = sizeof(buff);
     int attempts = 20;
 
-    while(!channel.Receive(buff, &size) && --attempts > 0)
-      ;
+    while (!channel.Receive(buff, &size) && --attempts > 0) {
+    }
+
     ASSERT_GT(attempts, 0) << "Too many Receive attempts, aborting";
     ASSERT_STREQ(expectations[i], buff);
   }
@@ -178,7 +182,7 @@ TEST(ReliableUdpChannel, OnePacketLost) {
 class FakeUdpChannel : public UdpChannel {
  public:
   virtual void Send(const char *buffer, size_t size) {
-    // TODO: make packet loss adjustable
+    // TODO(timurrrr): make packet loss adjustable
     if (random_.Generate<int>() % 6 == 0)
       return;
     NOT_IMPLEMENTED;
@@ -194,5 +198,5 @@ class FakeUdpChannel : public UdpChannel {
      */
 };
 
-// TODO: write a test sending 100K of data over a lossy FakeUdpChannel
+// TODO(timurrrr): write a test sending 100K of data over a lossy FakeUdpChannel
 // and make sure the other end receives it all.

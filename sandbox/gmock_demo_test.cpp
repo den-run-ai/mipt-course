@@ -7,13 +7,14 @@
 
 #include "base/common.h"
 
-using namespace testing;
+using namespace testing;  // NOLINT
 
 // http://code.google.com/p/googlemock/wiki/ForDummies
 
 class SomeInterface {
  public:
   virtual bool IsNumberOdd(int value) = 0;
+  virtual ~SomeInterface() {}
 };
 
 class MockSomeInterface : public SomeInterface {
@@ -24,7 +25,7 @@ class MockSomeInterface : public SomeInterface {
 // Some class working with the interface
 class MyClass {
  public:
-  MyClass(SomeInterface *number_processor)
+  explicit MyClass(SomeInterface *number_processor)
       : number_processor_(number_processor) {
   }
 
