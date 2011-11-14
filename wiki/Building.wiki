@@ -2,7 +2,7 @@
 
 ==Установка необходимых пакетов (Ubuntu)==
 {{{
-sudo apt-get install -y subversion cmake make g++ lcov valgrind
+sudo apt-get install -y subversion cmake make g++ lcov valgrind autoconf libtool
 }}}
 
 =Как скачать код=
@@ -19,14 +19,14 @@ svn checkout https://mipt-course.googlecode.com/svn/trunk/ mipt-course --usernam
 mkdir debug
 cd debug
 cmake ..
-make
+make -j3
 }}}
   * Для Release сборки:
 {{{
 mkdir release
 cd release
 cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+make -j3
 }}}
 Про другие типы сборки: [http://cmake.org/Wiki/CMake_Useful_Variables docs].
 
@@ -52,3 +52,4 @@ make test
 
 ==Список third-party библиотек и их лицензии==
   * googlemock - BSD
+  * protobuf - BSD
