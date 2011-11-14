@@ -13,6 +13,7 @@ set(LIB_HXX
   pattern.h
   stack.h
   treap.h
+  red_black_tree.h
 )
 
 # List all the non-test .cpp files
@@ -34,6 +35,7 @@ set(TEST_CXX
   tdd_example_test.cpp
   treap_test.cpp
   valgrind_demo_test.cpp
+  red_black_tree_test.cpp
 )
 
 # TODO(mikhail.aphanasov): Handle with platform-specific sources
