@@ -72,8 +72,9 @@ include_directories(
 # Print all warnings and treat them as errors
 set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
-message(STATUS " * Preparing protobuf module...")
-include(${prj_src}/third_party/cmake_protobuf.txt NO_POLICY_SCOPE)
+# TODO(dimankuskov): think how we can improve build speed on slow hardware.
+# message(STATUS " * Preparing protobuf module...")
+# include(${prj_src}/third_party/cmake_protobuf.txt NO_POLICY_SCOPE)
 
 foreach (module ${modules})
   message(STATUS " * Preparing ${module} module...")
