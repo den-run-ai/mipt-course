@@ -30,6 +30,7 @@ set(TEST_CXX
   mocks_and_fakes_demo_test.cpp
   library_test.cpp
   list_test.cpp
+  lru_cache_test.cpp
   pattern_test.cpp
   stack_test.cpp
   tdd_example_test.cpp
