@@ -42,6 +42,5 @@ set(TEST_CXX
 # TODO(mikhail.aphanasov): Handle with platform-specific sources
 # Probably needs some macro since we want this in many modules
 
-add_library(sandbox ${LIB_CXX} ${LIB_HXX})
-add_executable(sandbox_tests ${TEST_CXX})
-target_link_libraries(sandbox_tests sandbox testing)
+add_executable(sandbox_tests ${TEST_CXX} ${LIB_CXX} ${LIB_HXX})
+target_link_libraries(sandbox_tests base testing)
