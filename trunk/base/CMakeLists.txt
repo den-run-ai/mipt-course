@@ -28,6 +28,7 @@ set(LIB_CXX
 # List all the *_test.cpp files
 set(TEST_CXX
   check_test.cpp
+  common_test.cpp
 )
 
 # TODO(mikhail.aphanasov): Handle with platform-specific sources
