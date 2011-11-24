@@ -28,6 +28,7 @@ set(TEST_CXX
   dijkstra_algorithm_test.cpp
   gmock_demo_test.cpp
   hash_test.cpp
+  math_expression_calculator_test.cpp
   mocks_and_fakes_demo_test.cpp
   library_test.cpp
   list_test.cpp
