@@ -9,7 +9,7 @@
 
 TEST(RBTree, PutGetTest) {
   RBTree<int, int> tree;
-  int value = NULL;
+  int value;
 
   EXPECT_FALSE(tree.get(0, &value));
 
@@ -40,7 +40,7 @@ TEST(RBTree, PutStressTest) {
 
 TEST(RBTree, DISABLED_RemoveTest) {
   RBTree<int, int> tree;
-  int value = NULL;
+  int value;
 
   tree.put(0, 0);
   tree.put(1, 0);
