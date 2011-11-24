@@ -14,6 +14,7 @@ set(LIB_HXX
   stack.h
   treap.h
   red_black_tree.h
+  red_black_tree-inl.h
 )
 
 # List all the non-test .cpp files
