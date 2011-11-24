@@ -208,6 +208,10 @@ TEST(MyFunctionTests, DivideByZeroDeath) {
 }
 }}}
 
+== Временное отключение тестов ==
+*TODO*
+Написать про префикс `DISABLED_` и флаг `--gtest_also_run_disabled_tests`
+
 == Средства командной строки ==
 {{{
 $ ./mytest --gtest_list_tests         # перечислить все имена тестов
