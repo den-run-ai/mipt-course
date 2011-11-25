@@ -81,7 +81,7 @@ svn commit <тот же список изменённых файлов>
 svn up && svn status -q  # убедиться, что в клиенте нет локальных изменений
 # Вместо N надо подставить номер "плохой" ревизии, а M=N-1
 svn merge -r N:M https://mipt-course.googlecode.com/svn/trunk
-svn commit -m "Revert rN"
+svn commit -m "Revert rN - failed on the buildbot"
 }}}
   _*_TODO* - этот процесс можно улучшить, сделав на билдботе Commit Queue (см. issue 17)
 
