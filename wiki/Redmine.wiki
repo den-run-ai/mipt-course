@@ -1,0 +1,3 @@
+#summary Как поднять аналог code.google.com на своем сервере для своего проекта
+
+*TODO(mikhail.aphanasov)*: написать инструкции по установке на Ubuntu 10.04
