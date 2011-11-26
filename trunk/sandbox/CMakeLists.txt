@@ -5,25 +5,25 @@
 project(sandbox)
 cmake_minimum_required(VERSION 2.6)
 
-# List all the .h (header) files in the module
+# List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
   dijkstra_algorithm.h
   hash.h
   list.h
   pattern.h
-  stack.h
-  treap.h
   red_black_tree.h
   red_black_tree-inl.h
+  stack.h
+  treap.h
 )
 
-# List all the non-test .cpp files
+# List all the non-test .cpp files in the alphabetic order.
 set(LIB_CXX
   dijkstra_algorithm.cpp
   pattern.cpp
 )
 
-# List all the *_test.cpp files
+# List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
   dijkstra_algorithm_test.cpp
   gmock_demo_test.cpp
@@ -34,14 +34,14 @@ set(TEST_CXX
   list_test.cpp
   lru_cache_test.cpp
   pattern_test.cpp
+  red_black_tree_test.cpp
   stack_test.cpp
   tdd_example_test.cpp
   treap_test.cpp
   valgrind_demo_test.cpp
-  red_black_tree_test.cpp
 )
 
-# TODO(mikhail.aphanasov): Handle with platform-specific sources
+# TODO(mikhail.aphanasov): Handle platform-specific sources
 # Probably needs some macro since we want this in many modules
 
 add_executable(sandbox_tests ${TEST_CXX} ${LIB_CXX} ${LIB_HXX})

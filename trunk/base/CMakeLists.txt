@@ -9,7 +9,7 @@ find_package(Threads)
 
 # Just like tough guys, we list files manually
 
-# List all the .h (header) files in the module
+# List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
   common.h
   condition_variable.h
@@ -18,20 +18,20 @@ set(LIB_HXX
   random.h
 )
 
-# List all the non-test .cpp files
+# List all the non-test .cpp files in the alphabetic order.
 set(LIB_CXX
   condition_variable.cpp
   file_utils.cpp
   mutex.cpp
 )
 
-# List all the *_test.cpp files
+# List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
   check_test.cpp
   common_test.cpp
 )
 
-# TODO(mikhail.aphanasov): Handle with platform-specific sources
+# TODO(mikhail.aphanasov): Handle platform-specific sources
 # Probably needs some macro since we want this in many modules
 
 add_library(base ${LIB_CXX} ${LIB_HXX})
