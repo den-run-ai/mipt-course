@@ -51,7 +51,7 @@ sudo ruby setup.rb
 == Устанвока Rails ==
 
 {{{
-sudo gem1.8 install rails -v2.3.11
+sudo gem1.8 install rails -v=2.3.11
 }}}
 
 При этом будут проинсталлированы все зависимости:
