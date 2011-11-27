@@ -55,11 +55,14 @@ sudo gem1.8 install rails -v=2.3.11
 }}}
 
 При этом будут проинсталлированы все зависимости:
+
+{{{
 Successfully installed rake-0.9.2.2
 ...
 Successfully installed rack-1.1.2
 ...
 Successfully installed rails-2.3.11
+}}}
 
 Замечаем, что он закачал нам rake более поздней версии, что нам необходимо, а мы помним, что Rake 0.9.x ещё не поддерживается в Rails, посмотрим, что будет дальше.
 
