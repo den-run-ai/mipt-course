@@ -292,7 +292,7 @@ sudo dpkg-reconfigure -plow redmine
   * Редактируем экземпляр Redmine под названием `default`
   * На вопрос о переустановке БД отвечаем `Да`
   * Метод подключения `сокет/Unix`
-  * Оба метода атентификации `ident`
+  * Оба метода аутентификации `ident`
   * Имя пользователя для доступа к PostgreSQL: `postgres`
   * Имя владельца БД: `redmine`
   * Название базы данных Redmine: `redmine_default`
