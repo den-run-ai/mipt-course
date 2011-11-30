@@ -36,6 +36,7 @@ set(TEST_CXX
   pattern_test.cpp
   red_black_tree_test.cpp
   stack_test.cpp
+  sudoku_solver_test.cpp
   tdd_example_test.cpp
   treap_test.cpp
   valgrind_demo_test.cpp
