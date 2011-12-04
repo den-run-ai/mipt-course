@@ -35,7 +35,7 @@ TEST(MyFunctionTests, Sum) {
 
 Скомпилируем и запустим его следующими командами:
 {{{
-$ g++ -l gtest_main -o googletest_demo googletest_demo.cpp
+$ g++ -l gtest_main -l pthread -o googletest_demo googletest_demo.cpp
 $ ./googletest_demo 
 Running main() from gtest_main.cc
 [==========] Running 1 test from 1 test case.
