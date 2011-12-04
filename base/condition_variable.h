@@ -23,7 +23,7 @@ class ConditionVariable {
 
   // All Wait/Wake methods can only be called when 'mutex' is held.
   void Wait();
-  bool WaitWithTimeout(unsigned long time);
+  bool WaitWithTimeout(uint32 timeout_ms);
   void WakeOne();
   void WakeAll();
 

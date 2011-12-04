@@ -59,7 +59,7 @@ typedef unsigned char uchar;
 typedef unsigned char byte;
 typedef uint16_t      uint16;
 typedef uint32_t      uint32;
-const uint32 MAX_UINT32 = 0xFFFFFFFF;
+typedef uint64_t      uint64;
 // TODO(timurrrr): add 64-bit and ptr type values when necessary.
 
 #endif  // BASE_COMMON_H_

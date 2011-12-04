@@ -29,17 +29,19 @@ void ConditionVariable::Wait() {
   CHECK_EQ(pthread_cond_wait(&cond_, &mutex_->mutex_), 0);
 }
 
-bool ConditionVariable::WaitWithTimeout(unsigned long time) {
-  if (time == std::numeric_limits<unsigned long>::max()) {
+bool ConditionVariable::WaitWithTimeout(uint32 timeout_ms) {
+  if (timeout_ms == std::numeric_limits<uint32>::max()) {
     Wait();
     return true;
   }
   mutex_->AssertHeld();
+  /* Below lies time conversion magic caused by pthread_con_timedwait taking
+     absolute time as a timeout. */
   struct timeval tv;
   gettimeofday(&tv, 0);
   timespec ti;
-  ti.tv_nsec = (tv.tv_usec + (time % 1000) * 1000) * 1000;
-  ti.tv_sec = tv.tv_sec + (time / 1000) + (ti.tv_nsec / 1000000000);
+  ti.tv_nsec = (tv.tv_usec + (timeout_ms % 1000) * 1000) * 1000;
+  ti.tv_sec = tv.tv_sec + (timeout_ms / 1000) + (ti.tv_nsec / 1000000000);
   ti.tv_nsec %= 1000000000;
   const int code = pthread_cond_timedwait(&cond_, &mutex_->mutex_, &ti);
   CHECK(code == 0 || code == ETIMEDOUT);
