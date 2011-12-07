@@ -32,8 +32,8 @@ class RBTree {
     return false;
   }
 
-  // TODO(pogr.yuo): Const-version.
-  // Return false if key does not exist, otherwise return true
+  // Returns false if key does not exist, otherwise return true.
+  // TODO(pogr.yuo): Add a const version of this method.
   bool get(const KeyType &key, ValueType *value_out);
 
  private:
@@ -58,8 +58,29 @@ class RBTree {
     kRed = 1,
   };
 
-  // delete all children of specified node
+  // Delete all children of specified node.
   void deleteChildren(Node* start_node);
+
+  // Check red-black properties of the tree and assert if anything is wrong.
+  void checkProperties() const;
+
+  /* Check if black height of right child equals black height of left child
+     and if both children of the red node are black. 
+     After the call *height will be increased by the black height of the node.
+     Black height is the number of black children in the path from node to any
+     reachable leaf (moving from parent to child). This number must be equal
+     for all reachable leaves. Black height of a leaf is always zero. All NULL
+     leaves are black by definition. */
+  void checkPropertiesInternal(const Node* node, int* height) const;
+
+  // Fix red-black properties of the tree after insertion of a new node.
+  void fixRedBlackProperties(Node* insertedNode);
+
+  // Swap the given node and its left child.
+  void rotateLeft(Node* node);
+
+  // Swap the given node and its right child.
+  void rotateRight(Node* node);
 
   Node* find(const KeyType &key) {
     Node* node = root_;
