@@ -9,7 +9,7 @@
 
 TEST(RBTree, PutGetTest) {
   RBTree<int, int> tree;
-  int value;
+  int value = 0;
 
   EXPECT_FALSE(tree.get(0, &value));
 
@@ -31,7 +31,7 @@ TEST(RBTree, PutGetTest) {
 
 TEST(RBTree, PutStressTest) {
   RBTree<int, int> tree;
-  const int kNumberOfNodes = 10000;
+  const int kNumberOfNodes = 1000;
   RandomGenerator rg;
   for (int i = 0; i < kNumberOfNodes; i++) {
     tree.put(i, rg.Generate<int>());
@@ -40,7 +40,7 @@ TEST(RBTree, PutStressTest) {
 
 TEST(RBTree, DISABLED_RemoveTest) {
   RBTree<int, int> tree;
-  int value;
+  int value = 0;
 
   tree.put(0, 0);
   tree.put(1, 0);
