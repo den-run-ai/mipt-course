@@ -23,14 +23,28 @@ class FenwickTree {
  public:
   FenwickTree() { }
 
-  void push_back(const DataType& elem) { }
+  void push_back(const DataType& elem) {
+    size_t sz = arr_.size();
+    if (sz == 0) {
+      arr_.push_back(elem);
+    } else {
+      DataType add = count(sz & (sz + 1), sz);
+      arr_.push_back(elem + add);
+    }
+  }
 
-  void pop_back() { }
+  void pop_back() {
+    arr_.pop_back();
+  }
+
+  DataType get(size_t position) {
+    return count(position + 1) - count(position);
+  }
 
   void set(size_t position, const DataType& new_value) { }
 
   DataType count(size_t left, size_t right) {
-    return count(right - 1) - count(left - 1);
+    return count(right) - count(left);
   }
 
   size_t size() {
@@ -44,6 +58,10 @@ class FenwickTree {
  private:
   DataType count(size_t last_index) {
     DataType result = DataType(0);
+    while (last_index > 0) {
+      result = result + arr_[last_index - 1];
+      last_index = (last_index & (last_index - 1));
+    }
     return result;
   }
 
