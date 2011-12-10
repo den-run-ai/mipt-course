@@ -8,6 +8,7 @@ cmake_minimum_required(VERSION 2.6)
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
   dijkstra_algorithm.h
+  fenwick_tree.h
   hash.h
   list.h
   pattern.h
@@ -26,6 +27,7 @@ set(LIB_CXX
 # List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
   dijkstra_algorithm_test.cpp
+  fenwick_tree_test.cpp
   gmock_demo_test.cpp
   hash_test.cpp
   math_expression_calculator_test.cpp
