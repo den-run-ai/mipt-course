@@ -51,6 +51,22 @@ class RandomGenerator {
     return ret;
   }
 
+  // Returns a random number of type T in range [0, upper_bound)
+  // It's assumed that T is an integral type
+  template<typename T>
+  T Generate(const T& upper_bound) {
+    DCHECK(upper_bound > T(0));
+    return Generate<T>() % upper_bound;
+  }
+
+  // Returns a random number of type T in range [lower_bound, upper_bound)
+  // It's assumed that T is an integral type
+  template<typename T>
+  T Generate(const T& lower_bound, const T& upper_bound) {
+    DCHECK(lower_bound < upper_bound);
+    return lower_bound + Generate<T>() % (upper_bound - lower_bound);
+  }
+
   // Returns the seed that will be used in the next call to Generate().
   uint32 seed() const { return seed_; }
 
