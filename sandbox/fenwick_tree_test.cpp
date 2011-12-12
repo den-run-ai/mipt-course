@@ -72,7 +72,7 @@ TEST(FenwickTreeTest, RandomizedCountElementsTest) {
   }
 }
 
-TEST(FenwickTreeTest, DISABLED_ModifyElements) {
+TEST(FenwickTreeTest, ModifyElements) {
   FenwickTree<int> fnw;
   for (int i = 0; i < 10; ++i)
     fnw.push_back(9 - i);
@@ -83,6 +83,8 @@ TEST(FenwickTreeTest, DISABLED_ModifyElements) {
   fnw.set(6, 9);
   EXPECT_EQ(37, fnw.count(0, 10));
 
-  for (int i = 0; i < 10; ++i)
+  for (int i = 2; i < 6; ++i)
+    EXPECT_EQ(9-i, fnw.get(i));
+  for (int i = 7; i < 10; ++i)
     EXPECT_EQ(9-i, fnw.get(i));
 }

@@ -38,12 +38,22 @@ class FenwickTree {
   }
 
   DataType get(size_t position) {
+    DCHECK(position < size());
     return count(position + 1) - count(position);
   }
 
-  void set(size_t position, const DataType& new_value) { }
+  void set(size_t position, const DataType& new_value) {
+    DCHECK(position < size());
+    DataType delta = new_value - get(position);
+    do {
+      arr_[position] += delta;
+      position = position | (position + 1);
+    } while (position < size());
+  }
 
   DataType count(size_t left, size_t right) {
+    DCHECK(left <= right);
+    DCHECK(right <= size());
     return count(right) - count(left);
   }
 
@@ -57,6 +67,7 @@ class FenwickTree {
 
  private:
   DataType count(size_t last_index) {
+    DCHECK(last_index <= size());
     DataType result = DataType(0);
     while (last_index > 0) {
       result = result + arr_[last_index - 1];
