@@ -10,6 +10,7 @@ set(LIB_HXX
   dijkstra_algorithm.h
   fenwick_tree.h
   hash.h
+  labyrinth.h
   list.h
   pattern.h
   red_black_tree.h
@@ -21,6 +22,7 @@ set(LIB_HXX
 # List all the non-test .cpp files in the alphabetic order.
 set(LIB_CXX
   dijkstra_algorithm.cpp
+  labyrinth.cpp
   pattern.cpp
 )
 
@@ -32,6 +34,7 @@ set(TEST_CXX
   hash_test.cpp
   math_expression_calculator_test.cpp
   mocks_and_fakes_demo_test.cpp
+  labyrinth_test.cpp
   library_test.cpp
   list_test.cpp
   lru_cache_test.cpp
