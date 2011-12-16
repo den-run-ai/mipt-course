@@ -17,6 +17,7 @@ set(LIB_HXX
   red_black_tree-inl.h
   stack.h
   treap.h
+  tsp.h
 )
 
 # List all the non-test .cpp files in the alphabetic order.
@@ -24,6 +25,8 @@ set(LIB_CXX
   dijkstra_algorithm.cpp
   labyrinth.cpp
   pattern.cpp
+  tsp_path.cpp
+  tsp_graph.cpp
 )
 
 # List all the *_test.cpp files in the alphabetic order.
@@ -44,6 +47,7 @@ set(TEST_CXX
   sudoku_solver_test.cpp
   tdd_example_test.cpp
   treap_test.cpp
+  tsp_test.cpp
   valgrind_demo_test.cpp
 )
 
