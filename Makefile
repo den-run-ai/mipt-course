@@ -109,6 +109,32 @@ build/fast:
 .PHONY : build/fast
 
 #=============================================================================
+# Target rules for targets named extract_coverage
+
+# Build rule for target.
+extract_coverage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 extract_coverage
+.PHONY : extract_coverage
+
+# fast build rule for target.
+extract_coverage/fast:
+	$(MAKE) -f CMakeFiles/extract_coverage.dir/build.make CMakeFiles/extract_coverage.dir/build
+.PHONY : extract_coverage/fast
+
+#=============================================================================
+# Target rules for targets named reset_coverage
+
+# Build rule for target.
+reset_coverage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 reset_coverage
+.PHONY : reset_coverage
+
+# fast build rule for target.
+reset_coverage/fast:
+	$(MAKE) -f CMakeFiles/reset_coverage.dir/build.make CMakeFiles/reset_coverage.dir/build
+.PHONY : reset_coverage/fast
+
+#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -233,7 +259,9 @@ help:
 	@echo "... depend"
 	@echo "... build"
 	@echo "... edit_cache"
+	@echo "... extract_coverage"
 	@echo "... rebuild_cache"
+	@echo "... reset_coverage"
 	@echo "... test"
 	@echo "... gmock"
 	@echo "... gmock_main"
