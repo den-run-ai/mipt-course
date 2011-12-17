@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <functional>
 #include <vector>
 #include "gtest/gtest.h"
 
@@ -87,4 +88,31 @@ TEST(FenwickTreeTest, ModifyElements) {
     EXPECT_EQ(9-i, fnw.get(i));
   for (int i = 7; i < 10; ++i)
     EXPECT_EQ(9-i, fnw.get(i));
+}
+
+template<class T>
+class Inverser {
+ public:
+  T operator()(const T& value) {
+    return T(1) / value;
+  }
+};
+
+TEST(FenwickTreeTest, MultiplyDivideTest) {
+  FenwickTree<double, std::multiplies<double>, Inverser<double> > fnw;
+  fnw.set_identity(1.0);
+  for (int i = 2; i <= 6; ++i)
+    fnw.push_back(i);
+  for (int i = 2; i <= 6; ++i)
+    EXPECT_DOUBLE_EQ(static_cast<double>(i), fnw.get(i-2));
+  EXPECT_DOUBLE_EQ(720.0, fnw.count(0, 5));
+  EXPECT_DOUBLE_EQ(120.0, fnw.count(2, 5));
+  EXPECT_DOUBLE_EQ(12.0, fnw.count(1, 3));
+  fnw.set(0, 7.0);
+  fnw.set(1, 9.0);
+  EXPECT_DOUBLE_EQ(7.0, fnw.get(0));
+  EXPECT_DOUBLE_EQ(9.0, fnw.get(1));
+  EXPECT_DOUBLE_EQ(63.0, fnw.count(0, 2));
+  EXPECT_DOUBLE_EQ(63.0 * 120.0, fnw.count(0, 5));
+  EXPECT_DOUBLE_EQ(9.0 * 20.0, fnw.count(1, 4));
 }
