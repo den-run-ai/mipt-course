@@ -7,40 +7,38 @@ set(CMAKE_CXX_COMPILER "g++")
 project(GMC)
 cmake_minimum_required(VERSION 2.6)
 
-if (Release)
-  if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE Release)
-  else ()
-    if (NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-      # Reseting cmake flags makes Debug build by default, but one should
-      # constantly define build flag if he wants to build Release.
-      #  CACHE indicates we are working with cache
-      #  FORCE overrides user selections or previous versions in cache
-      # See for details: http://goo.gl/Aj0A4
-      set(CMAKE_BUILD_TYPE "" CACHE STRING "" FORCE)
-      set(Release "" CACHE UNINITIALIZED "" FORCE)
-      message(FATAL_ERROR "Conflicting CMAKE_BUILD_TYPE and Release values")
-    endif ()
-  endif ()
+# CMAKE_BUILD_TYPE={Release|Debug|Coverage}
+# TODO(muxanasov): support flags RelWithDebInf & MinSizeRel
+# when needed. For more flexible flags control
+# see http://codereview.appspot.com/5432049/#ps5002
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+set(CMAKE_C_FLAGS_COVERAGE "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+set(CMAKE_CXX_FLAGS_COVERAGE "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "-fprofile-arcs -ftest-coverage -lgcov")
+
+# TODO(muxanasov): Support case-insensitive check of build type when needed
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  # TODO(muxanasov): add additional flags to Debug build when needed
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  # TODO(muxanasov): add additional flags to Release build when needed
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Coverage")
+  add_custom_target(extract_coverage COMMAND ${CMAKE_COMMAND}
+    -DSEARCH_DIR=${CMAKE_BINARY_DIR}
+    -P ${GMC_SOURCE_DIR}/extract_coverage.cmake
+  )
+  add_custom_target(reset_coverage
+    COMMAND rm -rf ${CMAKE_BINARY_DIR}/CoverageResults
+    COMMAND lcov --directory ${CMAKE_BINARY_DIR} --zerocounters
+  )
 else ()
-  if ("${CMAKE_BUILD_TYPE}" STREQUAL "Coverage")
-      set(CMAKE_C_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-      set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-      set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage -lgcov")
-      set(CMAKE_BUILD_TYPE Debug)
-      add_custom_target(extract_coverage COMMAND ${CMAKE_COMMAND}
-        -DSEARCH_DIR=${CMAKE_BINARY_DIR}
-        -P ${GMC_SOURCE_DIR}/extract_coverage.cmake
-      )
-      add_custom_target(reset_coverage
-        COMMAND rm -rf ${CMAKE_BINARY_DIR}/CoverageResults
-        COMMAND lcov --directory ${CMAKE_BINARY_DIR} --zerocounters
-      )
-  endif()
-  if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE Debug)
-  endif ()
-endif ()
+  message(FATAL_ERROR "No such build type. Please use one of the following:
+    \n Release\n Debug\n Coverage"
+  )
+endif()
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
@@ -70,7 +68,7 @@ include_directories(
 )
 
 # Print all warnings and treat them as errors
-set(CMAKE_CXX_FLAGS "-Wall -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
 foreach (module ${modules})
   message(STATUS " * Preparing ${module} module...")
@@ -81,7 +79,7 @@ add_custom_target(build COMMAND make)
 
 ###############################################################################
 # Preparing valgrind test
-# TODO(mikhail.aphanasov): It should be platform-specific
+# TODO(muxanasov): It should be platform-specific
 
 set(valgrind_cmd valgrind)
 set(valgrind_prefix
@@ -101,6 +99,10 @@ foreach (test ${tests})
   )
 endforeach (test)
 
+# In order to track and use command-line arguments we generate sh-script which
+# catches arguments and performs different lines of commands.
+# See http://goo.gl/yY5Rb
+
 file(WRITE $ENV{PWD}/valgrind.sh
   "#!/bin/sh
   if [ $1 ] && [ $1 -eq 1 ];
@@ -110,13 +112,3 @@ file(WRITE $ENV{PWD}/valgrind.sh
 )
 
 add_custom_target(test COMMAND sh $ENV{PWD}/valgrind.sh $(USE_VALGRIND))
-
-###############################################################################
-# Reseting cmake flags makes Debug build by default, but one should constantly
-# define build flag if he wants to build Release.
-#  CACHE indicates we are working with cache
-#  FORCE overrides user selections or previous versions in cache
-# See for details: http://goo.gl/Aj0A4
-
-set(CMAKE_BUILD_TYPE "" CACHE STRING "" FORCE)
-set(Release "" CACHE UNINITIALIZED "" FORCE)
