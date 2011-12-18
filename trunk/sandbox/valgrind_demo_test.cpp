@@ -33,10 +33,12 @@ TEST(ValgrindDemoTests, DISABLED_UninitializedHeapReadTest) {
   delete [] foo;
 }
 
+#if 0  // This won't build with -finline -Wall -Werror
 TEST(ValgrindDemoTests, DISABLED_UninitializedStackReadTest) {
   int foo[10];
   Read(&foo[5]);
 }
+#endif
 
 TEST(ValgrindDemoTests, DISABLED_UseAfterFreeTest) {
   int *foo = new int[10];
