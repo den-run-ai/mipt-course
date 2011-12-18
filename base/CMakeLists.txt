@@ -31,7 +31,7 @@ set(TEST_CXX
   common_test.cpp
 )
 
-# TODO(mikhail.aphanasov): Handle platform-specific sources
+# TODO(muxanasov): Handle platform-specific sources
 # Probably needs some macro since we want this in many modules
 
 add_library(base ${LIB_CXX} ${LIB_HXX})
