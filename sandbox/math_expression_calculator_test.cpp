@@ -39,7 +39,7 @@ class MathExpressionCalculator {
 
 TEST(MathExpressionTests, DISABLED_SimpleExpressions) {
   MathExpressionCalculator calc;
-  double result;
+  double result = 42.0;
 
   // For each expression, check it is parsed and calculated correctly.
   ASSERT_EQ(calc.kOk, calc.Calculate("1 + 2", &result));
