@@ -10,6 +10,8 @@
 
 #include <string>
 
+#include "base/common.h"
+
 // Read text file into string *contents.
 // Returns true on success, false on failure.
 bool ReadFileToString(const std::string &filename, std::string *contents);
@@ -23,5 +25,26 @@ bool PathExists(const std::string &path);
 
 // Returns true if all the operations of the mode are permitted.
 bool PathAccessPermitted(const std::string &path, int mode);
+
+// A smart pointer-like class useful for handling FILE* ownership,
+// similar to auto_ptr<>.
+class ScopedFile {
+ public:
+  explicit ScopedFile(FILE *ptr) : ptr_(ptr) { }
+
+  ~ScopedFile() {
+    fclose(ptr_);
+  }
+
+  FILE* Release() {
+    FILE* result = ptr_;
+    ptr_ = NULL;
+    return result;
+  }
+
+ private:
+  FILE *ptr_;
+  DISALLOW_COPY_AND_ASSIGN(ScopedFile);
+};
 
 #endif  // BASE_FILE_UTILS_H_
