@@ -16,7 +16,7 @@ sudo apt-get install lcov
 {{{
 mkdir Coverage
 cd Coverage
-cmake ../ -DCMAKE_BUILD_TYPE=Coverage
+cmake -DCMAKE_BUILD_TYPE=Coverage ..
 make build
 }}}
 
