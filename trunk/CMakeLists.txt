@@ -68,7 +68,9 @@ include_directories(
 )
 
 # Print all warnings and treat them as errors
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+# -Wstrict-aliasing should be disabled as it barks on std::map<>, see
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=42032
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wno-strict-aliasing")
 
 foreach (module ${modules})
   message(STATUS " * Preparing ${module} module...")
