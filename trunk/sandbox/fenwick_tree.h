@@ -23,8 +23,8 @@
 // AddOp and NegOp must follow the axioms of "group",
 // and there should exist the Identity element
 template<class DataType,
-         class AddOp = std::plus<DataType>,
-         class NegOp = std::negate<DataType> >
+         typename AddOp = std::plus<DataType>,
+         typename NegOp = std::negate<DataType> >
 class FenwickTree {
  public:
   FenwickTree(const AddOp& add = AddOp(), const NegOp& neg = NegOp())
