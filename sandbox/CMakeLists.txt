@@ -16,6 +16,7 @@ set(LIB_HXX
   red_black_tree.h
   red_black_tree-inl.h
   stack.h
+  sudoku_solver.h
   treap.h
   tsp.h
 )
@@ -25,6 +26,7 @@ set(LIB_CXX
   dijkstra_algorithm.cpp
   labyrinth.cpp
   pattern.cpp
+  sudoku_solver.cpp
   tsp_path.cpp
   tsp_graph.cpp
 )

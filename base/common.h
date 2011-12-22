@@ -37,11 +37,13 @@
 // TODO(timurrrr): define proper CHECK_EQ, DCHECK_EQ, ... printing their args
 // in case of failure.
 #define CHECK_EQ(x,y) CHECK((x) == (y))     // NOLINT
+#define CHECK_NE(x,y) CHECK((x) != (y))     // NOLINT
 #define CHECK_GT(x,y) CHECK((x) > (y))      // NOLINT
 #define CHECK_GE(x,y) CHECK((x) >= (y))     // NOLINT
 #define CHECK_LT(x,y) CHECK((x) < (y))      // NOLINT
 #define CHECK_LE(x,y) CHECK((x) <= (y))     // NOLINT
 #define DCHECK_EQ(x,y) DCHECK((x) == (y))   // NOLINT
+#define DCHECK_NE(x,y) DCHECK((x) != (y))     // NOLINT
 #define DCHECK_GT(x,y) DCHECK((x) > (y))    // NOLINT
 #define DCHECK_GE(x,y) DCHECK((x) >= (y))   // NOLINT
 #define DCHECK_LT(x,y) DCHECK((x) < (y))    // NOLINT
