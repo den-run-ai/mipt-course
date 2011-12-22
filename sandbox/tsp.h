@@ -31,7 +31,7 @@ class Path {
 
 class Graph {
  public:
-  // The cost table is an array N*N, N == num_vertices, 
+  // The cost table is an array N*N, N == num_vertices,
   // -1 if the edge is not present.
   Graph(double *cost_table, int num_vertices);
   ~Graph();
