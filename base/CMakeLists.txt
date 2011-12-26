@@ -16,6 +16,7 @@ set(LIB_HXX
   file_utils.h
   mutex.h
   random.h
+  time.h
 )
 
 # List all the non-test .cpp files in the alphabetic order.
@@ -23,12 +24,14 @@ set(LIB_CXX
   condition_variable.cpp
   file_utils.cpp
   mutex.cpp
+  time.cpp
 )
 
 # List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
   check_test.cpp
   common_test.cpp
+  time_test.cpp
 )
 
 # TODO(muxanasov): Handle platform-specific sources
