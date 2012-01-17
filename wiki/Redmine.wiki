@@ -252,7 +252,7 @@ apache2: Could not reliably determine the server's fully qualified domain name, 
 То необходимо отредактировать файл `/etc/apache2/httpd.conf`, добавив в него строчку
 
 {{{
-SrverName localhost
+ServerName localhost
 }}}
 
 Тогда навязчивое сообщение о том, что Apache что-то не может сделать, исчезнет :)
