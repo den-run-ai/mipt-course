@@ -134,6 +134,16 @@ This will be executed after EXPECT_EQ
   * `ASSERT_STREQ(expected_str, actual_str);`, `..._STRNE`, `..._STRCASEEQ`, `..._STRCASENE`
   * Другие, более сложные - http://code.google.com/p/googletest/wiki/AdvancedGuide#More_Assertions
 
+Также можно указать дополнительное сообщение для печати в случае невыполнения условий макроса, подобно `cout` / `cerr`:
+`ASSERT_EQ(4, 2 + 2) << "There's something wrong with the math?";`
+{{{
+example.cpp:6: Failure
+Value of: 2 + 2
+  Actual: 5
+Expected: 4
+There's something wrong with the math?
+}}}
+
 == Группы тестов (Test fixtures) ==
 При написании групп похожих тестов, которым требуется схожая инициализация ресурсов, можно сделать специальный fixture класс, чтобы избежать дубликции кода:
 {{{
