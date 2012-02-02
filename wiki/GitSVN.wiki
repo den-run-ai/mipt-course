@@ -7,8 +7,9 @@
 {{{
 git svn clone --trunk=https://PROJNAME.googlecode.com/svn/trunk DIRECTORY --username=USERNAME
 }}}
+_Опционально: если делается `clone` большого репозитория, то имеет смысл делать [http://stackoverflow.com/questions/747075/how-to-git-svn-clone-the-last-n-revisions-from-a-subversion-repository shallow copy], например `-rREV:HEAD`. Иначе git-svn будет дооолго скачивать всю историю с SVN сервера :)_
 
-Совет: все локальные изменения делать в бранчах, не трогая trunk.
+*Совет*: все локальные изменения делать в бранчах, не трогая trunk.
 
 ==Update==
 {{{
