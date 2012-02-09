@@ -85,8 +85,9 @@ svn commit -m "Revert rN - failed on the buildbot"
 }}}
   _*_TODO* - этот процесс можно улучшить, сделав на билдботе Commit Queue (см. issue 17)
 
+  * Автор может написать в ревью "Спасибо, закоммитил `http://code.google.com/p/mipt-course/source/detail?r=1234`"<br><br>
+  * ... а затем "закрыть" review: _Edit issue (http://codereview.appspot.com/1234567/edit) -> поставить галочку Closed -> Update Issue._<br><br>
   * Если патч как-то связан с каким-либо bug issue - напишите соответствующий комментарий в bug issue.<br>Например, _"ошибка исправлена в ревизии r10", "фича сделана в r5"_ и т.п.<br><br>
-  * Автор может "закрыть" review:<br>Edit issue (http://codereview.appspot.com/1234567/edit) -> поставить галочку Closed -> Update Issue.<br><br>
   * Настоятельно рекомендуется не удалять review issues - пусть для всех коммитов сохранится история что-кто-кому-писал при review.
 
 = Общие рекомендации =
