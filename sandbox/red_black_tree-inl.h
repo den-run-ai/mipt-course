@@ -20,9 +20,7 @@ RBTree<KeyType, ValueType>::~RBTree() {
 template <typename KeyType, typename ValueType>
 void RBTree<KeyType, ValueType>::put(const KeyType &key,
                                      const ValueType &value) {
-  Node* node = find(key);
-  if (node != NULL) {
-    node->value = value;
+  if (find(key)) {
     return;
   }
 
@@ -40,7 +38,6 @@ void RBTree<KeyType, ValueType>::put(const KeyType &key,
       temp = temp->right;
     }
   }
-
   new_node->parent = parent;
   if (parent == NULL) {
     root_ = new_node;
@@ -49,15 +46,17 @@ void RBTree<KeyType, ValueType>::put(const KeyType &key,
   } else {
     parent->right = new_node;
   }
-  fixRedBlackProperties(new_node);
+  fixAfterInsert(new_node);
+
 #ifndef NDEBUG
   checkProperties();
 #endif
 }
 
 template<typename KeyType, typename ValueType>
-bool RBTree<KeyType, ValueType>::get(const KeyType &key, ValueType *value_out) {
-  assert(value_out != NULL);
+bool RBTree<KeyType, ValueType>::get(const KeyType &key,
+                                     ValueType *value_out) const {
+  DCHECK(value_out != NULL);
   Node* node = find(key);
   if (node == NULL) {
     return false;
@@ -68,10 +67,10 @@ bool RBTree<KeyType, ValueType>::get(const KeyType &key, ValueType *value_out) {
 
 template<typename KeyType, typename ValueType>
 void RBTree<KeyType, ValueType>::deleteChildren(Node* start_node) {
-  if (start_node == NULL)
-    return;
-  deleteChildren(start_node->left);
-  deleteChildren(start_node->right);
+  if (start_node != NULL) {
+    deleteChildren(start_node->left);
+    deleteChildren(start_node->right);
+  }
   delete start_node;
 }
 
@@ -79,7 +78,8 @@ template<typename KeyType, typename ValueType>
 void RBTree<KeyType, ValueType>::checkProperties() const {
   if (root_ == NULL)
     return;
-  assert(root_->color == kBlack && root_->parent == NULL);
+  DCHECK(root_->color == kBlack);
+  DCHECK(root_->parent == NULL);
   int height = 0;
   checkPropertiesInternal(root_, &height);
 }
@@ -98,15 +98,15 @@ void RBTree<KeyType, ValueType>::checkPropertiesInternal(const Node* node,
     DCHECK(node->right->parent == node);
   }
   if (node->color == kRed) {
-    DCHECK(node->left == NULL || node->left->color == kBlack);
-    DCHECK(node->right == NULL || node->right->color == kBlack);
+    DCHECK(isBlack(node->left));
+    DCHECK(isBlack(node->right));
   }
   int rightHeight = 0;
   int leftHeight = 0;
-  if (node->right == NULL || node->right->color == kBlack) {
+  if (isBlack(node->right)) {
     rightHeight++;
   }
-  if (node->left == NULL || node->left->color == kBlack) {
+  if (isBlack(node->left)) {
     leftHeight++;
   }
   checkPropertiesInternal(node->right, &rightHeight);
@@ -116,19 +116,21 @@ void RBTree<KeyType, ValueType>::checkPropertiesInternal(const Node* node,
 }
 
 template <typename KeyType, typename ValueType>
-void RBTree<KeyType, ValueType>::fixRedBlackProperties(Node* new_node) {
-  Node* uncle = NULL;
-
-  while (new_node->parent != NULL && new_node->parent->color == kRed) {
+void RBTree<KeyType, ValueType>::fixAfterInsert(Node* new_node) {
+  while (!isBlack(new_node->parent)) {
     Node* parent = new_node->parent;
+    if (parent->parent == NULL) {
+      break;
+    }
     bool uncle_left = (parent == parent->parent->right);
     bool node_left = (new_node == parent->left);
+    Node* uncle;
     if (uncle_left) {
       uncle = parent->parent->left;
     } else {
       uncle = parent->parent->right;
     }
-    if (uncle != NULL && uncle->color == kRed) {
+    if (!isBlack(uncle)) {
       parent->color = kBlack;
       uncle->color = kBlack;
       parent->parent->color = kRed;
@@ -195,6 +197,162 @@ void RBTree<KeyType, ValueType>::rotateRight(Node* node) {
   }
   temp->right = node;
   node->parent = temp;
+}
+
+template <typename KeyType, typename ValueType>
+bool RBTree<KeyType, ValueType>::remove(const KeyType &key) {
+  Node* node = find(key);
+  if (node == NULL)
+    return false;
+  removeInternal(node);
+  return true;
+}
+
+template <typename KeyType, typename ValueType>
+void RBTree<KeyType, ValueType>::removeInternal(Node* node) {
+  Node* replacement;
+  if (node->left == NULL || node->right == NULL) {
+    replacement = node;
+  } else {
+    replacement = node->right;
+    while (replacement->left != NULL) {
+      replacement = node->left;
+    }
+  }
+
+  Node* child;
+  if (replacement->left != NULL) {
+    child = replacement->left;
+  } else {
+    child = replacement->right;
+  }
+  if (child != NULL) {
+    child->parent = replacement->parent;
+  }
+  bool isLeftChild = true;
+  if (replacement->parent == NULL) {
+    root_ = child;
+  } else if (replacement == replacement->parent->left) {
+    replacement->parent->left = child;
+  } else {
+    replacement->parent->right = child;
+    isLeftChild = false;
+  }
+  if (replacement != node) {
+    node->key = replacement->key;
+  }
+  if (replacement->color == kBlack) {
+    fixAfterRemove(isLeftChild, replacement->parent);
+  }
+  delete replacement;
+
+#ifndef NDEBUG
+  checkProperties();
+#endif
+}
+
+template <typename KeyType, typename ValueType>
+void RBTree<KeyType, ValueType>::fixAfterRemove(bool isLeftChild,
+                                                Node* parent) {
+  Node* node;
+  if (parent != NULL) {
+    if (isLeftChild) {
+      node = parent->left;
+    } else {
+      node= parent->right;
+    }
+  } else {
+    node = root_;
+  }
+  while (node != root_ && isBlack(node)) {
+    bool brother_right = node == parent->left;
+    Node* brother = brother_right ? parent->right : parent->left;
+    if (brother->color == kRed) {
+      brother->color = kBlack;
+      parent->color = kRed;
+      if (brother_right) {
+        rotateLeft(parent);
+        brother = parent->right;
+      } else {
+        rotateRight(parent);
+        brother = parent->left;
+      }
+    }
+    if (isBlack(brother->left) && isBlack(brother->right)) {
+      brother->color = kRed;
+      node = parent;
+      parent = node->parent;
+    } else {
+      Node* nephew = brother_right ? brother->right : brother->left;
+      if (isBlack(nephew)) {
+        if (brother->left != NULL)
+          brother->left->color = kBlack;
+        if (brother->right != NULL)
+          brother->right->color = kBlack;
+          brother->color = kRed;
+          if (brother_right) {
+            rotateRight(brother);
+            brother = parent->right;
+          } else {
+            rotateLeft(brother);
+            brother = parent->left;
+          }
+      }
+      if (brother_right) {
+        brother->right->color = kBlack;
+        rotateLeft(parent);
+      } else {
+        brother->left->color = kBlack;
+        rotateRight(parent);
+      }
+      brother->color = parent->color;
+      parent->color = kBlack;
+      node = root_;
+    }
+  }
+  if (node != NULL)
+    node->color = kBlack;
+}
+
+template <typename KeyType, typename ValueType>
+bool RBTree<KeyType, ValueType>::removeValues(const ValueType &value) {
+  return removeValuesInternal(root_, value);
+}
+
+template <typename KeyType, typename ValueType>
+bool RBTree<KeyType, ValueType>::removeValuesInternal(Node* node,
+                                                      const ValueType &value) {
+  bool flag = false;
+  if (node != NULL) {
+    if (removeValuesInternal(node->left, value))
+      flag = true;
+    if (removeValuesInternal(node->right, value))
+      flag = true;
+    if (node->value == value) {
+      removeInternal(node);
+      flag = true;
+    }
+  }
+  return flag;
+}
+
+template <typename KeyType, typename ValueType>
+typename RBTree<KeyType, ValueType>::Node*
+         RBTree<KeyType, ValueType>::find(const KeyType &key) const {
+  Node* node = root_;
+  while (node != NULL && key != node->key) {
+    if (key < node->key) {
+      node = node->left;
+    } else {
+      node = node->right;
+    }
+  }
+  return node;
+}
+
+template <typename KeyType, typename ValueType>
+bool RBTree<KeyType, ValueType>::isBlack(const Node* node) const {
+  return node == NULL || node->color == kBlack;
 }
 
 #endif  // SANDBOX_RED_BLACK_TREE_INL_H_
