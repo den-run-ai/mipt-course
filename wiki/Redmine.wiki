@@ -223,7 +223,7 @@ sudo ln -s /home/michael/redmine/public /var/www/redmine
 
 Где `/home/michael/redmine/` - корневая директория Redmine
 
-И, наконец, сконфигурировать Apache, для этого необходимо отредактировать файл `/etc/apache2/sites-avalible/default`, чтобы он выглядел примерно так:
+И, наконец, сконфигурировать Apache, для этого необходимо отредактировать файл `/etc/apache2/sites-available/default`, чтобы он выглядел примерно так:
 
 {{{
 <VirtualHost *:80>
