@@ -69,11 +69,22 @@ $ svn co -r REV URL local_path # взять конкретную ревизию 
 }}}
 
 == Добавление файла в SVN ==
+Мы только что создали сервер и клиент, поэтому история в репозитории пустая.
+
+Чтобы начать некоторую историю, нужно для начала создать какой-то файл.
+По умолчанию, Subversion не следит за новыми файлами, созданными в клиенте - чтобы случайно не добавить вашу папку `build`, файл с паролем или что-нибудь в этом роде.
+
+Поэтому, создавая новые файлы/папки, их нужно добавить под контроль вручную:
 {{{
+# Создаём файл
 $ echo "Hello, subversion" >hello.txt
+
+# Добавляем его в клиент
 $ svn add hello.txt
 A         hello.txt
-$ svn commit hello.txt -m "Adding my first file to SVN"  # Одна из форм команты commit
+
+# Отправляем на сервер
+$ svn commit hello.txt -m "Adding my first file to SVN"  # Одна из форм команды commit
 Adding         hello.txt
 Transmitting file data .
 Committed revision 1.
