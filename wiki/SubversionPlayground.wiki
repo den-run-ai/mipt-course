@@ -58,7 +58,7 @@ Checked out revision 0.
 $ cd svn_sandbox # Зайти в только что созданного клиента
 }}}
 
-== Создание полноценного сервер ==
+== Настройка полноценного сервера ==
 https://help.ubuntu.com/community/Subversion
 
 = Основные команды SVN =
