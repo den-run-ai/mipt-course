@@ -103,9 +103,8 @@ TEST(MyFunctionTests, Sum) {
   ASSERT_EQ(5, sum(2, 2));
   printf("Код после невыполненного ASSERT_* не выполняется\n");
 }
-
---->
-
+}}}
+{{{
 [ RUN      ] MyFunctionTests.Sum
 demo.cpp:6: Failure
 Value of: sum(2, 2)
@@ -120,9 +119,8 @@ TEST(MyFunctionTests, Sum) {
   EXPECT_EQ(5, sum(2, 2));
   printf("Код продолжает выполняться после невыполненного EXPECT_*\n");
 }
-
---->
-
+}}}
+{{{
 [ RUN      ] MyFunctionTests.Sum
 demo.cpp:6: Failure
 Value of: sum(2, 2)
@@ -189,7 +187,8 @@ TEST_F(DatabaseTest, DoSomeStuff) {
 TEST_F(DatabaseTest, DoSomeOtherStuff) {
   database_.DoSomethingElse();
 }
---->
+}}}
+{{{
 [----------] 2 tests from DatabaseTest
 [ RUN      ] DatabaseTest.DoSomeStuff
 DB created
