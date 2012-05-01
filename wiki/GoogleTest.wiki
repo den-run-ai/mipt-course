@@ -26,10 +26,10 @@ $ sudo apt-get install -y libgtest-dev libgtest0
 {{{
 #include <gtest/gtest.h>
 
-int sum(int a, int b) { return a + b; }  // the function we want to test
+int sum(int a, int b) { return a + b; }  // Функция, которую мы хотим протестировать.
 
 TEST(MyFunctionTests, Sum) {
-  ASSERT_EQ(4 /* expected */, sum(2, 2) /* actual */);
+  ASSERT_EQ(4 /* ожидаемое значение для */, /* вот этого выражения */ sum(2, 2));
 }
 }}}
 
@@ -51,10 +51,10 @@ Running main() from gtest_main.cc
 Обратите внимание на отсутствие в файле googletest_demo.cpp функции `main()` - она уже есть в библиотеке `gtest_main`. Если по какой-то причине нам нужно использовать собственную версию `main()`, то вместо "`-l gtest_main`" следует использовать "`-l gtest`", а `main()` следует написать так:
 {{{
 int main(int argc, char **argv) {
-  // InitGoogleTest() reads googletest flags; may change argc and argv!
+  // InitGoogleTest() считывает --gtest_* флаги командной строки и может поменять argc/argv!
   ::testing::InitGoogleTest(&argc, argv);
 
-  // do your stuff here
+  // Дополнительная инициализация, если нужно.
 
   return RUN_ALL_TESTS();
 }
@@ -65,12 +65,14 @@ int main(int argc, char **argv) {
 {{{
 # Выполнять в папке, где лежит googletest_demo.cpp
 $ svn checkout http://googletest.googlecode.com/svn/trunk/ googletest
-...
+
 # Собрать сам gtest и стандартную функцию main()
 $ g++ -I googletest -I googletest/include -c -o gtest.a googletest/src/gtest-all.cc
 $ g++ -I googletest -I googletest/include -c -o gtest_main.a googletest/src/gtest_main.cc
+
 # Собрать наши тесты
 $ g++ -I googletest/include -c -o googletest_demo.a googletest_demo.cpp
+
 # Компоновка и запуск
 $ g++ -o googletest_demo gtest.a gtest_main.a googletest_demo.a
 $ ./googletest_demo 
@@ -98,10 +100,12 @@ Running main() from gtest_main.cc
 В случае невыполнения условия макроса ASSERT_XY тест прекращается и начинает выполняться следующий тест:
 {{{
 TEST(MyFunctionTests, Sum) {
-  ASSERT_EQ(5 /* expected */, sum(2, 2) /* actual */);
-  printf("Won't be executed\n");
+  ASSERT_EQ(5, sum(2, 2));
+  printf("Код после невыполненного ASSERT_* не выполняется\n");
 }
+
 --->
+
 [ RUN      ] MyFunctionTests.Sum
 demo.cpp:6: Failure
 Value of: sum(2, 2)
@@ -113,35 +117,37 @@ Expected: 5
 В случае невыполнения условия макроса EXPECT_XY тест продолажет выполняться, но в конце все равно будет считаться FAILED:
 {{{
 TEST(MyFunctionTests, Sum) {
-  EXPECT_EQ(5 /* expected */, sum(2, 2) /* actual */);
-  printf("This will be executed after EXPECT_EQ\n");
+  EXPECT_EQ(5, sum(2, 2));
+  printf("Код продолжает выполняться после невыполненного EXPECT_*\n");
 }
+
 --->
+
 [ RUN      ] MyFunctionTests.Sum
 demo.cpp:6: Failure
 Value of: sum(2, 2)
   Actual: 4
 Expected: 5
-This will be executed after EXPECT_EQ
+Код продолжает выполняться после невыполненного EXPECT_*
 [  FAILED  ] MyFunctionTests.Sum
 }}}
 
 
 Основные макросы: (для каждого `ASSERT_XY` есть соответствующий `EXPECT_XY`)
   * `ASSERT_TRUE`, `..._FALSE` и т.п. - проверяют true/false
-  * `ASSERT_EQ(expected, actual)` - проверить, что второй аргумент равен ожидаемому значению (первый аргумент).
+  * `ASSERT_EQ(ожидаемое_значение, выражение)` - проверить, что второй аргумент равен ожидаемому значению (первый аргумент).
   * `ASSERT_NE(val1, val2);` --> проверяет неравенство аргументов,<br>`..._LT` (<),<br>`..._LE` (<=),<br>`..._GT` (>),<br>`..._GE` (>=)
-  * `ASSERT_STREQ(expected_str, actual_str);`, `..._STRNE`, `..._STRCASEEQ`, `..._STRCASENE`
+  * `ASSERT_STREQ(ожидаемая_строка, выражание);`, `..._STRNE`, `..._STRCASEEQ`, `..._STRCASENE`
   * Другие, более сложные - http://code.google.com/p/googletest/wiki/AdvancedGuide#More_Assertions
 
 Также можно указать дополнительное сообщение для печати в случае невыполнения условий макроса, подобно `cout` / `cerr`:
-`ASSERT_EQ(4, 2 + 2) << "There's something wrong with the math?";`
+`ASSERT_EQ(4, 2 + 2) << "Что-то не так с математикой?";`
 {{{
 example.cpp:6: Failure
 Value of: 2 + 2
   Actual: 5
 Expected: 4
-There's something wrong with the math?
+Что-то не так с математикой?
 }}}
 
 == Группы тестов (Test fixtures) ==
@@ -162,7 +168,7 @@ class Database {
   void DoSomethingElse() { }
 };
 
-// A new instance is created for each test case being run.
+// Создаём новый экземпляр класса Database для каждого теста типа DatabaseTest.
 class DatabaseTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
@@ -207,14 +213,14 @@ DB destroyed
 
 int divide(int a, int b) {
   if (b == 0) {
-    fprintf(stderr, "Shouldn't divide by zero!\n");
+    fprintf(stderr, "Нельзя делить на ноль!\n");
     abort();
   }
   return a / b;
 }
 
 TEST(MyFunctionTests, DivideByZeroDeath) {
-  ASSERT_DEATH(divide(42, 0), "divide by zero");
+  ASSERT_DEATH(divide(42, 0), "делить на ноль");
 }
 }}}
 
