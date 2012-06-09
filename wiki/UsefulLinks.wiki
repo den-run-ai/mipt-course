@@ -7,9 +7,16 @@
     * [http://developer.android.com/guide/index.html Туториалы, примеры, объяснения по темам]
     * [http://android-developers.blogspot.com Блог разработчиков]
   * http://startandroid.ru/
-<br><br>
+<br>
 = Web =
   * http://w3schools.com/
   * AppEngine
     * [https://developers.google.com/appengine/docs/ Документация]
-<br><br>
+<br>
+= Python =
+  * TODO
+  * [http://rgruet.free.fr/PQR27/PQR2.7.html Python 2.7 Quick Reference]
+<br>
+= Git =
+  * TODO
+<br>
