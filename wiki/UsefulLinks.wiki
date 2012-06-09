@@ -1,0 +1,15 @@
+#summary Полезные ресурсы по технологиям
+
+= Android =
+  * developer.android.com:
+    * [http://developer.android.com/sdk/installing.html Начало работы]
+    * [http://developer.android.com/sdk/index.html SDK]
+    * [http://developer.android.com/guide/index.html Туториалы, примеры, объяснения по темам]
+    * [http://android-developers.blogspot.com Блог разработчиков]
+  * http://startandroid.ru/
+<br><br>
+= Web =
+  * http://w3schools.com/
+  * AppEngine
+    * [https://developers.google.com/appengine/docs/ Документация]
+<br><br>
