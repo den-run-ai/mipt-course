@@ -10,7 +10,7 @@
 <br>
 = Web =
   * http://w3schools.com/
-  * AppEngine
+  * Google Appengine:
     * [https://developers.google.com/appengine/docs/ Документация]
 <br>
 = Python =
