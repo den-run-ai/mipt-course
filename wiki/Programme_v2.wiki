@@ -5,7 +5,7 @@
   * Цель курса, основные темы 
   * Краткое знакомство с централизированными системами контроля версий (Source Control), работа с основными командами `svn` (Subversion)
   * Утилиты `diff`, `diffmerge`, `patch`
-  * Важность оформления кода, рекомендаци по оформлении кода Google C++ Code Style Guide
+  * Важность оформления кода, рекомендации по оформлении кода [http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml Google C++ Code Style Guide]
   * Комментарии TODO, FIXME
   * Макросы `assert`, `CHECK`
   * RAII
