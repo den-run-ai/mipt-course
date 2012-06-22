@@ -7,7 +7,7 @@
   * Утилиты `diff`, `diffmerge`, `patch`
   * Важность оформления кода, рекомендации по оформлении кода [http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml Google C++ Code Style Guide]
   * Комментарии TODO, FIXME
-  * Макросы `assert`, `CHECK`
+  * Тестирование кода при помощи проверки инвариантов: макросы `assert`, `CHECK`
   * RAII
   * Базовые правила деловой переписки по e-mail
   * Понятие Code Review, система `rietveld`, утилита `upload.py`
