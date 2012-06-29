@@ -19,9 +19,14 @@ imap OQ <C-o>:w<CR>
 map OR :set paste!<CR>
 imap OR <C-o>:set paste!<CR>
 
-" ------- F6=toggle linenumbers
+" ------- F4=toggle linenumbers
 map OS :set nu!<CR>
 imap OS <C-o>:set nu!<CR>
+
+" ------- F5=make
+" FIXME: behaves bad when errors occur - opens the failed makefile line :)
+map [15~ :make -s<CR>
+imap [15~ <C-o>:make -s<CR>
 
 " ------- Alt-N -- switch to N-th buffer
 map 1 :b 1<CR>
@@ -72,10 +77,10 @@ set nu " print linenumbers
 " Don't expand tabs in Makefiles
 autocmd FileType make setlocal noexpandtab
 
-" ??? never used it
+" ------ F6/F7 -> jump between next and previous errors
+" ??? never used it, not sure how the errors are marked.
 map [17~ :cnext<CR>
 map [18~ :cprevious<CR>
-map [15~ :make<CR>
 
 " toggle between .c/.cpp/.cc and .h
 map ,h :e %:r.h<CR>
