@@ -18,5 +18,7 @@
   * [http://rgruet.free.fr/PQR27/PQR2.7.html Python 2.7 Quick Reference]
 <br>
 = Git =
-  * TODO
+  * [http://try.github.com/levels/1/challenges/1 Try git in 15 minutes]
+  * [http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html Git Magic]
+  * [http://git-scm.com/book Pro GIT]
 <br>
