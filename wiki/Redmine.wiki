@@ -10,7 +10,8 @@
 = Простой способ =
 Устанавливаем необходимые пакеты:
 {{{
-sudo apt-get install redmine apache2 libapache2-mod-passenger
+sudo apt-get install redmine-mysql apache2 libapache2-mod-passenger
+sudo apt-get install redmine
 }}}
 
 Если при установке спросят какую использовать DB - выбрать SQLite. (*TODO*: или есть причины выбрать PostgreSQL?)
