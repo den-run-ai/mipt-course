@@ -1,0 +1,43 @@
+#!/bin/bash
+
+source /var/mipt/common_utils
+
+# Прекратить выполнения скрипта при возникновении хоть одной ошибки
+set -e
+
+echo "Программа по добавлению доступа к SVN студенту."
+author_info
+
+STUDENT=
+PASSWORD=
+echo "Введите username студента (латиницей, в нижнем регистре)."
+echo "Если в группе есть однофамильцы - рекомендуется добавлять инициалы или цифры."
+echo
+read -p "Username: " STUDENT
+check_username_format "$STUDENT"
+check_user_doesnt_exist "$STUDENT"
+
+password_unencrypted_warning
+read -s -p "Введите пароль студента (минимум 8 символов): " PASSWORD; echo
+check_password "$PASSWORD" "$PASSWORD"
+read -s -p "Введите еще раз: " PASSWORD2; echo
+check_password "$PASSWORD" "$PASSWORD2"
+
+# На всякий случай, ещё разок проверим...
+check_user_doesnt_exist "$STUDENT"
+
+echo "$STUDENT=$PASSWORD" >> ~/passwd
+cat >> ~/authz <<EOF
+
+[/$STUDENT]
+$STUDENT = rw
+EOF
+
+echo "Готово!"
+echo
+echo "ВАЖНО: Преподаватель, не забудьте создать новому студенту личную папку!"
+echo "Для этого, выполните в корневой папке Вашего SVN-клиента"
+echo "следующие команды:"
+echo "  mkdir $STUDENT"
+echo "  svn add $STUDENT"
+echo "  svn commit $STUDENT -m \"Personal directory for $STUDENT\""
