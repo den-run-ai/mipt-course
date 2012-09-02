@@ -1,0 +1,44 @@
+# First, check out this directory into /var/mipt
+#
+# Then, open the root terminal:
+#   sudo -i
+#
+# Set up the initial variables:
+NEWUSER=<teacher's preferred username>
+GROUPID=<group id>
+
+# Then, paste the following commands in blocks.
+# The "##############" lines are intendeed for "pause and check what happens now".
+# TODO: make this file a bash script?
+
+apt-get install -y pwgen
+SSHPASS=`pwgen -1`
+echo "Use the following ssh password: $SSHPASS"
+adduser $NEWUSER
+# the adduser command is interactive
+#########################
+
+cd /home/svn
+mkdir -m 750 $GROUPID
+svnadmin create /home/svn/$GROUPID
+chown -R www-data:$NEWUSER $GROUPID
+
+chmod -R g+w $GROUPID/conf/
+SVNPASS=`pwgen -1`
+sed "s/teacher/$NEWUSER/" /var/mipt/sample_authz   >$GROUPID/conf/authz
+sed "s/GROUP/$GROUPID/"   /var/mipt/sample_svnconf >$GROUPID/conf/svnserve.conf
+sed "s/teacher=password/$NEWUSER=$SVNPASS/" /var/mipt/sample_passwd  >$GROUPID/conf/passwd
+ln -s /var/mipt/precommit.py $GROUPID/hooks/pre-commit
+
+cd /home/$NEWUSER
+chmod 750 .
+chown -R root:$NEWUSER .
+
+ln -s /home/svn/$GROUPID/conf/authz  .
+ln -s /home/svn/$GROUPID/conf/passwd .
+ln -s /var/mipt/README .
+
+#########################
+
+sed -e "s/GROUP/$GROUPID/" -e "s/NEWUSER/$NEWUSER/" -e "s/SSHPASS/$SSHPASS/" -e "s/SVNPASS/$SVNPASS/" /var/mipt/sample_email
+echo "DONE!"
