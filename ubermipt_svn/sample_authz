@@ -20,7 +20,7 @@ teacher = rw
 # Не забудьте создать студенту личную папку!
 # Для этого в svn-клиенте выполните:
 #   mkdir ivanov
-#   sudo add ivanov
+#   svn add ivanov
 #   svn commit ivanov -m "Personal directory for Ivanov"
 
 # Можно создавать общие папки для нескольких
