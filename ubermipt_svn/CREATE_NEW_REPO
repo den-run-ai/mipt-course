@@ -28,7 +28,7 @@ GROUPID=<group id>
 # TODO: make this file a bash script?
 
 apt-get install -y pwgen
-SSHPASS=`pwgen -1`
+SSHPASS=`pwgen -1B`
 echo "Use the following ssh password: $SSHPASS"
 adduser $NEWUSER
 # the adduser command is interactive
@@ -40,7 +40,7 @@ svnadmin create /home/svn/$GROUPID
 chown -R www-data:$NEWUSER $GROUPID
 
 chmod -R g+w $GROUPID/conf/
-SVNPASS=`pwgen -1`
+SVNPASS=`pwgen -1B`
 sed "s/teacher/$NEWUSER/" /var/mipt/sample_authz   >$GROUPID/conf/authz
 sed "s/GROUP/$GROUPID/"   /var/mipt/sample_svnconf >$GROUPID/conf/svnserve.conf
 sed "s/teacher=password/$NEWUSER=$SVNPASS/" /var/mipt/sample_passwd  >$GROUPID/conf/passwd
