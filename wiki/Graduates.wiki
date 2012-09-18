@@ -1,0 +1,12 @@
+#summary Выпускники техкурса
+
+= 2011-2012 =
+
+==Выпускники курса 2011-2012==
+[http://code.google.com/p/hotplate/ Hotplate] - кулинарные рецепты на Android<br><wiki:video url="http://www.youtube.com/watch?v=wQos-zCJ4zQ">.
+
+[http://code.google.com/p/pointwars/ Point Wars] - Real Time Strategy на Android<br><wiki:video url="http://www.youtube.com/watch?v=6jALWfOOCIw">.
+
+[http://code.google.com/p/botan Botan 2.0] - портал для конспектов учебных лекций и (тсс!) заданий
+
+[http://code.google.com/p/words-battle/ Words Battle] - игра в слова, Android
