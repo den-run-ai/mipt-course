@@ -7,49 +7,21 @@ cmake_minimum_required(VERSION 2.6)
 
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
-  dijkstra_algorithm.h
   fenwick_tree.h
-  hash.h
-  labyrinth.h
-  list.h
-  pattern.h
-  red_black_tree.h
-  red_black_tree-inl.h
-  stack.h
-  sudoku_solver.h
-  treap.h
-  tsp.h
 )
 
 # List all the non-test .cpp files in the alphabetic order.
 set(LIB_CXX
-  dijkstra_algorithm.cpp
-  labyrinth.cpp
-  pattern.cpp
-  sudoku_solver.cpp
-  tsp_path.cpp
-  tsp_graph.cpp
 )
 
 # List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
-  dijkstra_algorithm_test.cpp
   fenwick_tree_test.cpp
   gmock_demo_test.cpp
-  hash_test.cpp
-  math_expression_calculator_test.cpp
   mocks_and_fakes_demo_test.cpp
-  labyrinth_test.cpp
   library_test.cpp
-  list_test.cpp
   lru_cache_test.cpp
-  pattern_test.cpp
-  red_black_tree_test.cpp
-  stack_test.cpp
-  sudoku_solver_test.cpp
   tdd_example_test.cpp
-  treap_test.cpp
-  tsp_test.cpp
   valgrind_demo_test.cpp
 )
 
