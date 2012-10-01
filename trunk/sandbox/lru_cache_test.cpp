@@ -28,7 +28,7 @@ TEST(LruCacheTests, DISABLED_Simple) {
   ASSERT_TRUE(lru.Contains(1));
   int value = -1;
   ASSERT_TRUE(lru.Lookup(1, &value));
-  ASSERT_EQ(42, value);
+  ASSERT_EQ(421, value);
 
   lru.Put(13, 77);
   ASSERT_TRUE(lru.Contains(13));
