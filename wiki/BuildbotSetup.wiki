@@ -2,8 +2,7 @@
 
 = Общая информация =
 На данный момент для нашего проекта используется buildbot 0.8.4<br>
-http://tinyurl.com/mipt-course-buildbot<br>
-*TODO*: сделать постоянный адрес
+http://ubermipt.com:8080/waterfall<br>
 
 Любой желающий может попробовать поднять свою копию buildbot локально.
 
