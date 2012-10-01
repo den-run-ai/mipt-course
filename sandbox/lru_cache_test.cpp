@@ -20,7 +20,7 @@ class LruCache {
   bool LookupNoUpdate(const K &key, V *value) const { return false; }
 };
 
-TEST(LruCacheTests, /*DISABLED_*/Simple) {
+TEST(LruCacheTests, DISABLED_Simple) {
   LruCache<int, int> lru(2);
 
   ASSERT_FALSE(lru.Contains(1));
