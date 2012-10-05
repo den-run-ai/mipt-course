@@ -6,7 +6,8 @@
 void VariablesAndStatemants() {
   // Переменные называются ёмкими понятными именами, маленькими буквами
   // с отделением слов подчёркиванием.
-  int example_variable = 0;
+  int example_variable = 0,
+      num_elements;
 
   // Указатели - звёздочки обязательно НЕ отделять пробелом от имени.
   // Напоминаю: в C++, "*" относится к имени переменной, а не к типу!!!
@@ -78,14 +79,14 @@ const int kConstantName = 42;
 // но не через define.
 
 // http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Function_Declarations_and_Definitions#Function_Declarations_and_Definitions
-// Имена функций - CamelCase.
-int SimpleFunction(int a, int b) {
+// Имена функций - CamelCase, имя функции должно быть глаголом (действием).
+int DoSomething(int a, int b) {
   return a + b;  // Заметьте: отступ!
 }
 
-void CallSimpleFunction() {
+void CallDoSomething() {
   // Вызов простой функции.
-  SimpleFunction(1, 2);
+  DoSomething(1, 2);
 }
 
 // Объявления структур:
@@ -123,7 +124,7 @@ void CallComplexFunction() {
 int main() {
   VariablesAndStatemants();
 
-  CallSimpleFunction();
+  CallDoSomething();
 
   CallComplexFunction();
 
