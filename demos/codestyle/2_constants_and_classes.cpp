@@ -2,6 +2,8 @@
 #include <assert.h>
 
 const int kConstantName = 42;
+// или
+const int CONSTANT_NAME = 42;
 
 enum UrlTableErrors {
   kOK = 0,
@@ -9,7 +11,7 @@ enum UrlTableErrors {
   kErrorMalformedInput,
 };
 
-#define MY_MACRO_THAT_SCARES_SMALL_CHILDREN(x) x+x
+#define MY_MACRO_THAT_SCARES_SMALL_CHILDREN(x) x + x
 
 #define CHECK(x)  // TODO(timurrrr): see base/common.h
 
@@ -25,50 +27,55 @@ void StructDemo() {
   test_struct_pointer->field_name = 42;
 }
 
-// A macro to disallow the copy constructor and operator= functions
-// This should be used in the private: declarations for a class
+// Макрос, который при правильном использовании (см. ниже) запрещает конструктор
+// копирования и оператор присваивания для типа данных TypeName, что позволяет
+// избежать неочевидных логических ошибок, а также скрытых проблем
+// производительности (копирование).
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
 
 class MyClass {
-  // Public first
- public:  // 1-space indent!
-  // constructors & destructors
+  // Вначале публичная секция - потому что именно её читают все пользователи
+  // класса, а вовсе не приватные данные.
+ public:  // Отступ - 1 пробел!
+  // Вначале конструкторы и деструкторы.
   MyClass() { }
 
-  explicit MyClass(int i) { }  // note the "explicit"!
-  /* to ban the following construction:
-     MyClass mc = 42;
-   */
+  // Заметьте ключевое слово "explicit" - обязательно применять его
+  // для конструкторов с одним аргументом!
+  explicit MyClass(int i) { }
+  // explicit запрещает писать так:
+  // MyClass mc = 42;
 
   ~MyClass() { }
 
-  // public methods
+  // Публичные методы - именуются как функции.
   void MyMethod() const { }
 
-  int value() const { return value_; }  // get-accessor for value_
+  // get-ер для поля X_ называется X.
+  int value() const { return value_; }
 
-  // set-accessor for value_
+  // set-ер называется set_X для поля X_.
   void set_value(int value) {
     assert(value > 0);  // you can add extra checks
     value_ = value;
   }
 
-  // !!! should be no public fields !!!
+  // !!! Публичные данные (поля) запрещены !!!
 
-  // Protected second
+  // Вторая секция - protected.
  protected:
-  // Methods, then fields
+  // Вначале методы, затем поля (зачем поля?).
 
   // ...
 
-  // Private last
+  // Последняя секция - private.
  private:
-  // Methods, then fields
-  int value_;  // private field names should end with "_"
+  // Вначале методы, затем поля.
+  int value_;  // Названия private полей заканчиваются на "_".
 
-  DISALLOW_COPY_AND_ASSIGN(MyClass);
+  DISALLOW_COPY_AND_ASSIGN(MyClass);  // А вот и использование!
 };
 
 int main() { }
