@@ -1,8 +1,10 @@
 // Non-Copyright 2010 Timur Iskhodzhanov
 #include <stdio.h>
 
-// A macro to disallow the copy constructor and operator= functions
-// This should be used in the private: declarations for a class
+// Макрос, который при правильном использовании (см. ниже) запрещает конструктор
+// копирования и оператор присваивания для типа данных TypeName, что позволяет
+// избежать неочевидных логических ошибок, а также скрытых проблем
+// производительности (копирование).
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
@@ -22,7 +24,8 @@ class Foo {
   int *array_;
 
 #if 0
-  // Uncommenting this will make wrong usage impossible.
+  // Если выше заменить 0 на 1, места где есть ошибки использования класса Foo
+  // больше не будут компилироваться!
   DISALLOW_COPY_AND_ASSIGN(Foo);
 #endif
 };
@@ -31,7 +34,9 @@ void PassFooByValue(Foo f) { }
 
 int main() {
   Foo a,
-      b = a;  // This line calls the copy constructor.
-  PassFooByValue(a);  // This line calls the copy constructor too.
-  // We end up calling delete [] three times on the same address -> Boom!
+      b = a;  // На этой строке вызывается оператор присваивания.
+
+  PassFooByValue(a);  // На этой строке вызывается конструктор копирования.
+  // Итого, декструктор вызывается 3 раза, то есть 3 раза вызывается delete []
+  // с одним и тем же адресом в качестве аргумента -> "крыша" у кучи "поехала".
 }
