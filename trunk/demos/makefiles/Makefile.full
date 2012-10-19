@@ -1,75 +1,89 @@
-# This is a make file
-# See http://en.wikipedia.org/wiki/Makefile
-# and http://www.opussoftware.com/tutorial/TutMakefile.htm
+# Пример Makefile'а с использованием макросов и выражений.
+#
+# Подробнее про Makefile'ы - см http://en.wikipedia.org/wiki/Makefile
+# и http://www.opussoftware.com/tutorial/TutMakefile.htm
 
-# Complex example
-# Copy or rename it to Makefile and run:
-#   make build
+# Для того чтобы проверить как пример работает - сделайте символическую ссылку
+# Makefile (ln -s Makefile.full Makefile) или скопируйте файл в Makefile
+# и наберите в консоли:
+#   make build (или просто "make")
 #   make run
 #   make clean
 
-# Define some "macros"
+# Определим некоторые макросы:
 OUTDIR=out/
 CXX=g++
 LINK=g++
 OBJ=obj
 
-# The list of ".h" files
+# Список ".h" файлов
 HEADERS_LIST=\
 	header_file.h
-# Can use wildcards: H_LIST=$(wildcard *.h)
+# Можно использовать wildcards: H_LIST=$(wildcard *.h)
 
-# The list of ".cpp" files
+# Список ".cpp" файлов
 CPP_LIST=\
 	hello.cpp \
 	main.cpp \
 	world.cpp
-# or CPP_LIST=$(patsubst %.cpp,%,$(wildcard *.cpp))
+# или CPP_LIST=$(patsubst %.cpp,%,$(wildcard *.cpp))
 
-# Turn all "X.cpp" into "out/X.obj" and save as a separate list
+# Сформировать список имён вида "out/X.obj" для каждого "X.cpp"
 OBJ_LIST=$(patsubst %.cpp, $(OUTDIR)%.$(OBJ), $(CPP_LIST))
 
-# "@" at the beginning means "don't print the command itself"
+# "@" в начале команды значит "не печатать саму команду".
 all:
 	@echo "Hello $(LOGNAME), nothing to do by default"
 	@echo "Try 'make help'"
-# .PHONY: all - means 'all' is not a buildable file
+	
+# .PHONY - специальное правило, значащее "мои зависимости не связаны названиями
+# с какими-либо компилируемыми файлами".
 # http://www.gnu.org/software/automake/manual/make/Phony-Targets.html
+#
+# Например, это правило:
 .PHONY: all
+# значит что all при компиляции не порождает файла "all".
 
-# help  - Display callable targets.
+# help  - распечатать список команд.
+# (дёшево и сердито)
 help:
 	@egrep "^# [a-z ]+ - " Makefile
 .PHONY: help
 
-# To create the output directory, use mkdir
+# Для того чтобы создать директорию для результатов сборки, воспользуемся mkdir.
 $(OUTDIR):
 	mkdir -p $(OUTDIR)	
 
-# "$<" stands for "first dependency"
-# "$@" stands for "rule name"
+# "$<" - это специальный макрос, его значение - имя "первой зависимости",
+#        т.е. обычно "исходного файла".
+# "$@" - макрос, хранит имя текущего правила.
 #
-# assume % = file
-# out/file.obj: file.cpp header1.h ... | out
-#		g++ -o out/file.obj -c file.cpp		
+# % - аналог wildcard'а "*".
+#     В имени правила - подходит под любые последовательности символов;
+#     При выполнении данного правила для конкретного файла конкретная
+#     последовательность символов автоматически подставляется в имена
+#     зависимостей и команды вместо %.
 $(OUTDIR)%.$(OBJ): %.cpp $(H_LIST) | $(OUTDIR)
 	$(CXX) -o $@ -c $<
+# Для %=file то же самое что:
+# out/file.obj: file.cpp header1.h ... | out
+#		g++ -o out/file.obj -c file.cpp		
 
-# "$@" stands for "rule name"
-# "$^" stands for "all dependencies"
+# "$@" - макрос, хранит имя текущего правила.
+# "$^" - макрос, хранит имена всех зависимостей текущего правила.
 $(OUTDIR)program_name: $(OBJ_LIST)
 	$(LINK) -o $@ $^ 
 
-# build - Build the program.
+# build - собрать программу.
 build: $(OUTDIR)program_name
 .PHONY: build
 
-# run   - Build & run the program.
+# run   - собрать и запустить программу.
 run: build
 	@./$(OUTDIR)program_name
 .PHONY: run
 
-# clean - Remove intermediate files and the program.
+# clean - удалить промежуточные файлы.
 clean:
 	rm -r $(OUTDIR)
 .PHONY: clean

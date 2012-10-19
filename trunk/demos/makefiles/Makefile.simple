@@ -1,34 +1,50 @@
-# This is a make file
-# See http://en.wikipedia.org/wiki/Makefile
-# and http://www.opussoftware.com/tutorial/TutMakefile.htm
+# Пример Makefile'а, простой.
+#
+# Подробнее про Makefile'ы - см http://en.wikipedia.org/wiki/Makefile
+# и http://www.opussoftware.com/tutorial/TutMakefile.htm
 
-# Simple example
-# Copy or rename it to Makefile and run:
-#   make build
+# Для того чтобы проверить как пример работает - сделайте символическую ссылку
+# Makefile (ln -s Makefile.simple Makefile) или скопируйте файл в Makefile
+# и наберите в консоли:
+#   make build (или просто "make")
 #   make run
 #   make clean
 
-# Default target - build helloworld
+# Первое правило - правило "по умолчанию" собрать helloworld
 build: helloworld
 
-# A Makefile is a set of rules like this:
-output_file_to_be_compiled: using_this_input_file and_these_dependencies
+# Makefile - это совокупность правил вида
+output_file_to_be_compiled: dependencies
+	# ВАЖНО: отступы у списка команд должны быть именно таб'ами, а не пробелами.
 	command_to_build_output_1
-	command_to_build_output_3
-	# NOTE: above are real 'tab' character, spaces are NOT ok.
-# -> such a rule means "to build output_file you need to 
-# first build the dependencies, then run a few commands;
-# rebuild only if input_file has changed.
+	command_to_build_output_2
+# -> правило значит
+# "чтобы получить (собрать) output_file_to_be_compiled,
+# надо вначале получить (собрать) все необходимые
+# зависимости dependencies, а затем выполнить дальнейший список команд".
+#
+# Обычно первой зависимостью делают файл исходного кода (см ниже).
+#
+# При повторной сборке (make) команды выполняются только если исходный файл или
+# зависимости изменились - для оптимизации.
 
+# Простой пример:
+# Чтобы запустить пример, нужно вначале его собрать (build),
+#	а затем выполнить (./helloworld).
 run: build
 	./helloworld
 
+# Очистка директории от артефактов компиляции.
 clean:
-	rm -r helloworld hello.obj main.obj world.obj
+	rm -f helloworld hello.obj main.obj world.obj
 
+# Чтобы собрать helloworld, нужно собрать объектные файлы, а потом слинковать.
 helloworld: hello.obj main.obj world.obj
 	g++ -o helloworld hello.obj main.obj world.obj
 
+# Чтобы собрать hello.obj, нужно скомпилировать hello.cpp;
+# при этом имеет место неявная зависимость от заголовочных файлов, включённых в
+# hello.cpp (header_file.h).
 hello.obj: hello.cpp header_file.h
 	g++ -o hello.obj -c hello.cpp
 
