@@ -4,7 +4,7 @@
 # и http://www.opussoftware.com/tutorial/TutMakefile.htm
 
 # Для того чтобы проверить как пример работает - сделайте символическую ссылку
-# Makefile (ln -s Makefile.full Makefile) или скопируйте файл в Makefile
+# Makefile (ln -s Makefile.complex Makefile) или скопируйте файл в Makefile
 # и наберите в консоли:
 #   make build (или просто "make")
 #   make run
