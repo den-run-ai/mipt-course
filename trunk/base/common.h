@@ -55,6 +55,8 @@
       CLASS_NAME(const CLASS_NAME &); \
   void operator=(const CLASS_NAME &);
 
+// Get the size of a constant-sized array.
+// DO NOT use it for heap buffers or var-size arrays!
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 typedef unsigned char uchar;
