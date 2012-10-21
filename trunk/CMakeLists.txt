@@ -4,6 +4,8 @@
 
 set(CMAKE_CXX_COMPILER "g++")
 
+# TODO(timurrrr): вынести комментарии "что делатЬ?!?!" в начало.
+
 project(GMC)
 cmake_minimum_required(VERSION 2.6)
 

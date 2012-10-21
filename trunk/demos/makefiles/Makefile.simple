@@ -3,8 +3,10 @@
 # Подробнее про Makefile'ы - см http://en.wikipedia.org/wiki/Makefile
 # и http://www.opussoftware.com/tutorial/TutMakefile.htm
 
-# Для того чтобы проверить как пример работает - сделайте символическую ссылку
-# Makefile (ln -s Makefile.simple Makefile) или скопируйте файл в Makefile
+# Для того чтобы проверить как пример работает
+# - сделайте символическую ссылку
+# Makefile (ln -s Makefile.simple Makefile)
+# или скопируйте файл в Makefile
 # и наберите в консоли:
 #   make build (или просто "make")
 #   make run
@@ -15,18 +17,20 @@ build: helloworld
 
 # Makefile - это совокупность правил вида
 output_file_to_be_compiled: dependencies
-	# ВАЖНО: отступы у списка команд должны быть именно таб'ами, а не пробелами.
+	# ВАЖНО: отступы у списка команд должны быть именно таб'ами,
+	# а не пробелами.
 	command_to_build_output_1
 	command_to_build_output_2
 # -> правило значит
 # "чтобы получить (собрать) output_file_to_be_compiled,
 # надо вначале получить (собрать) все необходимые
-# зависимости dependencies, а затем выполнить дальнейший список команд".
+# зависимости dependencies, а затем выполнить дальнейший
+# список команд".
 #
 # Обычно первой зависимостью делают файл исходного кода (см ниже).
 #
-# При повторной сборке (make) команды выполняются только если исходный файл или
-# зависимости изменились - для оптимизации.
+# При повторной сборке (make) команды выполняются только
+# если исходный файл или зависимости изменились - для оптимизации.
 
 # Простой пример:
 # Чтобы запустить пример, нужно вначале его собрать (build),
@@ -38,13 +42,14 @@ run: build
 clean:
 	rm -f helloworld hello.obj main.obj world.obj
 
-# Чтобы собрать helloworld, нужно собрать объектные файлы, а потом слинковать.
+# Чтобы собрать helloworld, нужно собрать объектные файлы,
+# а потом слинковать.
 helloworld: hello.obj main.obj world.obj
 	g++ -o helloworld hello.obj main.obj world.obj
 
 # Чтобы собрать hello.obj, нужно скомпилировать hello.cpp;
-# при этом имеет место неявная зависимость от заголовочных файлов, включённых в
-# hello.cpp (header_file.h).
+# при этом имеет место неявная зависимость от заголовочных
+# файлов, включённых в hello.cpp (header_file.h).
 hello.obj: hello.cpp header_file.h
 	g++ -o hello.obj -c hello.cpp
 
