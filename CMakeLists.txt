@@ -1,13 +1,22 @@
-# Copyright (c) 2011 Timur Iskhodzhanov and MIPT students. All rights reserved.
+# Copyright (c) 2012 Timur Iskhodzhanov and MIPT students. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-set(CMAKE_CXX_COMPILER "g++")
+###############################################################################
+# READ THIS BEFORE READING THE REST OF THE FILE!
+# If you only need to pass the autumn assignment as per
+#   http://code.google.com/p/mipt-course/wiki/AutumnAssignment ,
+# please go to sandbox/CMakeLists.txt and read the comments there.
+###############################################################################
 
-# TODO(timurrrr): вынести комментарии "что делатЬ?!?!" в начало.
+set(CMAKE_CXX_COMPILER "g++")
 
 project(GMC)
 cmake_minimum_required(VERSION 2.6)
+
+###############################################################################
+# Below you can find a large piece of junk cmake code necessary to support
+# coverage builds. Improvements and corrections are welcome!
 
 # CMAKE_BUILD_TYPE={Release|Debug|Coverage}
 # TODO(muxanasov): support flags RelWithDebInf & MinSizeRel
@@ -41,13 +50,15 @@ else ()
     \n Release\n Debug\n Coverage"
   )
 endif()
+###############################################################################
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 set(prj_src ${GMC_SOURCE_DIR})
 
-# Order of the modules is very important, because "testing" uses libgtest from
-# third_party/googletest/; "sandbox" & "base" use libgoogletest from "testing"
+# Order of the modules is very important, because:
+#   a) "testing" depends on libgtest from third_party/googletest/
+#   b) "sandbox" and "base" use libgoogletest from "testing"
 
 set(modules
   third_party/googlemock/
@@ -82,6 +93,8 @@ endforeach (module)
 add_custom_target(build COMMAND make)
 
 ###############################################################################
+# Support for "make USE_VALGRIND=1 test" below.
+#
 # Preparing valgrind test
 # TODO(muxanasov): It should be platform-specific
 
