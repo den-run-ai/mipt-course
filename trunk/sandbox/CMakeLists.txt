@@ -1,9 +1,16 @@
-# Copyright (c) 2011 Timur Iskhodzhanov and MIPT students. All rights reserved.
+# Copyright (c) 2012 Timur Iskhodzhanov and MIPT students. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
 project(sandbox)
 cmake_minimum_required(VERSION 2.6)
+
+###############################################################################
+# If you want to add your new code while doing the autumn assignment
+#   http://code.google.com/p/mipt-course/wiki/AutumnAssignment ,
+# please add your files to the LIB_HXX, LIB_CXX and TEST_CXX lists.
+# Everything else should just work.
+###############################################################################
 
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
