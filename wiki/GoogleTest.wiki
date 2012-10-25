@@ -51,7 +51,7 @@ Running main() from gtest_main.cc
 Более сложные варианты интеграции с системами сборки описаны в [http://code.google.com/p/googletest/wiki/Primer#Setting_up_a_New_Test_Project в официальной документации],<br>а также в исходных кодах ([http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmake Makefile], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fcmake CMake], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmsvc Visual Studio], [http://code.google.com/p/googletest/wiki/XcodeGuide XCode]).
 
 == С использованием системного googletest ==
-В Ubuntu 10 можно было установить googletest из репозитория.
+В Ubuntu 10 можно было установить googletest из репозитория.<br>
 Сейчас этот метод не рекомендуется, см [http://code.google.com/p/googletest/wiki/FAQ#Why_is_it_not_recommended_to_install_a_pre-compiled_copy_of_Goog документацию].
 
 = Основные приемы работы =
