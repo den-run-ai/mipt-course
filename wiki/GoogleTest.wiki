@@ -33,7 +33,7 @@ $ g++ -I googletest/include -c -o googletest_demo.a googletest_demo.cpp
 
 # Компоновка и запуск.
 # ВАЖНО: обратите внимание на -lpthread
-$ g++ -o googletest_demo gtest.a gtest_main.a googletest_demo.a
+$ g++ -o googletest_demo gtest.a gtest_main.a googletest_demo.a -lpthread
 $ ./googletest_demo 
 Running main() from gtest_main.cc
 [==========] Running 1 test from 1 test case.
