@@ -7,7 +7,19 @@
 
 = Компиляция тестов =
 == Сборка библиотеки из исходных кодов ==
-Простая версия:
+Для начала напишем наш первый тест с использованием библиотеки googletest - 
+`googletest_demo.cpp`: 
+{{{
+#include <gtest/gtest.h>
+
+int sum(int a, int b) { return a + b; }  // Функция, которую мы хотим протестировать.
+
+TEST(MyFunctionTests, Sum) {
+  ASSERT_EQ(4 /* ожидаемое значение для */, /* вот этого выражения */ sum(2, 2));
+}
+}}}
+
+Простая версия сборки:
 {{{
 # Выполнять в папке, где лежит googletest_demo.cpp
 $ svn checkout http://googletest.googlecode.com/svn/trunk/ googletest
