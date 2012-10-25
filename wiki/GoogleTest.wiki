@@ -19,7 +19,8 @@ $ g++ -I googletest -I googletest/include -c -o gtest_main.a googletest/src/gtes
 # Собрать наши тесты
 $ g++ -I googletest/include -c -o googletest_demo.a googletest_demo.cpp
 
-# Компоновка и запуск
+# Компоновка и запуск.
+# ВАЖНО: обратите внимание на -lpthread
 $ g++ -o googletest_demo gtest.a gtest_main.a googletest_demo.a
 $ ./googletest_demo 
 Running main() from gtest_main.cc
