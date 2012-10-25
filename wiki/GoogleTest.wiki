@@ -6,60 +6,6 @@
 Полную документацию можно найти по адресу http://code.google.com/p/googletest/wiki/Documentation
 
 = Компиляция тестов =
-== С использованием системного googletest ==
-Проверим, установлен ли googletest:
-{{{
-$ ls /usr/lib/libgtest*.a /usr/include/gtest
-/usr/lib/libgtest.a  /usr/lib/libgtest_main.a
-
-/usr/include/gtest:
-gtest-death-test.h  gtest.h  gtest-message.h  ...
-}}}
-
-Если результат предыдущей коменды был пустым, то можно установить так:
-{{{
-$ sudo apt-get install -y libgtest-dev libgtest0
-}}}
-
-Теперь напишем наш первый тест с использованием библиотеки googletest - 
-`googletest_demo.cpp`: 
-{{{
-#include <gtest/gtest.h>
-
-int sum(int a, int b) { return a + b; }  // Функция, которую мы хотим протестировать.
-
-TEST(MyFunctionTests, Sum) {
-  ASSERT_EQ(4 /* ожидаемое значение для */, /* вот этого выражения */ sum(2, 2));
-}
-}}}
-
-Скомпилируем и запустим его следующими командами:
-{{{
-$ g++ -l gtest_main -l pthread -o googletest_demo googletest_demo.cpp
-$ ./googletest_demo 
-Running main() from gtest_main.cc
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-[----------] 1 test from MyFunctionTests
-[ RUN      ] MyFunctionTests.Sum
-[       OK ] MyFunctionTests.Sum
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran.
-[  PASSED  ] 1 test.
-}}}
-
-Обратите внимание на отсутствие в файле googletest_demo.cpp функции `main()` - она уже есть в библиотеке `gtest_main`. Если по какой-то причине нам нужно использовать собственную версию `main()`, то вместо "`-l gtest_main`" следует использовать "`-l gtest`", а `main()` следует написать так:
-{{{
-int main(int argc, char **argv) {
-  // InitGoogleTest() считывает --gtest_* флаги командной строки и может поменять argc/argv!
-  ::testing::InitGoogleTest(&argc, argv);
-
-  // Дополнительная инициализация, если нужно.
-
-  return RUN_ALL_TESTS();
-}
-}}}
-
 == Сборка библиотеки из исходных кодов ==
 Простая версия:
 {{{
@@ -90,6 +36,10 @@ Running main() from gtest_main.cc
 }}}
 
 Более сложные варианты интеграции с системами сборки описаны в [http://code.google.com/p/googletest/wiki/Primer#Setting_up_a_New_Test_Project в официальной документации],<br>а также в исходных кодах ([http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmake Makefile], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fcmake CMake], [http://code.google.com/p/googletest/source/browse/#svn%2Ftrunk%2Fmsvc Visual Studio], [http://code.google.com/p/googletest/wiki/XcodeGuide XCode]).
+
+== С использованием системного googletest ==
+В Ubuntu 10 можно было установить googletest из репозитория.
+Сейчас этот метод не рекомендуется, см [http://code.google.com/p/googletest/wiki/FAQ#Why_is_it_not_recommended_to_install_a_pre-compiled_copy_of_Goog документацию].
 
 = Основные приемы работы =
 == Семейства макросов ASSERT_XY, EXPECT_XY ==
