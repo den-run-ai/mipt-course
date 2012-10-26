@@ -80,9 +80,9 @@ class LibraryDB {
  public:
   typedef int UserID;
 
-  class User {
+  class UserAccount {
    public:
-    explicit User(UserID id) : id_(id) { }
+    explicit UserAccount(UserID id) : id_(id) { }
 
     UserID id() { return id_; }
 
@@ -96,23 +96,23 @@ class LibraryDB {
 
     // TODO(timurrrr): use std::multiset<> to store the book record
 
-    DISALLOW_COPY_AND_ASSIGN(User);
+    DISALLOW_COPY_AND_ASSIGN(UserAccount);
   };
 
   LibraryDB() {}
 
   // TODO(timurrrr): implement the methods below
-  User* GetUser(UserID id) {
+  UserAccount* GetUser(UserID id) {
     // Fake it for now!
-    return new User(id);
+    return new UserAccount(id);
   }
 
-  bool GiveBook(ISBN isbn, User *recipient) {
+  bool GiveBook(ISBN isbn, UserAccount *recipient) {
     // Fake it for now!
     return true;
   }
 
-  bool ReturnBook(ISBN isbn, User *holder) {
+  bool ReturnBook(ISBN isbn, UserAccount *holder) {
     // Fake it for now!
     return true;
   }
@@ -138,7 +138,7 @@ class LibraryUserTest : public LibraryIndexTest {
     LibraryIndexTest::TearDown();
   }
 
-  std::auto_ptr<LibraryDB::User> user;
+  std::auto_ptr<LibraryDB::UserAccount> user;
   LibraryDB library;
 };
 
@@ -172,7 +172,7 @@ TEST_F(LibraryUserTest, DISABLED_UserReturnsOneBookTest) {
   // Typical use-case: a user comes to a library and returns a book he had;
   BookID book;
 
-  // User should have the book first, right?
+  // UserAccount should have the book first, right?
   ASSERT_TRUE(library.GiveBook(TDD_ISBN, user.get()));
   ASSERT_EQ(user->CountBooks(TDD_ISBN), 1);
 
