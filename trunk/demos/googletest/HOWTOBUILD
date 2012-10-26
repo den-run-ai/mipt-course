@@ -1,0 +1,11 @@
+Run:
+  g++ -I googletest -I googletest/include -c -o gtest.a googletest/src/gtest-all.cc
+  g++ -I googletest -I googletest/include -c -o gtest_main.a googletest/src/gtest_main.cc
+
+  # Собрать наши тесты
+  g++ -I googletest/include -o googletest_demo gtest.a gtest_main.a -lpthread TEST_NAME.cpp
+
+  # Запустить тесты
+  ./googletest_demo
+
+See http://code.google.com/p/mipt-course/wiki/GoogleTest
