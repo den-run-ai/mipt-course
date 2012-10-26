@@ -1,19 +1,31 @@
 #include <gtest/gtest.h>
 
-// Build with:
-// g++ -lgtest_main simple.cpp
-
-int sum(int a, int b) {
+int Sum(int a, int b) {
   // the function we want to test
   return a + b;
 }
 
 TEST(MyFunctionTests, Sum) {
-  EXPECT_EQ(2 /* expected */, sum(1, 2) /* actual */);
-  // EXPECT_ - doesn't terminate the execution on failure.
-  printf("Will be executed\n");
+  ASSERT_EQ(3, Sum(1, 2));
+  // Yoda condition. Читать как "Sum(1, 2) должно равняться 3".
+  // Или так:
+  ASSERT_EQ(3 /* ожидаемое */, Sum(1, 2) /* тестируемое */);
 
-  ASSERT_EQ(5 /* expected */, sum(2, 2) /* actual */);
-  // ASSERT_ - terminates the execution on failure.
-  printf("Won't be executed\n");
+  // ASSERT_ - в случае если условие нарушено, тест провален (FAILED) и дальше
+  // не исполняется.
+  // "Если дальнейшее исполнение теста не имеет смысла" => ASSERT_.
+  ASSERT_EQ(4, Sum(2, 2));
+  printf("--- After ASSERT_EQ\n");
+
+  // EXPECT_ - если условие нарушено, то тест считается проваленным (FAILED),
+  // но он продолжает исполнение. Бывает полезно если хочется проверить сразу
+  // несколько условий перед прерыванием исполнения - для упрощения отладки.
+  EXPECT_EQ(3, Sum(1, 2));
+  printf("--- After EXPECT_EQ\n");
+
+  // Поменяйте ожидаемые значения в макросах выше, запустите тесты и посмотрите
+  // на вывод.
+
+  // Ещё можно добавить отладочную/информационную печать в случае ошибки:
+  ASSERT_EQ(4, Sum(2, 2)) << "2+2 != 4?!?";
 }

@@ -12,5 +12,7 @@ int divide(int a, int b) {
 }
 
 TEST(MyFunctionTests, Sum) {
-  ASSERT_DEATH(divide(42, 0), "by zero");
+  // Проверить что функция "упадёт" при исполнении:
+  ASSERT_DEATH(divide(42, 0) /* Функция, которая должна крашнуть процесс */,
+               "by zero" /* Подстрока ожидаемого сообщения об ошибке */);
 }
