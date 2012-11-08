@@ -28,6 +28,7 @@ set(TEST_CXX
   mocks_and_fakes_demo_test.cpp
   library_test.cpp
   lru_cache_test.cpp
+  ngramm_finder_test.cpp
   tdd_example_test.cpp
   valgrind_demo_test.cpp
 )
