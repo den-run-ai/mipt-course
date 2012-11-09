@@ -32,16 +32,17 @@
 *TODO*: добавить оценку сколько времени в прошлые годы занимал полный цикл.
 
 ===Примеры задач для "основного" сценария===
-  * [http://code.google.com/p/mipt-course/issues/list?q=status%3AAvailable "Ничьи" issues]
+  * [http://code.google.com/p/mipt-course/issues/list?q=status%3AAvailable Open issues без owner'а]
   * Написать контейнер или классический алгоритм на графах
   * Доделать [http://code.google.com/p/mipt-course/source/detail?r=169 ReliableUdpChannel]
-  * Простые игры: шашки, ~~[http://code.google.com/p/mipt-course/issues/detail?id=20 судоку]~~, пятнашки, ...
-  * ~~[http://code.google.com/p/mipt-course/issues/detail?id=29 Разбор и вычисление математических выражений]~~
-  * ~~[http://code.google.com/p/mipt-course/issues/detail?id=21 FFT]~~
+  * Простые игры: шашки, пятнашки, ...
+  * [http://code.google.com/p/mipt-course/issues/detail?id=29 Разбор и вычисление математических выражений]
+  * [http://code.google.com/p/mipt-course/issues/detail?id=21 FFT]
   * Регулярные выражения (см. [http://code.google.com/p/mipt-course/source/browse/trunk/sandbox/pattern_test.cpp sandbox/pattern_test.cpp])
-  * In-memory/file SQL-like database
+  * Простенькую in-memory/file базу данных
   * Сжатие данных (текстовых, графических, звуковых, и т.д.)
-  * <Место для вашей рекламы>
+  * Шифрование
+  * <Место для вашего варианта>
 
 ==Альтернативы==
 Альтернативные сценарии (writing tests after code, etc) - пишите, обсудим.
