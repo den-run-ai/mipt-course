@@ -2,6 +2,8 @@
 #
 # Подробнее про Makefile'ы - см http://en.wikipedia.org/wiki/Makefile
 # и http://www.opussoftware.com/tutorial/TutMakefile.htm
+#
+# Также см http://habrahabr.ru/post/155201/
 
 # Для того чтобы проверить как пример работает
 # - сделайте символическую ссылку
@@ -11,6 +13,11 @@
 #   make build (или просто "make")
 #   make run
 #   make clean
+#
+# Вместо копий или символических ссылок можно вызывать команды так:
+#   make -f Makefile.simple build
+#   make -f Makefile.simple run
+#   make -f Makefile.simple clean
 
 # Первое правило - правило "по умолчанию" собрать helloworld
 build: helloworld
