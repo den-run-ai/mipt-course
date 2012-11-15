@@ -28,7 +28,7 @@ class SimpleFixtureTest(unittest.TestCase):
 
   @classmethod  # Python 2.7+
   def tearDownClass(cls):
-    print "Runs once after starting the first test from this fixture"
+    print "Runs once after finishing the last test from this fixture"
 
   # ... and some tests using this fixture:
   def test_shuffle(self):
