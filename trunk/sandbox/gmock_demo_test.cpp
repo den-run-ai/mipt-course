@@ -9,27 +9,27 @@
 
 using namespace testing;  // NOLINT
 
-// http://code.google.com/p/googlemock/wiki/ForDummies
-
 class SomeInterface {
  public:
   virtual bool IsNumberOdd(int value) = 0;
   virtual ~SomeInterface() {}
 };
 
+// Читать:
+// http://code.google.com/p/googlemock/wiki/ForDummies
 class MockSomeInterface : public SomeInterface {
  public:
   MOCK_METHOD1(IsNumberOdd, bool(int value));
 };
 
-// Some class working with the interface
+// Класс, который работает с интерфесом.
 class MyClass {
  public:
   explicit MyClass(SomeInterface *number_processor)
       : number_processor_(number_processor) {
   }
 
-  // Returns a sum of odd numbers between 0 and 10.
+  // Возвращает сумму нечётных чисел от 0 до 10.
   int DoSomeJob() {
     int ret = 0;
     for (int i = 0; i < 10; i++) {
@@ -47,12 +47,17 @@ class MyClass {
 };
 
 TEST(GoogleMockDemo, SimpleMock) {
-  // Create a mock instance
+  // Создать mock-объект.
   MockSomeInterface mock;
 
-  // Set some expectations
+  // Читать:
+  // http://code.google.com/p/googlemock/wiki/ForDummies
+
+  // Установить expectations - то, как mock должен будет
+  // реагировать на различные вызовы,
+  // а также указать ожидаемое количество вызовов.
   EXPECT_CALL(mock, IsNumberOdd(0))
-      .Times(1).WillRepeatedly(Return(false));
+        .Times(1).WillOnce(Return(false));
 
   for (int i = 1; i < 10; i+=2)
     EXPECT_CALL(mock, IsNumberOdd(i))
@@ -61,7 +66,9 @@ TEST(GoogleMockDemo, SimpleMock) {
     EXPECT_CALL(mock, IsNumberOdd(i))
         .Times(1).WillOnce(Return(false));
 
-  // Run it!
+  // Expectations установлены, можно запускать тест.
   MyClass m(&mock);
   ASSERT_EQ(25, m.DoSomeJob());
+
+  // При уничтожении mock-объект проверяет expectations.
 }

@@ -116,8 +116,10 @@ ACTION_P(MockReceive, str) {
 
 TEST(ReliableUdpChannel, SimpleSequence) {
   MockUdpChannel mock;
+
+  // "_" значит "аргумент может принимать любое значение".
   EXPECT_CALL(mock, Receive(_, _))
-        .WillOnce(MockReceive("0H"))
+        .WillOnce(MockReceive("0H"))  // Выполнить MockReceive.
         .WillOnce(MockReceive("1E"))
         .WillOnce(MockReceive("2L"))
         .WillOnce(MockReceive("3L"))
@@ -137,16 +139,23 @@ TEST(ReliableUdpChannel, SimpleSequence) {
 
 TEST(ReliableUdpChannel, OnePacketLost) {
   MockUdpChannel mock;
-  // Default action. See
+
+  // Поведение по умолчанию. Читать:
   // http://code.google.com/p/googlemock/wiki/ForDummies#All_Expectations_Are_Sticky_(Unless_Said_Otherwise)
   EXPECT_CALL(mock, Send(StrEq("R1"), Eq(3u))).Times(AnyNumber());
 
+  // Читать:
   // http://code.google.com/p/googlemock/wiki/CheatSheet#Sequences
   Sequence main, retries /* and before retries */;
+  // Нижеприведённый код устанавливает следующее:
+  // Два первых вызова Receive вернут 0H, 2L.
+  // После этого может быть несколько раз послано сообщение R1.
+  // После 2L будут получены сообщения 3L, 1E, 4O.
+  // Относительный порядок R1 и 3L,1E,4O не важен.
   EXPECT_CALL(mock, Receive(_, _))
       .InSequence(main, retries)
       .WillOnce(MockReceive("0H"))
-      // .WillOnce(MockReceive("1E"))  <-- lost!
+      // .WillOnce(MockReceive("1E"))  <-- намеренно потерян!
       .WillOnce(MockReceive("2L"));
   EXPECT_CALL(mock, Send(StrEq("R1"), Eq(3u)))
       .InSequence(retries)
@@ -154,7 +163,7 @@ TEST(ReliableUdpChannel, OnePacketLost) {
   EXPECT_CALL(mock, Receive(_, _))
       .InSequence(main)
       .WillOnce(MockReceive("3L"))
-      .WillOnce(MockReceive("1E"))  // <-- answer to R1
+      .WillOnce(MockReceive("1E"))  // <-- ответ на запрос R1
       .WillOnce(MockReceive("4O"));
 
   char buff[10] = {};
