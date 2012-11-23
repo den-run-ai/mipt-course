@@ -8,6 +8,7 @@
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
+/////////////////////////////////////////////////////////////////////
 
 class Foo {
  public:
@@ -15,6 +16,23 @@ class Foo {
     array_ = new int[10];
     printf("array_ = new int[10];  // returned %p\n", array_);
   }
+
+  // Foo(const Foo &other);
+  /* Конструктор копирования, вызывается при создании b:
+     Foo b = a;
+
+     Поведение по умолчанию - поэлементное копирование.
+   */
+
+  // Foo& operator= (const Foo &right_operand);
+  /* Оператор присваивания, вызывается на такой строке:
+     Foo a, b;
+     b = a;
+     // b.operator=(a);
+
+     Поведение по умолчанию - поэлементное копирование.
+   */
+
   ~Foo() {
     printf("delete [] array_;  // array_ = %p\n", array_);
     delete [] array_;
@@ -41,6 +59,7 @@ int main() {
   c = a;  // Оператор присваивания - приводит ещё и к утечке памяти.
 
   PassFooByValue(a);  // На этой строке вызывается конструктор копирования.
+  printf("DONE\n");
 
   // Итого, декструктор вызывается 4 раза, то есть 4 раза вызывается delete []
   // с одним и тем же адресом в качестве аргумента -> "крыша" у кучи "поехала".
