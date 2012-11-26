@@ -8,8 +8,9 @@ class Foo:
     def Method(self, arg1, arg2):  # note the 'self'
         print "arg1 = %d, arg2 = %d" % (arg1, arg2)
 
-    # You can override some stuff like len() and operators
-    # but it's a black belt python-fu.
+    # Black belt python-fu:
+    # You can override some stuff like len() and operators,
+    # including operator[] and __hash__
 
 instance = Foo(13)
 instance.Method(1, 2)

@@ -2,7 +2,7 @@
 
 condition = 42
 
-# IMPORTANT: colons, _indentation_!
+# IMPORTANT: colons, _indentation_ are significant!
 if condition:
     print "Condition is true!"
 elif True:  # not 'true'!
