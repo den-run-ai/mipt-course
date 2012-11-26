@@ -3,7 +3,7 @@
 # Lists != arrays!
 # http://rgruet.free.fr/PQR27/PQR2.7.html#list
 
-l = [1, 2, 3, 4, 5] # create a list
+l = [1, 2, 3, 4, 5]  # create a list
 print "l = %s; length = %d" % (l, len(l))  # len = get length
 
 # NEW! Slices!
@@ -19,7 +19,7 @@ l2 = l
 l2[0] = 13  # changes l[0] as well!
 print "after l2[0] = 13, l = %s" % l
 
-real_copy_of_l = l[:] # create a copy of the list
+real_copy_of_l = l[:]  # create a copy of the list
 l[0] = 1
 l[2] = 3
 print "l = %s, real_copy_of_l = %s" % (l, real_copy_of_l)
@@ -37,7 +37,7 @@ print m
 
 print
 
-# Excercise!
+# EXCERCISE!
 array_2d = [[0]*10]*10  # two-dimentional array.. beware of this construction.
 for line in array_2d:
     print line
@@ -45,4 +45,5 @@ array_2d[5][4] = 7
 print "\narray_2d[5][4] = 7"
 for line in array_2d:
     print line
-# Explain what's printed? How to fix?
+# See what's printed and try to explain?
+# How to fix?

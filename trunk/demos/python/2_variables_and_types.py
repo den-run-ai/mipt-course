@@ -11,11 +11,11 @@ b = 2
 print a + b
 
 # Types in Python are dynamic!
-v = 42  # now it's integer
+v = 42  # `v` is an integer
+print v
+v = 0.42  # now it's a float
 print v
 v = 2**76  # NEW: Loooong integers are supported!
-print v
-v = 0.42  # now it's float
 print v
 v = 4 + 0.2j  # NEW: complex numbers!
 print v

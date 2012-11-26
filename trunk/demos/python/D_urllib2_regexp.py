@@ -9,7 +9,7 @@
 import re
 import urllib2
 
-response = urllib2.urlopen("http://bash.org.ru").read()
+response = urllib2.urlopen("http://bash.im").read()
 response = response.decode('cp1251')
 
 rg = re.compile(u'(утверждена[^<]*\s*</div>\s*<div>[^<]*(<br>[^<]*)*</div>)')
