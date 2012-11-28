@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.6.6
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2011 Timur Iskhodzhanov and MIPT students. All rights reserved.
