@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Regular expressions
+# http://docs.python.org/2.7/library/re.html
 # http://rgruet.free.fr/PQR27/PQR2.7.html#reModule
 import re
 
