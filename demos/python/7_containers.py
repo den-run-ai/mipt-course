@@ -20,6 +20,11 @@ d2 = {
                          # it's usually better to write it.
 }
 
+print "Фамилия %(FirstName)s - %(Surname)s" % {
+          "Surname": "Pupkin",
+          "FirstName": "Vasya",
+      }
+
 # Sets.
 # http://rgruet.free.fr/PQR27/PQR2.7.html#set
 s = set()  # create an unordered set

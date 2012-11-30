@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-""" Docstring demo
+""" Docstring demo.
 
 Запускать так:
 $ python

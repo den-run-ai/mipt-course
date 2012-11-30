@@ -9,7 +9,7 @@ import os
 import random
 import re
 import sys
-import Queue # Renamed to queue in 3.0
+import Queue  # Renamed to queue in 3.0
 import unittest
 
 class FakeDHT:
@@ -116,8 +116,8 @@ class TorrentID:
     return None
 
   def IsKnownChunk(self, contents, chunk_id):
-    return self.__CalculatePartialHash(contents, chunk_id) \
-            == self.partial_hashes[chunk_id]
+    return self.__CalculatePartialHash(contents, chunk_id) == (
+               self.partial_hashes[chunk_id])
 
 
 class TorrentClient:
@@ -161,8 +161,8 @@ class TorrentClient:
       print "%s: Loaded torrent   '%s'" % (self.__id, known_contents)
     else:
       known_contents = "*" * torrent.length
-      self.__partial_torrents[torrent.filehash] = \
-          set(range(len(torrent.partial_hashes)))
+      self.__partial_torrents[torrent.filehash] = (
+          set(range(len(torrent.partial_hashes))))
 
     self.__data[torrent.filehash] = (torrent, known_contents)
 
@@ -226,9 +226,9 @@ class TorrentClient:
     (torrent, known_contents) = self.__data[filehash]
 
     if chunk_id not in needed_chunks:
-      logging.info("%s: Hey, I didn't want this chunk! %d not in %s" % \
-                   (self.__id, chunk_id, str(needed_chunks)))
-      logging.info("Current torrent contents are:\n  '%s'" % known_contents)
+      logging.warning("%s: Hey, I didn't want this chunk! %d not in %s" % (
+                          self.__id, chunk_id, str(needed_chunks)))
+      logging.warning("Current torrent contents are:\n  '%s'" % known_contents)
       return
 
     if torrent.GetChunkHash(chunk_data) != torrent.partial_hashes[chunk_id]:
