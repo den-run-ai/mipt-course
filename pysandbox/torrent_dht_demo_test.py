@@ -12,7 +12,7 @@ import sys
 import Queue  # Renamed to queue in 3.0
 import unittest
 
-class FakeDHT:
+class FakeDHT(object):
   # This is a fake DHT, see http://en.wikipedia.org/wiki/Distributed_hash_table
   def __init__(self):
     self.__table = {}
@@ -37,7 +37,7 @@ class FakeDHT:
     return ret
 
 
-class FakeP2PNetwork:
+class FakeP2PNetwork(object):
   def __init__(self):
     # will contain (key -> (receive queue) pairs
     # where receive queue holds list of (sender_id, message) pairs.
@@ -74,7 +74,7 @@ class FakeP2PNetwork:
     return self.__nodes[receiver_id].get()
 
 
-class TorrentID:
+class TorrentID(object):
   CHUNK_SIZE = 4
 
   def __init__(self, contents):
@@ -120,7 +120,7 @@ class TorrentID:
                self.partial_hashes[chunk_id])
 
 
-class TorrentClient:
+class TorrentClient(object):
   def __init__(self, network, dht):
     self.__network = network
     self.__id = network.CreateNode()
