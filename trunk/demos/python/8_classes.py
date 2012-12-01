@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-class Foo:
+class Foo(object):
     def __init__(self, arg1):
         self.public_field = arg1
         self.__private_field = 42  # note the leading __
