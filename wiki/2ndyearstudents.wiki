@@ -97,3 +97,27 @@ g++ bruteforce.cpp socket_connection.cpp -lcrypto -o socket_bruteforce
 В обоих случаях потребуется немного дополнить/изменить интерфейс `Connection`, эти изменения нужно будет самостоятельно придумать и аргументировать.
 
 Гранд-проверка - запуск подбора пароля на 16 компьютерах в учебной аудитории!
+
+= Задача "нет, я хочу мыть посуду из задавальника" =
+Если вы хотите решать задачу из задавальника - ок (_ну что ж вы так!_), тогда рекомендуемый интерфейс:
+{{{
+class IpcInterface {
+ public:
+  static IpcInterface *Create();  // Имеет разную реализацию в зав-ти от того, какой .cpp файл вы вкомпилируете.
+  virtual ~IpcInterface() {}
+
+  virtual bool Close() = 0;
+
+  virtual bool StartProducer() = 0;
+  virtual bool StartConsumer() = 0;
+
+  virtual bool SendMessage(const string &message) = 0;
+
+  enum Status {
+    CLOSED,
+    OK, 
+    ERROR,
+  };
+  virtual Status ReadMessage(string* message) = 0;
+};
+}}}
