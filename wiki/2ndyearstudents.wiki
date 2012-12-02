@@ -78,6 +78,7 @@ class Connection {
 g++ bruteforce.cpp pipe_connection.cpp -lcrypto -o pipe_bruteforce
 }}}
 для pipe-версии и
+{{{
 g++ bruteforce.cpp socket_connection.cpp -lcrypto -o socket_bruteforce
 }}}
 для сокет-версии.
