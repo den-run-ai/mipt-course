@@ -89,6 +89,10 @@ class BinaryOperation(Operation):
         return self.name
 
 
+class InvalidExpressionError(Exception):
+    pass
+
+
 class Evaluator(object):
 
     functions = {
@@ -113,6 +117,16 @@ class Evaluator(object):
         '-': ('-', False, operator.neg),
     }
 
+    def __convert_indexerror_to_invalidexpressionerror(func):
+
+        def wrapped(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except IndexError:
+                raise InvalidExpressionError()
+
+        return wrapped
+
     def __tokenize_to_str(self, expr_str):
         """Splits expr_str into tokens as strings.
 
@@ -131,7 +145,8 @@ class Evaluator(object):
             A list of string tokens from given expr_str
 
         Raises:
-            ValueError: invalid expr_str, which is impossible to tokenize
+            InvalidExpressionError: invalid expr_str, which is impossible
+                to tokenize
         """
         token_exprs = [
             '[a-zA-Z_0-9.]+',  # numbers, functions, variables
@@ -139,7 +154,7 @@ class Evaluator(object):
         ]
         tokens_str = re.findall('|'.join(token_exprs), expr_str)
         if not ''.join(tokens_str) == expr_str.replace(' ', ''):
-            raise ValueError('invalid arithmetic expression')
+            raise InvalidExpressionError('expression contains unknown symbols')
 
         return tokens_str
 
@@ -154,9 +169,10 @@ class Evaluator(object):
             A list of tokens from given expr_str
 
         Raises:
-            ValueError: invalid expr_str, which is impossible to tokenize
-                or tokens themselves are invalid
-                (e.g. 1.0.0 isn't a number, foobar isn't a known function)
+            InvalidExpressionError: invalid expr_str, which is impossible
+                to tokenize or tokens themselves are invalid
+                (e.g. unknown function)
+            ValueError: invalid number format, e.g. 2.2.2
         """
         tokens_str = self.__tokenize_to_str(expr_str)
 
@@ -188,12 +204,13 @@ class Evaluator(object):
             elif token_str == ')':
                 token = Bracket(False)
             else:
-                raise ValueError('invalid token "%s"' % token_str)
+                raise InvalidExpressionError('invalid token "%s"' % token_str)
 
             tokens.append(token)
 
         return tokens
 
+    @__convert_indexerror_to_invalidexpressionerror
     def __to_postfix(self, tokens):
         """Translates a string of tokens from infix form to postfix.
 
@@ -202,6 +219,10 @@ class Evaluator(object):
 
         Returns:
             List of the same tokens, reordered to form a postfix expression.
+
+        Raises:
+            InvalidExpressionError: if the expression is invalid and it's
+                impossible to translate to postfix form.
         """
 
         # helper function
@@ -268,8 +289,60 @@ class Evaluator(object):
 
         return res
 
+    @__convert_indexerror_to_invalidexpressionerror
+    def __evaluate_postfix(self, tokens):
+        """Evaluates the list of tokens as a postfix expression.
+
+        Args:
+            tokens: list of tokens representing expression in postfix form
+
+        Returns:
+            Evaluation result of the expression.
+
+        Raises:
+            InvalidExpressionError: if the postfix expression is invalid.
+        """
+
+        stack = []
+
+        for token in tokens:
+            if isinstance(token, Value):
+                stack.append(token.value)
+            elif isinstance(token, UnaryOperation):
+                arg = stack.pop()
+                stack.append(token.evaluate(arg))
+            elif isinstance(token, BinaryOperation):
+                arg2 = stack.pop()
+                arg1 = stack.pop()
+                stack.append(token.evaluate(arg1, arg2))
+            else:
+                raise AssertionError(
+                    "error: can't evaluate unknown token '%s'" %
+                    token.to_test_string())
+
+        return stack[0]
+
     def evaluate(self, expr_str):
-        pass
+        """Evaluates expression given as a string.
+
+        Supported operators: + (binary and unary), - (binary and unary), *, /, ^
+        Supported functions: sqrt, sin, cos, abs
+
+        Args:
+            expr_str: string representing the expression to evaluate
+
+        Returns:
+            Result of the expression evaluation as a float.
+
+        Raises:
+            InvalidExpressionError: if the expression is invalid
+            ValueError: if or given mathematical operations can't be performed
+                (e.g. division by zero) or invalid number format (e.g. 2.2.2)
+        """
+
+        tokens = self.__tokenize(expr_str)
+        tokens_postfix = self.__to_postfix(tokens)
+        return self.__evaluate_postfix(tokens_postfix)
 
 
 class EvaluatorTest(unittest.TestCase):
@@ -278,18 +351,15 @@ class EvaluatorTest(unittest.TestCase):
         self.evaluator = Evaluator()
         self.eval = self.evaluator.evaluate
 
-    @unittest.skip('not implemented yet')
     def test_constants(self):
         self.assertEqual(self.eval('0'), 0)
         self.assertEqual(self.eval('1'), 1)
         self.assertEqual(self.eval('10.32423'), 10.32423)
 
-    @unittest.skip('not implemented yet')
     def test_unary(self):
         self.assertEqual(self.eval('-1.23'), -1.23)
         self.assertEqual(self.eval('+1.23'), 1.23)
 
-    @unittest.skip('not implemented yet')
     def test_binary(self):
         self.assertEqual(self.eval('0+1'), 0 + 1)
         self.assertEqual(self.eval('11-7'), 11 - 7)
@@ -297,19 +367,16 @@ class EvaluatorTest(unittest.TestCase):
         self.assertAlmostEqual(self.eval('11/7'), 11.0 / 7)
         self.assertEqual(self.eval('25^3'), 25 ** 3)
 
-    @unittest.skip('not implemented yet')
     def test_functions(self):
         self.assertAlmostEqual(self.eval('sqrt(2)'), math.sqrt(2))
         self.assertAlmostEqual(self.eval('sin(3.333)'), math.sin(3.333))
         self.assertAlmostEqual(self.eval('cos(3.333)'), math.cos(3.333))
         self.assertAlmostEqual(self.eval('abs(-3.333)'), 3.333)
 
-    @unittest.skip('not implemented yet')
     def test_multiple(self):
         self.assertEqual(self.eval('7*45+10'), 7 * 45 + 10)
-        self.assertAlmostEqual(self.eval('113/41-5*11'), math.sqrt(2))
+        self.assertAlmostEqual(self.eval('113/41-5*11'), 113.0 / 41 - 5 * 11)
 
-    @unittest.skip('not implemented yet')
     def test_brackets(self):
         self.assertEqual(self.eval('7*(45+10)'), 7 * (45 + 10))
         self.assertAlmostEqual(
@@ -317,14 +384,48 @@ class EvaluatorTest(unittest.TestCase):
             (13.0 / (-11 + 145)) ** 1.3)
         self.assertAlmostEqual(self.eval('2.44 ^ (-1.3)'), 2.44 ** (-1.3))
 
-    @unittest.skip('not implemented yet')
     def test_space_ignorance(self):
         self.assertAlmostEqual(
             self.eval('   -  11 +sqrt(  sin( (   13 /(-  11 + 145))  ^1.3))'),
             -11 + math.sqrt(math.sin((13.0 / (-11 + 145)) ** 1.3)))
 
-    @unittest.skip('not implemented yet')
     def test_errors(self):
+        self.assertRaises(InvalidExpressionError, self.eval, '*')
+        self.assertRaises(InvalidExpressionError, self.eval, '1/')
+        self.assertRaises(InvalidExpressionError, self.eval, ')')
+        self.assertRaises(InvalidExpressionError, self.eval, '/(2-3)')
+
+        self.assertRaisesRegexp(
+            ValueError,
+            'invalid literal for float()',
+            self.eval,
+            '2.2.2')
+        self.assertRaisesRegexp(
+            ValueError,
+            'invalid literal for float()',
+            self.eval,
+            '5x')
+        self.assertRaisesRegexp(
+            InvalidExpressionError,
+            'invalid token',
+            self.eval,
+            'foobar 5 + 3')
+        self.assertRaisesRegexp(
+            InvalidExpressionError,
+            'invalid token',
+            self.eval,
+            'sinx')
+        self.assertRaisesRegexp(
+            InvalidExpressionError,
+            'invalid token',
+            self.eval,
+            'sin41')
+        self.assertRaisesRegexp(
+            InvalidExpressionError,
+            'invalid token',
+            self.eval,
+            'foobar 5 + 3')
+
         self.assertRaisesRegexp(
             ValueError,
             'negative number cannot be raised to a fractional power',
@@ -420,12 +521,12 @@ class EvaluatorTest(unittest.TestCase):
                  '-', '11', '+', '145', ')', ')', '^', '1.3', ')', ')'])
 
             self.assertRaisesRegexp(
-                ValueError,
-                'invalid arithmetic expression',
+                InvalidExpressionError,
+                'unknown symbols',
                 tok_func, '!";%:?=#@$&')
             self.assertRaisesRegexp(
-                ValueError,
-                'invalid arithmetic expression',
+                InvalidExpressionError,
+                'unknown symbols',
                 tok_func, '2 " 2')
 
         # these tests are for tokenize function only
@@ -440,22 +541,22 @@ class EvaluatorTest(unittest.TestCase):
             tokenize,
             '5x')
         self.assertRaisesRegexp(
-            ValueError,
+            InvalidExpressionError,
             'invalid token',
             tokenize,
             'foobar 5 + 3')
         self.assertRaisesRegexp(
-            ValueError,
+            InvalidExpressionError,
             'invalid token',
             tokenize,
             'sinx')
         self.assertRaisesRegexp(
-            ValueError,
+            InvalidExpressionError,
             'invalid token',
             tokenize,
             'sin41')
         self.assertRaisesRegexp(
-            ValueError,
+            InvalidExpressionError,
             'invalid token',
             tokenize,
             'foobar 5 + 3')
