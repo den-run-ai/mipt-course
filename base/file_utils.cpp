@@ -4,6 +4,8 @@
 
 #include "base/file_utils.h"
 
+#include <unistd.h>
+
 #include <string>
 
 #include "base/common.h"
