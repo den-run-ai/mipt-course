@@ -4,7 +4,6 @@
 
 #ifndef BASE_FILE_UTILS_H_
 #define BASE_FILE_UTILS_H_
-#pragma once
 
 #include <stdio.h>
 

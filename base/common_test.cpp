@@ -4,8 +4,6 @@
 
 #include "gtest/gtest.h"
 
-#include "base/common.h"
-
 TEST(CommonTest, DebugOrRelease) {
 #ifdef NDEBUG
   printf("NDEBUG defined, this is a Release build\n");

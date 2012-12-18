@@ -6,8 +6,8 @@
 #include <set>
 #include <utility>
 
-#include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include "base/common.h"
 #include "base/random.h"

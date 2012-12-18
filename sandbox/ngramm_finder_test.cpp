@@ -6,6 +6,7 @@
 #include <string>
 
 #include "gtest/gtest.h"
+
 #include "base/common.h"
 
 class NGrammFinder {

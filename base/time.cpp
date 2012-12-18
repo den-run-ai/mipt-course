@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <time.h>
-#include <sys/time.h>
-
 #include "base/time.h"
+
+#include <sys/time.h>
+#include <time.h>
 
 uint64 ConvertTime(const struct timeval &t) {
   return (t.tv_sec*1000 + t.tv_usec/1000);
