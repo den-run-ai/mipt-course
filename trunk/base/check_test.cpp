@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "gtest/gtest.h"
-
+// Defines CHECK and DCHECK.
 #include "base/common.h"
+
+#include "gtest/gtest.h"
 
 TEST(CheckTest, CheckTrueSucceedsTest) {
   CHECK(1);

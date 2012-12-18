@@ -2,14 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "sandbox/fenwick_tree.h"
+
 #include <functional>
 #include <vector>
+
 #include "gtest/gtest.h"
 
 #include "base/common.h"
 #include "base/random.h"
-
-#include "sandbox/fenwick_tree.h"
 
 TEST(FenwickTreeTest, InsertRemoveElementsTest) {
   FenwickTree<int> fnw;
