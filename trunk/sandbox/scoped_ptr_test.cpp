@@ -92,3 +92,9 @@ TEST(ScopedPtrTest, DISABLED_SwapTest) {
   EXPECT_EQ(1, dtor_counter_b);
 }
 
+TEST(ScopedPtrTest, DISABLED_DeathOnAccessNullPointer) {
+  scoped_ptr<TestClass> ptr(NULL);
+
+  ASSERT_DEBUG_DEATH(*ptr, "");
+  ASSERT_DEBUG_DEATH(ptr->SomeMethod(0), "");
+}

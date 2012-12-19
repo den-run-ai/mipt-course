@@ -14,6 +14,10 @@
 //
 // Note: reset(...) also deletes the stored ponter. Use release() if you want
 // scoped_ptr<T> to forget about pointer without deleting the object.
+//
+// WARNING: Dereferencing a NULL pointer using operator*/operator-> will result
+// in an assertion failure in a Debug build. In Release build, the behavior is
+// undefined.
 template <class T>
 class scoped_ptr {
  public:
