@@ -15,6 +15,7 @@ cmake_minimum_required(VERSION 2.6)
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
   fenwick_tree.h
+  scoped_ptr.h
 )
 
 # List all the non-test .cpp files in the alphabetic order.
@@ -29,6 +30,7 @@ set(TEST_CXX
   library_test.cpp
   lru_cache_test.cpp
   ngramm_finder_test.cpp
+  scoped_ptr_test.cpp
   tdd_example_test.cpp
   valgrind_demo_test.cpp
 )
