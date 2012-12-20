@@ -64,11 +64,13 @@ set(modules
   third_party/googlemock/
   testing
   sandbox
+  sandbox11
   base
 )
 
 set(tests
   sandbox
+  sandbox11
   base
 )
 
