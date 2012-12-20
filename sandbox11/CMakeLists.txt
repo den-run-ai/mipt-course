@@ -19,15 +19,18 @@ set(CMAKE_CXX_FLAGS
 
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
+  lzw.h
 )
 
 # List all the non-test .cpp files in the alphabetic order.
 set(LIB_CXX
+  lzw.cpp
 )
 
 # List all the *_test.cpp files in the alphabetic order.
 set(TEST_CXX
   cpp0x_test.cpp
+  lzw_test.cpp
 )
 
 # TODO(muxanasov): Handle platform-specific sources
