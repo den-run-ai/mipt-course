@@ -20,7 +20,7 @@ class TestClass {
   int *dtor_counter_;
 };
 
-TEST(ScopedPtrTest, DISABLED_BasicTest) {
+TEST(ScopedPtrTest, BasicTest) {
   int dtor_counter = 0;
 
   {
@@ -37,7 +37,7 @@ TEST(ScopedPtrTest, DISABLED_BasicTest) {
   EXPECT_EQ(1, dtor_counter);
 }
 
-TEST(ScopedPtrTest, DISABLED_ReleaseTest) {
+TEST(ScopedPtrTest, ReleaseTest) {
   int dtor_counter = 0;
 
   {
@@ -53,7 +53,7 @@ TEST(ScopedPtrTest, DISABLED_ReleaseTest) {
   EXPECT_EQ(1, dtor_counter);
 }
 
-TEST(ScopedPtrTest, DISABLED_ResetTest) {
+TEST(ScopedPtrTest, ResetTest) {
   int dtor_counter_a = 0, dtor_counter_b = 0;
 
   {
@@ -70,7 +70,7 @@ TEST(ScopedPtrTest, DISABLED_ResetTest) {
   EXPECT_EQ(1, dtor_counter_b);
 }
 
-TEST(ScopedPtrTest, DISABLED_SwapTest) {
+TEST(ScopedPtrTest, SwapTest) {
   int dtor_counter_a = 0, dtor_counter_b = 0;
 
   {
@@ -92,7 +92,7 @@ TEST(ScopedPtrTest, DISABLED_SwapTest) {
   EXPECT_EQ(1, dtor_counter_b);
 }
 
-TEST(ScopedPtrTest, DISABLED_DeathOnAccessNullPointer) {
+TEST(ScopedPtrTest, DeathOnAccessNullPointer) {
   scoped_ptr<TestClass> ptr(NULL);
 
   ASSERT_DEBUG_DEATH(*ptr, "");
