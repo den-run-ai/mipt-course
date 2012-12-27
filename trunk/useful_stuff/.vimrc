@@ -3,7 +3,7 @@ map ,u :source ~/.vimrc<CR>
 map ,v :e ~/.vimrc<CR>
 
 " ------- support Russian layout!
-set langmap=йцукенгшщзхъфывапролджэячсмитьбю/ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ/;qwertyuiop[]asdfghjkl;'zxcvbnm,./QWERTYUIOP[]ASDFGHJKL:'ZXCVBNM,./
+set langmap=йцукенгшщзхъфывапролджэячсмитьбю/ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ/;qwertyuiop[]asdfghjkl;'zxcvbnm\\,./QWERTYUIOP[]ASDFGHJKL:'ZXCVBNM\\,./
 
 " ------- substitute (,s = empty; .s = current word)
 map ,s :.,$s///gcI<Left><Left><Left><Left><Left>
