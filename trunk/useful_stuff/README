@@ -1,0 +1,10 @@
+Установка .vimrc в режиме "только для чтения":
+ cd
+ svn export https://mipt-course.googlecode.com/svn/trunk/useful_stuff . --force
+
+Установка .vimrc с правами на запись:
+ cd
+ svn checkout https://mipt-course.googlecode.com/svn/trunk/useful_stuff .vimconfig
+ ln -s .vimconfig/.vimrc .
+ ln -s .vimconfig/.googlecodestyle.vim .
+Теперь можно делать изменения и коммитить их из папки ~/.vimconfig
