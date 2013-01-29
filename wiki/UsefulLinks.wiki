@@ -2,9 +2,11 @@
 
 = Android =
   * developer.android.com:
+    * [http://developer.android.com/design/get-started/principles.html Принципы дизайна интерфейсов Android]
     * [http://developer.android.com/sdk/installing.html Начало работы]
     * [http://developer.android.com/sdk/index.html SDK]
     * [http://developer.android.com/guide/index.html Туториалы, примеры, объяснения по темам]
+    * [http://developer.android.com/distribute/googleplay/quality/index.html Критерии качества приложения]
     * [http://android-developers.blogspot.com Блог разработчиков]
   * http://startandroid.ru/
   * [http://habrahabr.ru/company/intel/blog/152122/ Статья на хабре про тестирование]
