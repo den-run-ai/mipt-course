@@ -15,6 +15,7 @@ cmake_minimum_required(VERSION 2.6)
 # List all the .h (header) files in the module in the alphabetic order.
 set(LIB_HXX
   fenwick_tree.h
+  hash_map.h
   scoped_ptr.h
 )
 
@@ -26,6 +27,7 @@ set(LIB_CXX
 set(TEST_CXX
   fenwick_tree_test.cpp
   gmock_demo_test.cpp
+  hash_map_test.cpp
   mocks_and_fakes_demo_test.cpp
   library_test.cpp
   lru_cache_test.cpp
