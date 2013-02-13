@@ -25,7 +25,7 @@ author_info() {
 
 check_username_format() {
   # $1 - Имя пользователя
-  if [[ "$1" =~ ^[a-z][a-z0-9]+$ ]]
+  if [[ "$1" =~ ^[a-z][a-z0-9_]+$ ]]
   then
     true
   else
