@@ -1,5 +1,5 @@
 # Использование:
-#  mkdir build
+#  mkdir build  # Обычно сборку делают в отдельной директории.
 #  cd build
 #  cmake ..
 #  make
