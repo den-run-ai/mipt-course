@@ -3,7 +3,7 @@
 == Timeline: ==
   * Генерим на каждом занятии 1+ "проект+команду" до тех пор пока все не распределились по проектам.
   * 1 марта: большинство студентов должны распределиться по командам 
-  * 1 апреля: демо основных [http://en.wikipedia.org/wiki/User_story user stories]/[http://en.wikipedia.org/wiki/Use_case use-case]'ов 
+  * 1 апреля: демо основных [http://en.wikipedia.org/wiki/User_story user stories] 
   * 1 апреля: участники команд начинают [http://en.wikipedia.org/wiki/Eating_your_own_dog_food dogfood] чужих проектов 
   * 1 мая: [http://ekimoff.ru/220/ редлайн], осталось только полировать и поддерживать 
 
