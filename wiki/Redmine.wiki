@@ -52,7 +52,12 @@ sudo /etc/init.d/apache2 restart
 Пароль рекомендуется сразу же поменять :)
 
 ==Настройка e-mail уведомлений==
-*TODO* я использовал [http://www.redmine.org/projects/redmine/wiki/HowTo_Install_Redmine_in_Ubuntu#Sendmail-Server-Configuration `delivery_method: :async_sendmail`]
+*TODO* Обновить
+
+Кажется, вначале я использовал [http://www.redmine.org/projects/redmine/wiki/HowTo_Install_Redmine_in_Ubuntu#Sendmail-Server-Configuration `delivery_method: :async_sendmail`]
 а затем отредактировал `hostname` и `/etc/hosts` чтобы получить правильные `From:` адрес.
+Но оно не очень дружило со спам-фильтрами.
+
+Позже я перешёл на `async_smtp` с дополнительным почтовым ящиком.
 
 *Готово!*
