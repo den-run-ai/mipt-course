@@ -137,7 +137,11 @@ endfun
 nnoremap ;f :call Gfw()<cr>
 
 " TODO find better colors?
-highlight DiffChange cterm=none ctermfg=White ctermbg=Magenta gui=none guifg=White guibg=Magenta
+" These work OK the Solarized colorscheme, but definitely could be better.
+highlight DiffAdd    cterm=none ctermfg=White ctermbg=DarkGreen gui=none guifg=White guibg=DarkGreen
+highlight DiffChange cterm=none ctermfg=White ctermbg=DarkCyan  gui=none guifg=White guibg=DarkCyan
+highlight DiffText   cterm=none ctermfg=White ctermbg=DarkBlue  gui=none guifg=White guibg=DarkBlue
+highlight DiffDelete cterm=none ctermfg=White ctermbg=DarkRed   gui=none guifg=White guibg=DarkRed
 
 " Add project-specific settings like this
 :au BufNewFile,BufRead */drmemory/* setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab textwidth=100
