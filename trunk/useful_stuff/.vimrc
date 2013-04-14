@@ -87,7 +87,7 @@ map [18~ :cprevious<CR>
 
 " toggle between .c/.cpp/.cc and .h
 map ,h :e %:r.h<CR>
-map ,H :e %:r.c*<CR>
+map ,j :e %:r.c*<CR>
 
 " import Google Code style
 source ~/.googlecodestyle.vim
