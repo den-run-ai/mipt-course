@@ -26,7 +26,7 @@ error_msg = ("""
 COMMIT HAS BEEN ABORTED!
 You are trying to commit a file larger than the max allowed size (""" +
 str(MAX_SIZE_IN_KB) + """KB).
-Usually this happens when uploading .exe/.suo/.pdb/etc files by mistake.
+Usually this happens when uploading .exe/.suo/.pdb/.class/etc files by mistake.
 Please email timurrrr+miptsvn@gmail.com if you're not doing any mistakes!
 
 Please check the list of files below for wrong files:""")
