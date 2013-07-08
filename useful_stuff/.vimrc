@@ -89,6 +89,10 @@ map [18~ :cprevious<CR>
 map ,h :e %:r.h<CR>
 map ,j :e %:r.c*<CR>
 
+" clang-format
+noremap <C-K> :pyf ~/clang-format.py<CR>
+inoremap <C-K> <C-O>:pyf ~/clang-format.py<CR>
+
 " import Google Code style
 source ~/.googlecodestyle.vim
 
